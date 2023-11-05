@@ -1,7 +1,12 @@
 import { FC } from 'react';
 
-import twitterBackImg from '@/assets/backTwitter.png';
+import AllRouters from '../AllRouters';
+import { Wrapper } from './styled';
 
-const Layout: FC = () => <img alt="twitterBackImg" src={twitterBackImg} />;
+const Layout: FC = () => (
+  <Wrapper>
+    <AllRouters />
+  </Wrapper>
+);
 
 export default Layout;
