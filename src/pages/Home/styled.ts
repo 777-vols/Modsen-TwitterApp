@@ -54,6 +54,7 @@ export const Panel = styled.div`
   display: flex;
   align-items: center;
   height: ${fullSize}%;
+  width: ${fullSize}%;
 `;
 
 export const Content = styled.div`
@@ -65,12 +66,12 @@ export const Content = styled.div`
 export const Logo = styled.img`
   width: 50px;
   height: 41px;
-  margin-bottom: ${({ theme }) => theme.spaces.largeXL}px;
 `;
 
 export const MainHeader = styled.h1`
   font-size: ${({ theme }) => theme.fontSizes.largeXL}px;
   font-weight: ${({ theme }) => theme.fontWeights.l};
+  margin-top: ${({ theme }) => theme.spaces.largeXL}px;
   margin-bottom: ${({ theme }) => theme.spaces.largeM}px;
 `;
 
