@@ -5,6 +5,7 @@ interface ITheme {
     lightRed: string;
     blue: string;
     grey: string;
+    lightGrey: string;
     pink: string;
   };
   fontFamily: string;

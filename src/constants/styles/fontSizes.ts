@@ -6,7 +6,7 @@ const enum FontSizes {
   MEDIUM_XL = '20',
   MEDIUM_L = '18',
   MEDIUM_M = '16',
-  MEDIUM_S = '13',
+  MEDIUM_S = '14',
   SMALL_XL = '10',
   SMALL_L = '8',
   SMALL_M = '7',

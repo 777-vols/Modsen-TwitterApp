@@ -11,13 +11,14 @@ const theme: ITheme = {
     lightRed: Colors.LIGHT_RED,
     blue: Colors.BLUE,
     grey: Colors.GREY,
+    lightGrey: Colors.LIGHT_GREY,
     pink: Colors.PINK
   },
   fontFamily: "'Roboto', sans-serif",
   fontWeights: {
-    l: 700,
-    m: 400,
-    s: 200
+    l: 900,
+    m: 700,
+    s: 400
   },
   fontSizes: {
     largeXL: FontSize.LARGE_XL,

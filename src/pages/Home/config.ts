@@ -65,5 +65,17 @@ export const config = {
       path: '#'
     }
   ],
-  company: '© 2021 Twitter, Inc.'
+  company: '© 2021 Twitter, Inc.',
+  mainHeader: 'Happening now',
+  subHeader: 'Join Twitter today',
+  googleSignUp: 'Sign up with Google',
+  emailSignUp: 'Sign up with email',
+  agreeText: ['By singing up you agree to the ', ' and ', ', including ', '.'],
+  agreeLinks: [
+    { name: 'Terms of Service', path: '#' },
+    { name: 'Privacy Policy', path: '#' },
+    { name: 'Cookie Use', path: '#' }
+  ],
+  haveAccountText: 'Already have an account? ',
+  haveAccountLink: 'Log in'
 };
