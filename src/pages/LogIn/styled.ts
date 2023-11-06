@@ -1,10 +1,18 @@
 import styled from 'styled-components';
 
+const fullSize = 100;
+
+export const Wrapper = styled.div`
+  width: ${fullSize}%;
+  height: ${fullSize}vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const Form = styled.form`
-  margin: ${({ theme }) => theme.spaces.zero}px auto;
-  margin-top: ${({ theme }) => theme.spaces.largeXL}px;
-  /* max-height: 473px; */
-  max-width: 450px;
+  margin: ${({ theme }) => theme.spaces.mediumL}px;
+  width: 450px;
   display: flex;
   flex-direction: column;
 `;
@@ -17,7 +25,7 @@ export const Header = styled.h1`
 
 export const Button = styled.button`
   cursor: pointer;
-  width: 100%;
+  width: ${fullSize}%;
   height: 60px;
   background: ${({ theme }) => theme.colors.blue};
   border: none;
@@ -30,8 +38,8 @@ export const Input = styled.input`
   font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
   border-radius: 6px;
   max-height: 70px;
-  width: 100%;
-  height: 100%;
+  width: ${fullSize}%;
+  height: ${fullSize}%;
   padding: ${({ theme }) => theme.spaces.mediumM}px;
   margin-bottom: ${({ theme }) => theme.spaces.mediumM}px;
   border: 1px solid ${({ theme }) => theme.colors.lightGrey};

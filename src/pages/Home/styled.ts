@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const fullSize = 100;
 
@@ -80,7 +80,7 @@ export const SubHeader = styled.h2`
   margin-bottom: ${({ theme }) => theme.spaces.smallM}px;
 `;
 
-export const Button = styled.button`
+export const Button = css`
   cursor: pointer;
   width: 403px;
   height: 62px;
@@ -93,10 +93,20 @@ export const Button = styled.button`
   align-items: center;
   justify-content: center;
   transition: 0.2s;
+  color: ${({ theme }) => theme.colors.black};
+
   &:hover {
     transform: scale(1.05);
     border: 1px solid ${({ theme }) => theme.colors.grey};
   }
+`;
+
+export const GoogleButton = styled.button`
+  ${Button}
+`;
+
+export const EmailButton = styled(NavLink)`
+  ${Button}
 `;
 
 export const AgreeRule = styled.p`

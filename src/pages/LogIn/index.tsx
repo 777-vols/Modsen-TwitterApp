@@ -2,10 +2,10 @@ import { FC } from 'react';
 
 import logoImg from '@/assets/twitterLogo.svg';
 import { Urls } from '@/constants/urls';
-import { Logo, TextLink, Wrapper } from '@/pages/Home/styled';
+import { Logo, TextLink } from '@/pages/Home/styled';
 
 import { config } from './config';
-import { Button, Form, Header, Input, LinkWrapper } from './styled';
+import { Button, Form, Header, Input, LinkWrapper, Wrapper } from './styled';
 
 const { header, identify, password, signUp, logIn } = config;
 

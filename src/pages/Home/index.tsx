@@ -9,10 +9,11 @@ import { config } from './config';
 import {
   AgreeRule,
   Banner,
-  Button,
   Content,
+  EmailButton,
   Footer,
   FooterLink,
+  GoogleButton,
   HaveAccount,
   Logo,
   Main,
@@ -48,11 +49,11 @@ const Home: FC = () => (
           <Logo alt="logoImg" src={logoImg} />
           <MainHeader>{mainHeader}</MainHeader>
           <SubHeader>{subHeader}</SubHeader>
-          <Button>
+          <GoogleButton>
             <img alt="googleIcon" src={googleIcon} />
             {googleSignUp}
-          </Button>
-          <Button>{emailSignUp}</Button>
+          </GoogleButton>
+          <EmailButton to={Urls.SIGN_UP}>{emailSignUp}</EmailButton>
           <AgreeRule>
             {agreeText[0]}
             <TextLink to={agreeLinks[0].path}>{agreeLinks[0].name}</TextLink>
