@@ -1,12 +1,9 @@
-import { signInWithPopup } from 'firebase/auth';
 import { FC } from 'react';
-import { useDispatch } from 'react-redux';
 
-import { auth, provider } from '@/api/firebase/firebase';
 import { allImages } from '@/constants/allImages';
 import { Urls } from '@/constants/urls';
-import { TypeDispatch } from '@/store';
-import { actionCreators } from '@/store/slices/actionCreators';
+import { getNewUserHelper } from '@/helpers/userHelper';
+import { useAction } from '@/hooks/useAction';
 
 import { config } from './config';
 import {
@@ -44,23 +41,13 @@ const {
 } = config;
 
 const { SIGN_UP, LOG_IN } = Urls;
-
 const { banner, logoImg, googleIcon } = allImages;
 
-const { authenticateUser } = actionCreators;
-
 const Home: FC = () => {
-  const dispatch = useDispatch<TypeDispatch>();
+  const { authenticateUser } = useAction();
 
-  const handleGoogleSignUp = () => {
-    try {
-      const result = signInWithPopup(auth, provider).then((data) => {
-        dispatch(authenticateUser());
-        const { user } = data;
-      });
-    } catch (err) {
-      console.log(err);
-    }
+  const handleGoogleSignUp = async () => {
+    await getNewUserHelper(authenticateUser);
   };
 
   return (

@@ -30,7 +30,7 @@ const customStyles: StylesConfig = {
   control: (provided) => ({
     ...provided,
     height: '70px',
-    'min-height': '70px'
+    minHeight: '70px'
   })
 };
 
