@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import ReactSelect, { StylesConfig } from 'react-select';
 
-import logoImg from '@/assets/twitterLogo.svg';
+import { allImages } from '@/constants/allImages';
 import { Urls } from '@/constants/urls';
 import { Logo, TextLink } from '@/pages/Home/styled';
 import { Button, Input, Wrapper } from '@/pages/LogIn/styled';
@@ -22,6 +22,10 @@ import {
 
 const { header, inputsPlaceholders, useEmail, dateOfBirth, text, buttonText } = config;
 
+const { HOME } = Urls;
+
+const { logoImg } = allImages;
+
 const customStyles: StylesConfig = {
   control: (provided) => ({
     ...provided,
@@ -40,7 +44,7 @@ const SignUp: FC = () => (
       {inputsPlaceholders.map((placeholderName) => (
         <Input key={placeholderName} placeholder={placeholderName} />
       ))}
-      <TextLink to={Urls.HOME}>{useEmail}</TextLink>
+      <TextLink to={HOME}>{useEmail}</TextLink>
       <BirthDateHeader>{dateOfBirth}</BirthDateHeader>
       <Text>{text}</Text>
       <SelectBlock>
