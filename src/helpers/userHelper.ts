@@ -58,7 +58,6 @@ export const getNewUserHelper = async (authenticateUser: TypeAuthenticateUser) =
 
     if (registeredUser) {
       authenticateUser(registeredUser);
-      console.log(registeredUser);
     } else {
       await setFirebaseDoc({
         collectionName: 'users',

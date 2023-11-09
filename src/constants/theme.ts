@@ -50,15 +50,10 @@ const theme: ITheme = {
     zero: Spaces.ZERO
   },
   breakPoints: {
-    largeL: BreakPoints.LARGE_L,
-    largeM: BreakPoints.LARGE_M,
-    largeS: BreakPoints.LARGE_S,
-    mediumL: BreakPoints.MEDIUM_L,
-    mediumM: BreakPoints.MEDIUM_M,
-    mediumS: BreakPoints.MEDIUM_S,
-    smallL: BreakPoints.SMALL_L,
-    smallM: BreakPoints.SMALL_M,
-    smallS: BreakPoints.SMALL_S
+    xl: BreakPoints.BIG_SCREEN,
+    l: BreakPoints.LAPTOP,
+    m: BreakPoints.TABLET,
+    s: BreakPoints.MOBILE
   }
 };
 

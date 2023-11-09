@@ -44,15 +44,10 @@ interface ITheme {
     zero: number;
   };
   breakPoints: {
-    largeL: string;
-    largeM: string;
-    largeS: string;
-    mediumL: string;
-    mediumM: string;
-    mediumS: string;
-    smallL: string;
-    smallM: string;
-    smallS: string;
+    xl: string;
+    l: string;
+    m: string;
+    s: string;
   };
 }
 export default ITheme;

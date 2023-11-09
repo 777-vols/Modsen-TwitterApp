@@ -46,7 +46,7 @@ const { banner, logoImg, googleIcon } = allImages;
 const Home: FC = () => {
   const { authenticateUser } = useAction();
 
-  const handleGoogleSignUp = async () => {
+  const handleSignUpWithGoogle = async () => {
     await getNewUserHelper(authenticateUser);
   };
 
@@ -59,7 +59,7 @@ const Home: FC = () => {
             <Logo alt="logoImg" src={logoImg} />
             <MainHeader>{mainHeader}</MainHeader>
             <SubHeader>{subHeader}</SubHeader>
-            <GoogleButton onClick={handleGoogleSignUp}>
+            <GoogleButton onClick={handleSignUpWithGoogle}>
               <img alt="googleIcon" src={googleIcon} />
               {googleSignUp}
             </GoogleButton>
