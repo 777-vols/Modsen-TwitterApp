@@ -4,6 +4,8 @@ import Select, { StylesConfig } from 'react-select';
 
 import { allImages } from '@/constants/allImages';
 import { Urls } from '@/constants/urls';
+import { convertBirthDate, signUpWithEmailHelper } from '@/helpers/userHelper';
+import { useAction } from '@/hooks/useAction';
 import { Logo, TextLink } from '@/pages/Home/styled';
 import { Button, Input, Wrapper } from '@/pages/LogIn/styled';
 
@@ -20,20 +22,21 @@ import {
   Text,
   YearSelect
 } from './styled';
-import { IOption, IProps } from './types';
+import { IOption, ISighUpWithEmailUser, IUserFormData } from './types';
 
-const { header, inputsPlaceholders, useEmail, dateOfBirth, text, buttonText } = config;
+const { header, placeholders, useEmail, dateOfBirth, text, buttonText } = config;
+const { namePlaceholder, phonePlaceholder, emailPlaceholder, passwordPlaceholder } = placeholders;
 
 const { HOME } = Urls;
 
 const { logoImg } = allImages;
 
 const monthOptionsArr = [
-  { value: 'January', label: 'January' },
-  { value: 'February', label: 'February' },
-  { value: 'March', label: 'March' },
-  { value: 'April', label: 'April' },
-  { value: 'May', label: 'May' }
+  { value: '0', label: 'January' },
+  { value: '1', label: 'February' },
+  { value: '2', label: 'March' },
+  { value: '3', label: 'April' },
+  { value: '4 ', label: 'May' }
 ];
 const yearOptionsArr = [
   { value: '2020', label: '2020' },
@@ -60,16 +63,19 @@ const customStyles: StylesConfig = {
 };
 
 const SignUp: FC = () => {
+  const { authenticateUser } = useAction();
+
   const {
     register,
     handleSubmit,
     control,
     reset,
     formState: { isValid, errors }
-  } = useForm<IProps>({ mode: 'onChange' });
+  } = useForm<IUserFormData>({ mode: 'onChange' });
 
-  const onSubmitHandler = (data) => {
-    console.log(data);
+  const onSubmitHandler = async (userData: IUserFormData) => {
+    const user: ISighUpWithEmailUser = convertBirthDate(userData);
+    await signUpWithEmailHelper(user, authenticateUser, isValid, reset);
   };
 
   const {
@@ -91,28 +97,28 @@ const SignUp: FC = () => {
         <Header>{header}</Header>
         <Input
           type="text"
-          placeholder={inputsPlaceholders[0]}
+          placeholder={namePlaceholder}
           {...register('name', {
             required: true
           })}
         />
         <Input
           type="text"
-          placeholder={inputsPlaceholders[1]}
+          placeholder={phonePlaceholder}
           {...register('phoneNumber', {
             required: true
           })}
         />
         <Input
           type="email"
-          placeholder={inputsPlaceholders[2]}
+          placeholder={emailPlaceholder}
           {...register('email', {
             required: true
           })}
         />
         <Input
           type="password"
-          placeholder={inputsPlaceholders[3]}
+          placeholder={passwordPlaceholder}
           {...register('password', {
             required: true,
             minLength: 5,
@@ -128,7 +134,11 @@ const SignUp: FC = () => {
             <Select
               styles={customStyles}
               options={monthOptionsArr}
-              value={monthValue ? monthOptionsArr.find((x) => x.value === monthValue) : monthValue}
+              value={
+                monthValue
+                  ? monthOptionsArr.find((month) => month.value === monthValue)
+                  : monthValue
+              }
               onChange={(option) => monthOnChange(option ? (option as IOption).value : option)}
               isSearchable={false}
               {...restMonthField}
@@ -139,7 +149,7 @@ const SignUp: FC = () => {
               <Select
                 styles={customStyles}
                 options={dayOptionsArr}
-                value={dayValue ? dayOptionsArr.find((x) => x.value === dayValue) : dayValue}
+                value={dayValue ? dayOptionsArr.find((day) => day.value === dayValue) : dayValue}
                 onChange={(option) => dayOnChange(option ? (option as IOption).value : option)}
                 isSearchable={false}
                 {...restDayField}
@@ -149,7 +159,9 @@ const SignUp: FC = () => {
               <Select
                 styles={customStyles}
                 options={yearOptionsArr}
-                value={yearValue ? yearOptionsArr.find((x) => x.value === yearValue) : yearValue}
+                value={
+                  yearValue ? yearOptionsArr.find((year) => year.value === yearValue) : yearValue
+                }
                 onChange={(option) => yearOnChange(option ? (option as IOption).value : option)}
                 isSearchable={false}
                 {...restYearField}

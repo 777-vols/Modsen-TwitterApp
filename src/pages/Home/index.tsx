@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { allImages } from '@/constants/allImages';
 import { Urls } from '@/constants/urls';
-import { getNewUserHelper } from '@/helpers/userHelper';
+import { signUpWithGoogleHelper } from '@/helpers/userHelper';
 import { useAction } from '@/hooks/useAction';
 
 import { config } from './config';
@@ -47,13 +47,13 @@ const Home: FC = () => {
   const { authenticateUser } = useAction();
 
   const handleSignUpWithGoogle = async () => {
-    await getNewUserHelper(authenticateUser);
+    await signUpWithGoogleHelper(authenticateUser);
   };
 
   return (
     <Wrapper>
       <Main>
-        <Banner alt="bagckgoundImage" src={banner} />
+        <Banner alt="backgoundImage" src={banner} />
         <Panel>
           <Content>
             <Logo alt="logoImg" src={logoImg} />

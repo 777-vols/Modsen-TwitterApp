@@ -1,13 +1,6 @@
-export interface IUser {
+export interface ISighUpWithGoogleUser {
   id: string;
-  name: string;
-  nameLowerCase: string;
-  surname: string;
+  name: string | null;
   photo: string;
-  password: string;
-  email: string;
-  phoneNumber: string;
-  telegram: string;
-  gender: string;
-  birthDate: Date;
+  email: string | null;
 }

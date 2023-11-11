@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { IUser } from '@/pages/Home/types';
+import { ISighUpWithGoogleUser } from '@/pages/Home/types';
+import { ISighUpWithEmailUser } from '@/pages/SignUp/types';
 
 const userSlice = createSlice({
   name: 'user',
@@ -9,7 +10,7 @@ const userSlice = createSlice({
     crrentUser: {}
   },
   reducers: {
-    authenticateUser(state, action: PayloadAction<IUser>) {
+    authenticateUser(state, action: PayloadAction<ISighUpWithEmailUser | ISighUpWithGoogleUser>) {
       state.isAuth = true;
       state.crrentUser = action.payload;
     },

@@ -1,4 +1,5 @@
-export interface IProps {
+export interface IUserFormData {
+  id: string;
   name: string;
   password: string;
   phoneNumber: string;
@@ -6,6 +7,16 @@ export interface IProps {
   year: string;
   month: string;
   day: string;
+  token: string;
+}
+
+export interface ISighUpWithEmailUser {
+  id: string;
+  name: string;
+  password: string;
+  phoneNumber: string;
+  email: string;
+  birthDate: Date;
 }
 
 export interface IOption {
