@@ -46,7 +46,6 @@ export const signUpWithGoogleHelper = async (authenticateUser: TypeAuthenticateU
 
 export const signUpWithEmailHelper = async (
   formUserData: ISighUpWithEmailUser,
-  authenticateUser: TypeAuthenticateUser,
   isValid: boolean,
   reset: () => void
 ) => {
@@ -77,7 +76,7 @@ export const signUpWithEmailHelper = async (
         id
       });
 
-      authenticateUser(newUser);
+      // authenticateUser(newUser);
     }
     if (isValid) {
       reset();

@@ -5,9 +5,9 @@ import { userSelector } from '@/store/slices/userSlice/selectors';
 
 const Profile: FC = () => {
   const currentUser = useSelector(userSelector);
-  console.log(currentUser);
+  // console.log(currentUser);
 
-  return <h1>Profile</h1>;
+  return <h1>{JSON.stringify(currentUser)}</h1>;
 };
 
 export default Profile;

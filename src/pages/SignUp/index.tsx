@@ -1,11 +1,16 @@
-import { FC } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import Select, { StylesConfig } from 'react-select';
 
 import { allImages } from '@/constants/allImages';
 import { Urls } from '@/constants/urls';
+import {
+  getDaysOptionsArray,
+  getMonthOptionsArray,
+  getYearsOptionsArray
+} from '@/helpers/dateSelectorsHelpers';
 import { convertBirthDate, signUpWithEmailHelper } from '@/helpers/userHelper';
-import { useAction } from '@/hooks/useAction';
 import { Logo, TextLink } from '@/pages/Home/styled';
 import { Button, Input, Wrapper } from '@/pages/LogIn/styled';
 
@@ -31,29 +36,6 @@ const { HOME } = Urls;
 
 const { logoImg } = allImages;
 
-const monthOptionsArr = [
-  { value: '0', label: 'January' },
-  { value: '1', label: 'February' },
-  { value: '2', label: 'March' },
-  { value: '3', label: 'April' },
-  { value: '4 ', label: 'May' }
-];
-const yearOptionsArr = [
-  { value: '2020', label: '2020' },
-  { value: '2021', label: '2021' },
-  { value: '2022', label: '2022' },
-  { value: '2023', label: '2023' },
-  { value: '2024', label: '2024' },
-  { value: '2025', label: '2025' }
-];
-const dayOptionsArr = [
-  { value: '1', label: '1' },
-  { value: '2', label: '3' },
-  { value: '3', label: '3' },
-  { value: '4', label: '4' },
-  { value: '5', label: '5' }
-];
-
 const customStyles: StylesConfig = {
   control: (provided) => ({
     ...provided,
@@ -63,7 +45,17 @@ const customStyles: StylesConfig = {
 };
 
 const SignUp: FC = () => {
-  const { authenticateUser } = useAction();
+  const [currentMonth, setCurrentMonth] = useState<number>(0);
+  const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear());
+
+  const daysOptionsArray = useMemo(
+    () => getDaysOptionsArray(currentMonth, currentYear),
+    [currentMonth, currentYear]
+  );
+  const yearsOptionsArray = useMemo(() => getYearsOptionsArray(), []);
+  const monthsOptionsArray = useMemo(() => getMonthOptionsArray(), []);
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -73,24 +65,45 @@ const SignUp: FC = () => {
     formState: { isValid, errors }
   } = useForm<IUserFormData>({ mode: 'onChange' });
 
-  const onSubmitHandler = async (userData: IUserFormData) => {
-    const user: ISighUpWithEmailUser = convertBirthDate(userData);
-    await signUpWithEmailHelper(user, authenticateUser, isValid, reset);
-  };
-
   const {
     field: { value: monthValue, onChange: monthOnChange, ...restMonthField }
-  } = useController({ name: 'month', control, defaultValue: monthOptionsArr[0].value });
+  } = useController({ name: 'month', control, defaultValue: monthsOptionsArray[0].value });
   const {
     field: { value: yearValue, onChange: yearOnChange, ...restYearField }
-  } = useController({ name: 'year', control, defaultValue: yearOptionsArr[0].value });
+  } = useController({ name: 'year', control, defaultValue: yearsOptionsArray[0].value });
   const {
     field: { value: dayValue, onChange: dayOnChange, ...restDayField }
-  } = useController({ name: 'day', control, defaultValue: dayOptionsArr[0].value });
+  } = useController({ name: 'day', control, defaultValue: daysOptionsArray[0].value });
+
+  const changeCurrentMonth = (monthOption: unknown) => {
+    if (monthOption) {
+      setCurrentMonth(Number((monthOption as IOption).value));
+      monthOnChange(monthOption ? (monthOption as IOption).value : monthOption);
+    }
+  };
+
+  const changeCurrentYear = (yearOption: unknown) => {
+    if (yearOption) {
+      setCurrentYear(Number((yearOption as IOption).value));
+      yearOnChange(yearOption ? (yearOption as IOption).value : yearOption);
+    }
+  };
+
+  const changeCurrentDay = (dayOption: unknown) => {
+    if (dayOption) {
+      dayOnChange(dayOption ? (dayOption as IOption).value : dayOption);
+    }
+  };
+
+  const handleSignUpWithEmail = async (userData: IUserFormData) => {
+    const user: ISighUpWithEmailUser = convertBirthDate(userData);
+    await signUpWithEmailHelper(user, isValid, reset);
+    navigate('/login');
+  };
 
   return (
     <Wrapper>
-      <Form onSubmit={handleSubmit(onSubmitHandler)}>
+      <Form onSubmit={handleSubmit(handleSignUpWithEmail)}>
         <LogoWrapper>
           <Logo alt="logoImg" src={logoImg} />
         </LogoWrapper>
@@ -133,13 +146,11 @@ const SignUp: FC = () => {
           <MonthSelect>
             <Select
               styles={customStyles}
-              options={monthOptionsArr}
-              value={
-                monthValue
-                  ? monthOptionsArr.find((month) => month.value === monthValue)
-                  : monthValue
-              }
-              onChange={(option) => monthOnChange(option ? (option as IOption).value : option)}
+              options={monthsOptionsArray}
+              maxMenuHeight={300}
+              menuPlacement="top"
+              value={monthValue ? monthsOptionsArray[currentMonth] : monthValue}
+              onChange={changeCurrentMonth}
               isSearchable={false}
               {...restMonthField}
             />
@@ -148,9 +159,11 @@ const SignUp: FC = () => {
             <DaySelect>
               <Select
                 styles={customStyles}
-                options={dayOptionsArr}
-                value={dayValue ? dayOptionsArr.find((day) => day.value === dayValue) : dayValue}
-                onChange={(option) => dayOnChange(option ? (option as IOption).value : option)}
+                options={daysOptionsArray}
+                maxMenuHeight={300}
+                menuPlacement="top"
+                value={{ value: dayValue, label: dayValue }}
+                onChange={changeCurrentDay}
                 isSearchable={false}
                 {...restDayField}
               />
@@ -158,11 +171,11 @@ const SignUp: FC = () => {
             <YearSelect>
               <Select
                 styles={customStyles}
-                options={yearOptionsArr}
-                value={
-                  yearValue ? yearOptionsArr.find((year) => year.value === yearValue) : yearValue
-                }
-                onChange={(option) => yearOnChange(option ? (option as IOption).value : option)}
+                options={yearsOptionsArray}
+                maxMenuHeight={300}
+                menuPlacement="top"
+                value={{ value: yearValue, label: yearValue }}
+                onChange={changeCurrentYear}
                 isSearchable={false}
                 {...restYearField}
               />
