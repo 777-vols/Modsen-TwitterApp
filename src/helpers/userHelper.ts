@@ -1,18 +1,25 @@
-import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup
+} from 'firebase/auth';
+import { FieldErrors } from 'react-hook-form';
 
 import { FirebaseCollections } from '@/api/firebase/constants';
-import { defaultUser } from '@/api/firebase/defaultDocuments';
 import { auth, provider } from '@/api/firebase/firebase';
-import { getFirebaseDoc, setFirebaseDoc } from '@/api/firebase/firebaseData';
+import { getFirebaseDoc, setFirebaseDoc } from '@/api/firebase/firebaseHelpers';
 import { ISighUpWithGoogleUser } from '@/pages/Home/types';
+import { IFormProps } from '@/pages/LogIn/types';
 import { ISighUpWithEmailUser, IUserFormData } from '@/pages/SignUp/types';
+import { TypeSetIsNotificationActive } from '@/store/slices/errorSlice';
 import { TypeAuthenticateUser } from '@/store/slices/userSlice';
 
-const { defaultPhotoUrl } = defaultUser;
+const { usersCollection } = FirebaseCollections;
 
-export const signUpWithGoogleHelper = async (authenticateUser: TypeAuthenticateUser) => {
-  const usersCollection = FirebaseCollections.users;
-
+export const signUpWithGoogleHelper = async (
+  authenticateUser: TypeAuthenticateUser,
+  setIsNotificationActive: TypeSetIsNotificationActive
+) => {
   try {
     const result = await signInWithPopup(auth, provider);
     const { user } = result;
@@ -28,7 +35,7 @@ export const signUpWithGoogleHelper = async (authenticateUser: TypeAuthenticateU
       const newUser: ISighUpWithGoogleUser = {
         id,
         name: displayName,
-        photo: photoURL || defaultPhotoUrl,
+        photo: photoURL || '',
         email
       };
 
@@ -39,17 +46,21 @@ export const signUpWithGoogleHelper = async (authenticateUser: TypeAuthenticateU
       });
       authenticateUser(newUser);
     }
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    setIsNotificationActive({
+      isActive: true,
+      message: (error as Error).message
+    });
   }
 };
 
 export const signUpWithEmailHelper = async (
   formUserData: ISighUpWithEmailUser,
   isValid: boolean,
-  reset: () => void
+  reset: () => void,
+  errors: FieldErrors<IUserFormData>,
+  setIsNotificationActive: TypeSetIsNotificationActive
 ) => {
-  const usersCollection = FirebaseCollections.users;
   const { name, email, password, phoneNumber, birthDate } = formUserData;
 
   try {
@@ -75,14 +86,39 @@ export const signUpWithEmailHelper = async (
         document: newUser,
         id
       });
-
-      // authenticateUser(newUser);
     }
     if (isValid) {
       reset();
     }
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    setIsNotificationActive({
+      isActive: true,
+      message: errors.email?.message || errors.password?.message || (error as Error).message
+    });
+  }
+};
+
+export const logInHelper = async (
+  formData: IFormProps,
+  authenticateUser: TypeAuthenticateUser,
+  setIsNotificationActive: TypeSetIsNotificationActive,
+  errors: FieldErrors<IFormProps>
+) => {
+  const { email, password } = formData;
+  try {
+    const { user } = await signInWithEmailAndPassword(auth, email, password);
+    const { uid: id } = user;
+
+    const existedUser = (await getFirebaseDoc(usersCollection, id)) as ISighUpWithEmailUser | false;
+
+    if (existedUser) {
+      authenticateUser(existedUser);
+    }
+  } catch (error) {
+    setIsNotificationActive({
+      isActive: true,
+      message: errors.email?.message || errors.password?.message || (error as Error).message
+    });
   }
 };
 

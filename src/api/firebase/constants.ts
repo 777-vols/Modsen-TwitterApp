@@ -1,3 +1,3 @@
 export enum FirebaseCollections {
-  users = 'users'
+  usersCollection = 'users'
 }

@@ -1,5 +1,6 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 
+import ErrorNotification from '@/components/ErrorNotification';
 import { allImages } from '@/constants/allImages';
 import { Urls } from '@/constants/urls';
 import { signUpWithGoogleHelper } from '@/helpers/userHelper';
@@ -44,10 +45,10 @@ const { SIGN_UP, LOG_IN } = Urls;
 const { banner, logoImg, googleIcon } = allImages;
 
 const Home: FC = () => {
-  const { authenticateUser } = useAction();
+  const { authenticateUser, setIsNotificationActive } = useAction();
 
   const handleSignUpWithGoogle = async () => {
-    await signUpWithGoogleHelper(authenticateUser);
+    await signUpWithGoogleHelper(authenticateUser, setIsNotificationActive);
   };
 
   return (
@@ -94,8 +95,9 @@ const Home: FC = () => {
           </NavList>
         </nav>
       </Footer>
+      <ErrorNotification />
     </Wrapper>
   );
 };
 
-export default Home;
+export default memo(Home);
