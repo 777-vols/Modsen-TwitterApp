@@ -7,15 +7,16 @@ const userSlice = createSlice({
   name: 'user',
   initialState: {
     isAuth: false,
-    crrentUser: {}
+    currentUser: {}
   },
   reducers: {
     authenticateUser(state, action: PayloadAction<ISighUpWithEmailUser | ISighUpWithGoogleUser>) {
       state.isAuth = true;
-      state.crrentUser = action.payload;
+      state.currentUser = action.payload;
     },
     deauthenticateUser(state) {
       state.isAuth = false;
+      state.currentUser = {};
     }
   }
 });

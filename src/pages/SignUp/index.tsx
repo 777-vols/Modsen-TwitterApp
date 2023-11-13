@@ -42,7 +42,7 @@ const { header, placeholders, useEmail, dateOfBirth, text, buttonText, errorMess
 const { namePlaceholder, phonePlaceholder, emailPlaceholder, passwordPlaceholder } = placeholders;
 const { nameError, phoneNumberError, emailError, passwordError } = errorMessages;
 
-const { HOME } = Urls;
+const { HOME, LOG_IN } = Urls;
 
 const { logoImg, eyePasswordHide, eyePasswordOpen } = allImages;
 
@@ -117,7 +117,7 @@ const SignUp: FC = () => {
   const handleSignUpWithEmail = async (userData: IUserFormData) => {
     const user: ISighUpWithEmailUser = convertBirthDate(userData);
     await signUpWithEmailHelper(user, isValid, reset, errors, setIsNotificationActive);
-    navigate('/login');
+    navigate(LOG_IN);
   };
 
   return (
