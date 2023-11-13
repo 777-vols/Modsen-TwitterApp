@@ -13,10 +13,14 @@ const errorSlice = createSlice({
       const { isActive, message } = action.payload;
       state.isActive = isActive;
       state.message = message;
+    },
+    setIsNotificationInactive(state) {
+      state.isActive = false;
+      state.message = '';
     }
   }
 });
 
-export const { setIsNotificationActive } = errorSlice.actions;
+export const { setIsNotificationActive, setIsNotificationInactive } = errorSlice.actions;
 export type TypeSetIsNotificationActive = typeof setIsNotificationActive;
 export default errorSlice.reducer;

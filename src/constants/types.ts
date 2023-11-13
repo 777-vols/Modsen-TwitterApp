@@ -23,6 +23,7 @@ interface ITheme {
     mediumL: number;
     mediumM: number;
     mediumS: number;
+    smallXXL: number;
     smallXL: number;
     smallL: number;
     smallM: number;
@@ -44,10 +45,10 @@ interface ITheme {
     zero: number;
   };
   breakPoints: {
-    xl: string;
-    l: string;
-    m: string;
-    s: string;
+    bigScreen: number;
+    laptop: number;
+    tablet: number;
+    mobile: number;
   };
 }
 export default ITheme;

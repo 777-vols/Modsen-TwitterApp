@@ -15,6 +15,7 @@ import {
   Footer,
   FooterLink,
   GoogleButton,
+  GoogleButtonImg,
   HaveAccount,
   Logo,
   Main,
@@ -22,7 +23,7 @@ import {
   NavItem,
   NavList,
   Panel,
-  StyledSpan,
+  Signature,
   SubHeader,
   TextLink,
   Wrapper
@@ -61,7 +62,7 @@ const Home: FC = () => {
             <MainHeader>{mainHeader}</MainHeader>
             <SubHeader>{subHeader}</SubHeader>
             <GoogleButton onClick={handleSignUpWithGoogle}>
-              <img alt="googleIcon" src={googleIcon} />
+              <GoogleButtonImg alt="googleIcon" src={googleIcon} />
               {googleSignUp}
             </GoogleButton>
             <EmailButton to={SIGN_UP}>{emailSignUp}</EmailButton>
@@ -90,7 +91,7 @@ const Home: FC = () => {
               </NavItem>
             ))}
             <NavItem>
-              <StyledSpan>{company}</StyledSpan>
+              <Signature>{company}</Signature>
             </NavItem>
           </NavList>
         </nav>

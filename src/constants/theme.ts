@@ -29,6 +29,7 @@ const theme: ITheme = {
     mediumL: FontSize.MEDIUM_L,
     mediumM: FontSize.MEDIUM_M,
     mediumS: FontSize.MEDIUM_S,
+    smallXXL: FontSize.SMALL_XXL,
     smallXL: FontSize.SMALL_XL,
     smallL: FontSize.SMALL_L,
     smallM: FontSize.SMALL_M,
@@ -50,10 +51,10 @@ const theme: ITheme = {
     zero: Spaces.ZERO
   },
   breakPoints: {
-    xl: BreakPoints.BIG_SCREEN,
-    l: BreakPoints.LAPTOP,
-    m: BreakPoints.TABLET,
-    s: BreakPoints.MOBILE
+    bigScreen: BreakPoints.BIG_SCREEN,
+    laptop: BreakPoints.LAPTOP,
+    tablet: BreakPoints.TABLET,
+    mobile: BreakPoints.MOBILE
   }
 };
 
