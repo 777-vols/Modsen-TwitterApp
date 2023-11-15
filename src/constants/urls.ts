@@ -1,7 +1,14 @@
 export enum Urls {
-  HOME = '/',
+  ROOT = '/',
   NOT_FOUND = '*',
   LOG_IN = '/logIn',
   SIGN_UP = '/signUp',
-  PROFILE = '/profile'
+  HOME = '/home',
+  EXPLORE = '/explore',
+  NOTIFICATIONS = '/notifications',
+  MESSAGES = '/messages',
+  BOOKMARKS = '/bookmarks',
+  LISTS = '/lists',
+  PROFILE = '/profile',
+  MORE = '/more'
 }

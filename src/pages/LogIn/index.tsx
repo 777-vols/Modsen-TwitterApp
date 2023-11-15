@@ -7,19 +7,19 @@ import { formPatterns, minMaxLineLength } from '@/constants/formConstants';
 import { Urls } from '@/constants/urls';
 import { logInHelper } from '@/helpers/userHelper';
 import { useAction } from '@/hooks/useAction';
-import { Logo, TextLink } from '@/pages/Home/styled';
+import { Logo, TextLink } from '@/pages/Root/styled';
 import {
   Button,
   Error,
   EyeImage,
   Input,
   InputWrapper,
-  ShowHidePassowrd,
-  Wrapper
+  LogoWrapper,
+  ShowHidePassowrd
 } from '@/pages/SignUp/styled';
 
 import { config } from './config';
-import { Form, Header, LinkWrapper } from './styled';
+import { Form, Header, LinkWrapper, Wrapper } from './styled';
 import { IFormProps } from './types';
 
 const { header, emailPlaceholder, passwordPlaceholder, signUp, logIn } = config;
@@ -52,7 +52,9 @@ const LogIn: FC = () => {
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit(handleLogin)}>
-        <Logo alt="logoImg" src={logoImg} />
+        <LogoWrapper>
+          <Logo alt="logoImg" src={logoImg} />
+        </LogoWrapper>
         <Header>{header}</Header>
         <InputWrapper>
           {errors?.email && <Error>{errors?.email?.message || emailError}</Error>}

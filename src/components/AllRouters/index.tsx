@@ -7,7 +7,7 @@ import { isUserAuthSelector } from '@/store/slices/userSlice/selectors';
 
 import { privateRoutes, publicRoutes } from './routesConfig';
 
-const { NOT_FOUND, PROFILE, HOME } = Urls;
+const { NOT_FOUND, ROOT, HOME } = Urls;
 
 const AllRouters: FC = () => {
   const isAuth = useSelector(isUserAuthSelector);
@@ -21,7 +21,7 @@ const AllRouters: FC = () => {
         : publicRoutes.map(({ path, Component }) => (
             <Route key={path} path={path} element={<Component />} />
           ))}
-      <Route path={NOT_FOUND} element={<Navigate to={isAuth ? PROFILE : HOME} />} />
+      <Route path={NOT_FOUND} element={<Navigate to={isAuth ? HOME : ROOT} />} />
     </Routes>
   );
 };

@@ -8,13 +8,14 @@ import { allImages } from '@/constants/allImages';
 import { formPatterns, minMaxLineLength } from '@/constants/formConstants';
 import { Urls } from '@/constants/urls';
 import {
+  allMonthsNames,
   getDaysOptionsArray,
   getMonthOptionsArray,
   getYearsOptionsArray
 } from '@/helpers/dateSelectorsHelpers';
 import { convertBirthDate, signUpWithEmailHelper } from '@/helpers/userHelper';
 import { useAction } from '@/hooks/useAction';
-import { Logo, TextLink } from '@/pages/Home/styled';
+import { Logo, TextLink } from '@/pages/Root/styled';
 
 import { config } from './config';
 import {
@@ -49,8 +50,7 @@ const { logoImg, eyePasswordHide, eyePasswordOpen } = allImages;
 const customStyles: StylesConfig = {
   control: (provided) => ({
     ...provided,
-    height: '70px',
-    minHeight: '70px'
+    minHeight: '60px'
   })
 };
 
@@ -90,15 +90,15 @@ const SignUp: FC = () => {
     field: { value: dayValue, onChange: dayOnChange, ...restDayField }
   } = useController({ name: 'day', control, defaultValue: daysOptionsArray[0].value });
 
+  const togglePasswordVisiblity = () => {
+    setIsPasswordShown((prevState) => !prevState);
+  };
+
   const changeCurrentMonth = (monthOption: unknown) => {
     if (monthOption) {
       setCurrentMonth(Number((monthOption as IOption).value));
       monthOnChange(monthOption ? (monthOption as IOption).value : monthOption);
     }
-  };
-
-  const togglePasswordVisiblity = () => {
-    setIsPasswordShown((prevState) => !prevState);
   };
 
   const changeCurrentYear = (yearOption: unknown) => {
@@ -190,7 +190,7 @@ const SignUp: FC = () => {
               options={monthsOptionsArray}
               maxMenuHeight={300}
               menuPlacement="top"
-              value={monthValue ? monthsOptionsArray[0] : monthValue}
+              value={{ value: monthValue, label: allMonthsNames[currentMonth - 1] }}
               onChange={changeCurrentMonth}
               isSearchable={false}
               {...restMonthField}

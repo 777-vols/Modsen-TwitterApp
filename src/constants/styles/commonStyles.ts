@@ -1,5 +1,12 @@
 import { css } from 'styled-components';
 
+export const appContainer = css`
+  margin: ${({ theme }) => theme.spaces.zero} auto;
+  width: 100%;
+  max-width: 1650px;
+  padding: ${({ theme }) => theme.spaces.zero} ${({ theme }) => theme.spaces.mediumM}px;
+`;
+
 export const fullSreen = css`
   position: absolute;
   top: 0;
@@ -37,4 +44,13 @@ export const flexSpaceBetween = css`
 export const resetButton = css`
   border: none;
   background: transparent;
+`;
+
+export const blueButton = css`
+  cursor: pointer;
+  width: 100%;
+  background: ${({ theme }) => theme.colors.blue};
+  border: none;
+  border-radius: 70px;
+  color: ${({ theme }) => theme.colors.white};
 `;

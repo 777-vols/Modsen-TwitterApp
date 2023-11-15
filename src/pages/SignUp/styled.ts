@@ -1,83 +1,118 @@
 import styled from 'styled-components';
 
+import {
+  appContainer,
+  blueButton,
+  flexCenter,
+  flexCenterHorizontally,
+  flexCenterVertical
+} from '@/constants/styles/commonStyles';
+
 const fullSize = 100;
 const halfSize = 50;
 
 export const Wrapper = styled.div`
-  width: ${fullSize}%;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${appContainer}
+  ${flexCenter} 
+  min-height: ${fullSize}vh;
 `;
 
 export const Button = styled.button`
-  cursor: pointer;
-  width: ${fullSize}%;
-  height: 60px;
-  background: ${({ theme }) => theme.colors.blue};
-  border: none;
-  border-radius: 70px;
-  color: ${({ theme }) => theme.colors.white};
-  font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
+  ${blueButton}
+  font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
+  height: 50px;
+  transition: 0.2s;
+  &:hover {
+    transform: scale(0.95);
+  }
+  @media ((min-width: ${({ theme }) => theme.breakPoints.bigScreen}px)) {
+    height: 60px;
+    font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
+  }
 `;
 
 export const Form = styled.form`
-  max-width: 750px;
-  max-height: 870px;
-  padding: ${({ theme }) => theme.spaces.largeS}px;
-  padding-top: ${({ theme }) => theme.spaces.mediumL}px;
+  max-width: 600px;
+  width: 100%;
+  padding: ${({ theme }) => theme.spaces.mediumS}px ${({ theme }) => theme.spaces.zero};
+  @media ((min-width: ${({ theme }) => theme.breakPoints.bigScreen}px)) {
+    max-width: 750px;
+  }
 `;
 
 export const LogoWrapper = styled.div`
-  display: flex;
-  justify-content: center;
+  ${flexCenterHorizontally}
 `;
 
 export const Header = styled.h1`
-  margin: ${({ theme }) => theme.spaces.largeS}px ${({ theme }) => theme.spaces.zero};
+  font-size: ${({ theme }) => theme.fontSizes.largeS}px;
+  margin: ${({ theme }) => theme.spaces.mediumM}px ${({ theme }) => theme.spaces.zero};
+  @media ((min-width: ${({ theme }) => theme.breakPoints.bigScreen}px)) {
+    font-size: ${({ theme }) => theme.fontSizes.largeM}px;
+    margin: ${({ theme }) => theme.spaces.largeS}px ${({ theme }) => theme.spaces.zero};
+  }
+  @media ((max-width: ${({ theme }) => theme.breakPoints.mobile}px)) {
+    margin: ${({ theme }) => theme.spaces.smallXL}px ${({ theme }) => theme.spaces.zero};
+  }
 `;
 
 export const BirthDateHeader = styled.h2`
   font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
-  margin-top: ${({ theme }) => theme.spaces.smallXL}px;
+  margin-top: ${({ theme }) => theme.spaces.smallL}px;
+  @media ((min-width: ${({ theme }) => theme.breakPoints.bigScreen}px)) {
+    margin-top: ${({ theme }) => theme.spaces.smallXL}px;
+  }
 `;
 
 export const Text = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
-  margin: ${({ theme }) => theme.spaces.mediumL}px ${({ theme }) => theme.spaces.zero};
   opacity: 0.7;
   line-height: 24px;
-`;
-
-export const Input = styled.input`
-  font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
-  width: ${fullSize}%;
-  height: ${fullSize}%;
-  border: none;
+  margin: ${({ theme }) => theme.spaces.smallL}px ${({ theme }) => theme.spaces.zero};
+  font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
+  @media ((min-width: ${({ theme }) => theme.breakPoints.bigScreen}px)) {
+    font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
+    margin: ${({ theme }) => theme.spaces.mediumL}px ${({ theme }) => theme.spaces.zero};
+  }
+  @media ((max-width: ${({ theme }) => theme.breakPoints.mobile}px)) {
+    font-size: ${({ theme }) => theme.fontSizes.smallXXL}px;
+  }
 `;
 
 export const InputWrapper = styled.div`
-  display: flex;
-  align-items: center;
+  ${flexCenterVertical}
+  height: 50px;
+  padding: ${({ theme }) => theme.spaces.zero} ${({ theme }) => theme.spaces.mediumS}px;
+  margin-bottom: ${({ theme }) => theme.spaces.mediumS}px;
   border-radius: 6px;
-  max-height: 70px;
-  padding: ${({ theme }) => theme.spaces.mediumM}px;
-  margin-bottom: ${({ theme }) => theme.spaces.mediumM}px;
   border: 1px solid ${({ theme }) => theme.colors.lightGrey};
   position: relative;
+  @media ((min-width: ${({ theme }) => theme.breakPoints.bigScreen}px)) {
+    height: 70px;
+    padding: ${({ theme }) => theme.spaces.mediumM}px;
+    margin-bottom: ${({ theme }) => theme.spaces.mediumM}px;
+  }
+`;
+
+export const Input = styled.input`
+  font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
+  width: ${fullSize}%;
+  height: ${fullSize}%;
+  border: none;
+  @media ((min-width: ${({ theme }) => theme.breakPoints.bigScreen}px)) {
+    font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
+  }
 `;
 
 export const ShowHidePassowrd = styled.div``;
 
 export const EyeImage = styled.img`
   cursor: pointer;
-  height: 25px;
-  width: 25px;
+  height: 20px;
+  width: 20px;
+  @media ((min-width: ${({ theme }) => theme.breakPoints.bigScreen}px)) {
+    height: 25px;
+    width: 25px;
+  }
 `;
 
 export const Error = styled.span`
@@ -91,20 +126,34 @@ export const Error = styled.span`
 
 export const SelectBlock = styled.div`
   display: flex;
-  width: ${fullSize}%;
   justify-content: space-between;
-  margin-bottom: ${({ theme }) => theme.spaces.mediumXL}px;
+  width: ${fullSize}%;
+  margin-bottom: ${({ theme }) => theme.spaces.mediumM}px;
+  @media ((min-width: ${({ theme }) => theme.breakPoints.bigScreen}px)) {
+    margin-bottom: ${({ theme }) => theme.spaces.mediumXL}px;
+  }
+  @media ((max-width: ${({ theme }) => theme.breakPoints.mobile}px)) {
+    flex-direction: column;
+    margin-bottom: ${({ theme }) => theme.spaces.mediumS}px;
+  }
 `;
 
 export const SelectWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   width: ${halfSize}%;
+  @media ((max-width: ${({ theme }) => theme.breakPoints.mobile}px)) {
+    width: ${fullSize}%;
+  }
 `;
 
 export const MonthSelect = styled.div`
   margin-right: 3%;
   width: ${halfSize}%;
+  @media ((max-width: ${({ theme }) => theme.breakPoints.mobile}px)) {
+    width: ${fullSize}%;
+    margin-bottom: ${({ theme }) => theme.spaces.smallM}px;
+  }
 `;
 
 export const DaySelect = styled.div`

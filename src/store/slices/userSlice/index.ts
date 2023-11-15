@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { ISighUpWithGoogleUser } from '@/pages/Home/types';
+import { ISighUpWithGoogleUser } from '@/pages/Root/types';
 import { ISighUpWithEmailUser } from '@/pages/SignUp/types';
 
 const userSlice = createSlice({

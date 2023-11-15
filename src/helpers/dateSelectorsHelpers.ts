@@ -2,7 +2,7 @@ import { IOption } from '@/pages/SignUp/types';
 
 const firstDayIndex = 0;
 
-const allMonthsNames: string[] = [
+export const allMonthsNames: string[] = [
   'January',
   'February',
   'March',
