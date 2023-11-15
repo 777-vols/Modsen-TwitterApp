@@ -53,7 +53,14 @@ module.exports = {
     'react/jsx-props-no-spreading': 0,
     'import/prefer-default-export': 0,
     'react/react-in-jsx-scope': 0,
+    'no-param-reassign': 0,
     'import/extensions': 0,
+    '@typescript-eslint/no-misused-promises': [
+      'error',
+      {
+        checksVoidReturn: false
+      }
+    ],
     '@typescript-eslint/no-unused-vars': [
       'warn',
       {
