@@ -15,6 +15,7 @@ const [
 const { HOME, EXPLORE, NOTIFICATIONS, MESSAGES, BOOKMARKS, LISTS, PROFILE, MORE } = Urls;
 
 export const config = {
+  buttonName: 'Tweet',
   menuItems: [
     {
       name: 'Home',

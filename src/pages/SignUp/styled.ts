@@ -122,6 +122,9 @@ export const Error = styled.span`
   position: absolute;
   top: -25px;
   left: 15px;
+  @media ((max-width: ${({ theme }) => theme.breakPoints.laptop}px)) {
+    font-size: ${({ theme }) => theme.fontSizes.smallXXL}px;
+  }
 `;
 
 export const SelectBlock = styled.div`

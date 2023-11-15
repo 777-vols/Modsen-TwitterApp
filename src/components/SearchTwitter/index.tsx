@@ -2,10 +2,10 @@ import { FC } from 'react';
 
 import { Wrapper } from './styled';
 
-const SideBar: FC = () => (
+const SearchTwitter: FC = () => (
   <Wrapper>
-    <h1>SideBar</h1>
+    <h1>SearchTwitter</h1>
   </Wrapper>
 );
 
-export default SideBar;
+export default SearchTwitter;

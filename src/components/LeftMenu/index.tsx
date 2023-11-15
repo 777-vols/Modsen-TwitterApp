@@ -3,11 +3,11 @@ import { FC } from 'react';
 import { allImages } from '@/constants/allImages';
 
 import { config } from './config';
-import { Button, Image, Logo, NavItem, StyledLink, Wrapper } from './styled';
+import { Image, Logo, NavItem, StyledLink, TweetButton, Wrapper } from './styled';
 
 const { logoImg } = allImages;
 
-const { menuItems } = config;
+const { buttonName, menuItems } = config;
 
 const LeftMenu: FC = () => (
   <Wrapper>
@@ -20,7 +20,7 @@ const LeftMenu: FC = () => (
         </NavItem>
       ))}
     </nav>
-    <Button>Tweet</Button>
+    <TweetButton>{buttonName}</TweetButton>
   </Wrapper>
 );
 

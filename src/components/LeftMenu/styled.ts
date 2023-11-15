@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { blueButton, flexCenterVertical } from '@/constants/styles/commonStyles';
 
-export const Wrapper = styled.aside`
+export const Wrapper = styled.div`
   max-width: 230px;
   width: 100%;
 `;
@@ -30,9 +30,13 @@ export const StyledLink = styled(NavLink)`
     font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
     color: ${({ theme }) => theme.colors.blue};
   }
+  &[aria-current] {
+    font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
+    font-weight: ${({ theme }) => theme.fontWeights.l};
+  }
 `;
 
-export const Button = styled.button`
+export const TweetButton = styled.button`
   ${blueButton}
   height: 55px;
   font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
