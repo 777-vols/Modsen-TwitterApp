@@ -3,8 +3,9 @@ import { FC } from 'react';
 import { useSelector } from 'react-redux';
 
 import { auth } from '@/api/firebase/firebase';
+import CreateTweet from '@/components/CreateTweet';
 import LeftMenu from '@/components/LeftMenu';
-import { SmallAvatarImg, UserEmail } from '@/components/LeftMenu/styled';
+import { UserEmail } from '@/components/LeftMenu/styled';
 import SearchTwitter from '@/components/SearchTwitter';
 import { allImages } from '@/constants/allImages';
 import { useAction } from '@/hooks/useAction';
@@ -13,31 +14,26 @@ import { userSelector } from '@/store/slices/userSlice/selectors';
 
 import {
   Banner,
-  CreateTweet,
   Description,
   EditProfileButton,
   Following,
   FollowingInfo,
   Header,
   HeaderName,
-  InputPanel,
   LogOutButton,
   Main,
-  PanelImage,
   ProfileInfo,
   RightPart,
   SideBar,
-  TweetInput,
   TweetsNumber,
   UserAvatar,
   UserInfo,
   UserName,
-  WhatsHappening,
   Wrapper
 } from './styled';
 import { IUser } from './types';
 
-const { profileBackground, addImg } = allImages;
+const { profileBackground } = allImages;
 
 const Profile: FC = () => {
   const currentUser = useSelector(userSelector) as IUser;
@@ -84,14 +80,7 @@ const Profile: FC = () => {
           <EditProfileButton>Edit profile</EditProfileButton>
         </ProfileInfo>
 
-        <WhatsHappening>
-          <SmallAvatarImg src={photo} alt="userAvatar" />
-          <InputPanel>
-            <TweetInput placeholder="What's Happening" />
-            <CreateTweet>Tweet</CreateTweet>
-            <PanelImage src={addImg} alt="addImg" />
-          </InputPanel>
-        </WhatsHappening>
+        <CreateTweet user={currentUser} />
       </Main>
 
       <RightPart>

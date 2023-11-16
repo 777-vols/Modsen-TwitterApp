@@ -14,7 +14,7 @@ import { ISighUpWithEmailUser, IUserFormData } from '@/pages/SignUp/types';
 import { TypeSetIsNotificationActive } from '@/store/slices/errorSlice';
 import { TypeAuthenticateUser } from '@/store/slices/userSlice';
 
-const { usersCollection } = FirebaseCollections;
+const { USERS_COLLECTION } = FirebaseCollections;
 
 export const signUpWithGoogleHelper = async (
   authenticateUser: TypeAuthenticateUser,
@@ -25,7 +25,7 @@ export const signUpWithGoogleHelper = async (
     const { user } = result;
     const { uid: id, displayName, photoURL, email } = user;
 
-    const registeredUser = (await getFirebaseDoc(usersCollection, id)) as
+    const registeredUser = (await getFirebaseDoc(USERS_COLLECTION, id)) as
       | ISighUpWithGoogleUser
       | false;
 
@@ -40,7 +40,7 @@ export const signUpWithGoogleHelper = async (
       };
 
       await setFirebaseDoc({
-        collectionName: usersCollection,
+        collectionName: USERS_COLLECTION,
         document: newUser,
         id
       });
@@ -82,7 +82,7 @@ export const signUpWithEmailHelper = async (
       };
 
       await setFirebaseDoc({
-        collectionName: usersCollection,
+        collectionName: USERS_COLLECTION,
         document: newUser,
         id
       });
@@ -109,7 +109,9 @@ export const logInHelper = async (
     const { user } = await signInWithEmailAndPassword(auth, email, password);
     const { uid: id } = user;
 
-    const existedUser = (await getFirebaseDoc(usersCollection, id)) as ISighUpWithEmailUser | false;
+    const existedUser = (await getFirebaseDoc(USERS_COLLECTION, id)) as
+      | ISighUpWithEmailUser
+      | false;
 
     if (existedUser) {
       authenticateUser(existedUser);

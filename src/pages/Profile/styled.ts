@@ -101,46 +101,6 @@ export const UserName = styled.span`
   font-weight: ${({ theme }) => theme.fontWeights.l};
 `;
 
-export const WhatsHappening = styled.div`
-  ${maxSize}
-  position: relative;
-  display: flex;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
-  padding: ${({ theme }) => theme.spaces.smallXL}px;
-  max-height: 150px;
-  height: 100%;
-`;
-
-export const InputPanel = styled.div`
-  position: relative;
-  width: 100%;
-`;
-
-export const TweetInput = styled.input`
-  width: 100%;
-  font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
-  border: none;
-`;
-
-export const CreateTweet = styled.button`
-  ${blueButton}
-  position: absolute;
-  font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
-  width: 116px;
-  height: 50px;
-  bottom: 10px;
-  right: 10px;
-  &:hover {
-    font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
-  }
-`;
-
-export const PanelImage = styled.img`
-  position: absolute;
-  left: 10px;
-  bottom: 10px;
-`;
-
 export const RightPart = styled.aside`
   border-left: 1px solid ${({ theme }) => theme.colors.grey};
 `;
