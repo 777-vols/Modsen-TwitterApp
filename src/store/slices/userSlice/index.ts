@@ -1,7 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { allImages } from '@/constants/allImages';
 import { ISighUpWithGoogleUser } from '@/pages/Root/types';
 import { ISighUpWithEmailUser } from '@/pages/SignUp/types';
+
+const { defaultUserPhoto } = allImages;
 
 const userSlice = createSlice({
   name: 'user',
@@ -10,9 +13,12 @@ const userSlice = createSlice({
     currentUser: {}
   },
   reducers: {
-    authenticateUser(state, action: PayloadAction<ISighUpWithEmailUser | ISighUpWithGoogleUser>) {
+    authenticateUser(
+      state,
+      { payload }: PayloadAction<ISighUpWithEmailUser | ISighUpWithGoogleUser>
+    ) {
       state.isAuth = true;
-      state.currentUser = action.payload;
+      state.currentUser = { ...payload, photo: payload.photo || defaultUserPhoto };
     },
     deauthenticateUser(state) {
       state.isAuth = false;

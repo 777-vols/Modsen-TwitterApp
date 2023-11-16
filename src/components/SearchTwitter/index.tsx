@@ -1,10 +1,17 @@
 import { FC } from 'react';
 
-import { Wrapper } from './styled';
+import { allImages } from '@/constants/allImages';
+
+import { Image, Input, InputWrapper, Wrapper } from './styled';
+
+const { searchIcon } = allImages;
 
 const SearchTwitter: FC = () => (
   <Wrapper>
-    <h1>SearchTwitter</h1>
+    <InputWrapper>
+      <Image src={searchIcon} alt="searchIcon" />
+      <Input placeholder="Search Twitter" />
+    </InputWrapper>
   </Wrapper>
 );
 

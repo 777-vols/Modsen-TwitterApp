@@ -1,4 +1,6 @@
+import addImg from '@/assets/addImage.svg';
 import banner from '@/assets/backTwitter.png';
+import defaultUserPhoto from '@/assets/defaultUserPhoto.svg';
 import errorBoundary from '@/assets/errorBoundary.svg';
 import eyePasswordHide from '@/assets/eyePasswordHide.svg';
 import eyePasswordOpen from '@/assets/eyePasswordOpen.svg';
@@ -11,6 +13,8 @@ import messagesImg from '@/assets/leftMenu/messages.svg';
 import moreImg from '@/assets/leftMenu/more.svg';
 import notificationImg from '@/assets/leftMenu/notification.svg';
 import profileImg from '@/assets/leftMenu/profile.svg';
+import profileBackground from '@/assets/profileBackground.svg';
+import searchIcon from '@/assets/searchIcon.svg';
 import logoImg from '@/assets/twitterLogo.svg';
 
 export const allImages = {
@@ -20,6 +24,10 @@ export const allImages = {
   errorBoundary,
   eyePasswordOpen,
   eyePasswordHide,
+  defaultUserPhoto,
+  profileBackground,
+  searchIcon,
+  addImg,
   leftMenu: [
     bookmarksImg,
     exploreImg,

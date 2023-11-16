@@ -36,6 +36,37 @@ export const StyledLink = styled(NavLink)`
   }
 `;
 
+export const CardInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const SmallAvatarImg = styled.img`
+  margin-right: ${({ theme }) => theme.spaces.mediumS}px;
+  border-radius: 100px;
+  height: 50px;
+  width: 50px;
+`;
+
+export const UserCard = styled.div`
+  display: flex;
+  margin-top: ${({ theme }) => theme.spaces.largeXL}px;
+  padding: ${({ theme }) => theme.spaces.mediumS}px ${({ theme }) => theme.spaces.mediumS}px
+    ${({ theme }) => theme.spaces.mediumS}px ${({ theme }) => theme.spaces.zero};
+`;
+
+export const UserName = styled.span`
+  margin-bottom: ${({ theme }) => theme.spaces.smallS}px;
+  overflow: hidden;
+  font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
+  font-weight: ${({ theme }) => theme.fontWeights.l};
+`;
+
+export const UserEmail = styled.span`
+  font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
+  opacity: 0.7;
+`;
+
 export const TweetButton = styled.button`
   ${blueButton}
   height: 55px;
