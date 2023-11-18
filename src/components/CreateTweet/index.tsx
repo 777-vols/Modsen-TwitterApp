@@ -3,13 +3,18 @@ import { ChangeEvent, FC, useState } from 'react';
 import { SmallAvatarImg } from '@/components/LeftMenu/styled';
 import { allImages } from '@/constants/allImages';
 import { createNewTweetHelper } from '@/helpers/tweetHelpers';
+import { useAction } from '@/hooks/useAction';
 
-import { Form, PanelImage, TweetButton, TweetInput, Wrapper } from './styled';
+import { config } from './config';
+import { Form, Image, TweetButton, TweetInput, Wrapper } from './styled';
 import { IProps } from './types';
 
 const { addImg } = allImages;
 
+const { tweetButtonText, inputPlaceholder } = config;
+
 const CreateTweet: FC<IProps> = ({ user }) => {
+  const { addTweet } = useAction();
   const [tweetText, setTweetText] = useState<string>('');
 
   const { id, photo, name, email } = user;
@@ -28,18 +33,18 @@ const CreateTweet: FC<IProps> = ({ user }) => {
         userName: name,
         userEmail: email
       });
+      addTweet(newTweet);
       setTweetText('');
-      console.log(newTweet);
     }
   };
 
   return (
     <Wrapper>
-      <SmallAvatarImg src={photo} alt="userAvatar" />
+      <SmallAvatarImg src={photo} alt="user avatar" />
       <Form onSubmit={handleSubmit}>
-        <TweetInput placeholder="What's Happening" value={tweetText} onChange={handleInputChange} />
-        <PanelImage src={addImg} alt="addImg" />
-        <TweetButton type="submit">Tweet</TweetButton>
+        <TweetInput placeholder={inputPlaceholder} value={tweetText} onChange={handleInputChange} />
+        <Image src={addImg} alt="add image" />
+        <TweetButton type="submit">{tweetButtonText}</TweetButton>
       </Form>
     </Wrapper>
   );

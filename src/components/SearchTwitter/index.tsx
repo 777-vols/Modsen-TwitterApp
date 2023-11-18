@@ -9,7 +9,7 @@ const { searchIcon } = allImages;
 const SearchTwitter: FC = () => (
   <Wrapper>
     <InputWrapper>
-      <Image src={searchIcon} alt="searchIcon" />
+      <Image src={searchIcon} alt="search icon" />
       <Input placeholder="Search Twitter" />
     </InputWrapper>
   </Wrapper>

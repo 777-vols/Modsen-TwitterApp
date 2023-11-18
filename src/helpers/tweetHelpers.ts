@@ -2,6 +2,7 @@ import { v4 } from 'uuid';
 
 import { FirebaseCollections } from '@/api/firebase/constants';
 import { setFirebaseDoc } from '@/api/firebase/firebaseHelpers';
+import { ITweet } from '@/store/slices/tweetsSlice/types';
 
 interface IOptions {
   tweetText: string;
@@ -11,11 +12,11 @@ interface IOptions {
   userEmail: string;
 }
 
-export const createNewTweetHelper = async (options: IOptions) => {
+export const createNewTweetHelper = async (options: IOptions): Promise<ITweet> => {
   const { tweetText, userId, userPhoto, userName, userEmail } = options;
   const newTweet = {
-    tweetId: v4(),
-    author: { userId, userName, userEmail, userPhoto },
+    id: v4(),
+    author: { id: userId, name: userName, email: userEmail, photo: userPhoto },
     text: tweetText,
     date: Date.now(),
     image: '',
@@ -24,8 +25,9 @@ export const createNewTweetHelper = async (options: IOptions) => {
 
   await setFirebaseDoc({
     collectionName: FirebaseCollections.TWEETS_COLLECTION,
-    id: newTweet.tweetId,
+    id: newTweet.id,
     document: newTweet
   });
+
   return newTweet;
 };

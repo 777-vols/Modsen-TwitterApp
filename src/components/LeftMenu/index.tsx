@@ -30,7 +30,7 @@ const LeftMenu: FC = () => {
 
   return (
     <Wrapper>
-      <Logo src={logoImg} alt="leftMenulogo" />
+      <Logo src={logoImg} alt="logo" />
       <nav>
         {menuItems.map(({ name: itemName, image, path }) => (
           <NavItem key={path}>
@@ -41,7 +41,7 @@ const LeftMenu: FC = () => {
       </nav>
       <TweetButton>{buttonName}</TweetButton>
       <UserCard>
-        <SmallAvatarImg src={photo} alt="userPhoto" />
+        <SmallAvatarImg src={photo} alt="user avatar" />
         <CardInfo>
           <UserName>{name}</UserName>
           <UserEmail>{email}</UserEmail>

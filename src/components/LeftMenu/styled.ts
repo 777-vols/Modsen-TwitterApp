@@ -1,7 +1,12 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { blueButton, flexCenterVertical } from '@/constants/styles/commonStyles';
+import {
+  blueButton,
+  flexCenterVertical,
+  smallAvatar,
+  userEmail
+} from '@/constants/styles/commonStyles';
 
 export const Wrapper = styled.div`
   max-width: 230px;
@@ -43,9 +48,7 @@ export const CardInfo = styled.div`
 
 export const SmallAvatarImg = styled.img`
   margin-right: ${({ theme }) => theme.spaces.mediumS}px;
-  border-radius: 100px;
-  height: 50px;
-  width: 50px;
+  ${smallAvatar}
 `;
 
 export const UserCard = styled.div`
@@ -63,8 +66,7 @@ export const UserName = styled.span`
 `;
 
 export const UserEmail = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
-  opacity: 0.7;
+  ${userEmail}
 `;
 
 export const TweetButton = styled.button`

@@ -36,6 +36,7 @@ const theme: ITheme = {
     smallS: FontSize.SMALL_S
   },
   spaces: {
+    largeXXL: Spaces.LARGE_XXL,
     largeXL: Spaces.LARGE_XL,
     largeL: Spaces.LARGE_L,
     largeM: Spaces.LARGE_M,

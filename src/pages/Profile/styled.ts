@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
-import { appContainer, blueButton, maxSize } from '@/constants/styles/commonStyles';
+import { appContainer, blueButton, flexCenter, maxSize } from '@/constants/styles/commonStyles';
 
 export const Wrapper = styled.div`
   ${appContainer}
   display: flex;
+  padding-bottom: ${({ theme }) => theme.spaces.largeXXL}px;
 `;
 
 export const SideBar = styled.div`
@@ -14,8 +15,8 @@ export const SideBar = styled.div`
 `;
 
 export const Main = styled.main`
+  ${maxSize}
   max-width: 910px;
-  width: 100%;
 `;
 
 export const Header = styled.div`
@@ -25,7 +26,7 @@ export const Header = styled.div`
   flex-direction: column;
 `;
 
-export const HeaderName = styled.span`
+export const UserName = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
   font-weight: ${({ theme }) => theme.fontWeights.m};
 `;
@@ -95,7 +96,7 @@ export const EditProfileButton = styled.button`
   }
 `;
 
-export const UserName = styled.span`
+export const Name = styled.span`
   margin-bottom: ${({ theme }) => theme.spaces.smallS}px;
   font-size: ${({ theme }) => theme.fontSizes.largeS}px;
   font-weight: ${({ theme }) => theme.fontWeights.l};
@@ -115,4 +116,13 @@ export const LogOutButton = styled.button`
   &:hover {
     font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
   }
+`;
+
+export const TweetsBlockHeader = styled.h1`
+  ${flexCenter}
+  font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
+  width: 241px;
+  height: 62px;
+  margin-bottom: 48px;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
 `;

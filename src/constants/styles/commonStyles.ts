@@ -54,3 +54,14 @@ export const blueButton = css`
   border-radius: 70px;
   color: ${({ theme }) => theme.colors.white};
 `;
+
+export const smallAvatar = css`
+  border-radius: 100px;
+  height: 50px;
+  width: 50px;
+`;
+
+export const userEmail = css`
+  font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
+  opacity: 0.8;
+`;

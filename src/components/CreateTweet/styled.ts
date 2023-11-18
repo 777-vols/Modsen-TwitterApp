@@ -9,11 +9,11 @@ export const Wrapper = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
   padding: ${({ theme }) => theme.spaces.smallXL}px;
   max-height: 150px;
-  height: 100%;
 `;
 
 export const Form = styled.form`
   position: relative;
+  height: 117px;
   width: 100%;
 `;
 
@@ -36,7 +36,7 @@ export const TweetButton = styled.button`
   }
 `;
 
-export const PanelImage = styled.img`
+export const Image = styled.img`
   position: absolute;
   left: 10px;
   bottom: 10px;

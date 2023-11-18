@@ -55,14 +55,14 @@ const Root: FC = () => {
   return (
     <Wrapper>
       <Main>
-        <Banner alt="backgoundImage" src={banner} />
+        <Banner alt="banner" src={banner} />
         <Panel>
           <Content>
-            <Logo alt="logoImg" src={logoImg} />
+            <Logo alt="logo" src={logoImg} />
             <MainHeader>{mainHeader}</MainHeader>
             <SubHeader>{subHeader}</SubHeader>
             <GoogleButton onClick={handleSignUpWithGoogle}>
-              <GoogleButtonImg alt="googleIcon" src={googleIcon} />
+              <GoogleButtonImg alt="google icon" src={googleIcon} />
               {googleSignUp}
             </GoogleButton>
             <EmailButton to={SIGN_UP}>{emailSignUp}</EmailButton>

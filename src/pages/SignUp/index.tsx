@@ -124,7 +124,7 @@ const SignUp: FC = () => {
     <Wrapper>
       <Form onSubmit={handleSubmit(handleSignUpWithEmail)}>
         <LogoWrapper>
-          <Logo alt="logoImg" src={logoImg} />
+          <Logo alt="logo" src={logoImg} />
         </LogoWrapper>
         <Header>{header}</Header>
         <InputWrapper>
@@ -176,7 +176,10 @@ const SignUp: FC = () => {
             })}
           />
           <ShowHidePassowrd onClick={togglePasswordVisiblity}>
-            <EyeImage src={isPasswordShown ? eyePasswordHide : eyePasswordOpen} alt="eyePassword" />
+            <EyeImage
+              src={isPasswordShown ? eyePasswordHide : eyePasswordOpen}
+              alt="eye password"
+            />
           </ShowHidePassowrd>
         </InputWrapper>
         <TextLink to={HOME}>{useEmail}</TextLink>

@@ -1,4 +1,5 @@
 const enum Spaces {
+  LARGE_XXL = 96,
   LARGE_XL = 57,
   LARGE_L = 50,
   LARGE_M = 45,

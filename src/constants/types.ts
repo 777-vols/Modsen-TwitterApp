@@ -30,6 +30,7 @@ interface ITheme {
     smallS: number;
   };
   spaces: {
+    largeXXL: number;
     largeXL: number;
     largeL: number;
     largeM: number;

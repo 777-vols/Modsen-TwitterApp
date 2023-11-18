@@ -3,6 +3,7 @@ import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 import errorSlice from './slices/errorSlice';
+import tweetsSlice from './slices/tweetsSlice';
 import userSlice from './slices/userSlice';
 
 const persistConfig = {
@@ -12,7 +13,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   user: userSlice,
-  error: errorSlice
+  error: errorSlice,
+  tweets: tweetsSlice
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

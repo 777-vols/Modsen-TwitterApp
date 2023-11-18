@@ -53,7 +53,7 @@ const LogIn: FC = () => {
     <Wrapper>
       <Form onSubmit={handleSubmit(handleLogin)}>
         <LogoWrapper>
-          <Logo alt="logoImg" src={logoImg} />
+          <Logo alt="logo" src={logoImg} />
         </LogoWrapper>
         <Header>{header}</Header>
         <InputWrapper>
@@ -79,7 +79,10 @@ const LogIn: FC = () => {
             })}
           />
           <ShowHidePassowrd onClick={togglePasswordVisiblity}>
-            <EyeImage src={isPasswordShown ? eyePasswordHide : eyePasswordOpen} alt="eyePassword" />
+            <EyeImage
+              src={isPasswordShown ? eyePasswordHide : eyePasswordOpen}
+              alt="eye password"
+            />
           </ShowHidePassowrd>
         </InputWrapper>
         <Button type="submit">{logIn}</Button>
