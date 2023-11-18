@@ -6,7 +6,7 @@ export interface ITweet {
   text: string;
   date: number;
   image: string;
-  likes: IUser[];
+  likes: string[];
 }
 
 export interface IinitialState {

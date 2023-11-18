@@ -67,7 +67,7 @@ const Profile: FC = () => {
     deauthenticateUser();
   };
 
-  const { photo, name, email } = currentUser;
+  const { id: currentUserId, photo, name, email } = currentUser;
 
   const { logOut, tweets, following, followers, editProfile } = config;
 
@@ -113,7 +113,7 @@ const Profile: FC = () => {
         <TweetsBlockHeader>{tweets}</TweetsBlockHeader>
 
         {tweetsArray.map((item) => (
-          <Tweet key={item.id} tweetData={item} />
+          <Tweet key={item.id} tweetData={item} currentUserId={currentUserId} />
         ))}
       </Main>
 

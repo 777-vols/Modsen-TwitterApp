@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { blueButton, maxSize } from '@/constants/styles/commonStyles';
+import { blueButton, button, maxSize, resetButton } from '@/constants/styles/commonStyles';
 
 export const Wrapper = styled.div`
   ${maxSize}
@@ -36,8 +36,12 @@ export const TweetButton = styled.button`
   }
 `;
 
-export const Image = styled.img`
+export const AddImageLabel = styled.label`
+  cursor: pointer;
   position: absolute;
   left: 10px;
   bottom: 10px;
 `;
+export const AddImageInput = styled.input``;
+
+export const Image = styled.img``;

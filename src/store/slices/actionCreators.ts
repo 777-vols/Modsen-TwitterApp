@@ -1,5 +1,5 @@
 import { setIsNotificationActive, setIsNotificationInactive } from '@/store/slices/errorSlice';
-import { addAllTweets, addTweet, deleteTweet } from '@/store/slices/tweetsSlice';
+import { addAllTweets, addTweet, deleteTweet, likeTweet } from '@/store/slices/tweetsSlice';
 import { authenticateUser, deauthenticateUser } from '@/store/slices/userSlice';
 
 export const actionCreators = {
@@ -9,5 +9,6 @@ export const actionCreators = {
   setIsNotificationInactive,
   addTweet,
   deleteTweet,
-  addAllTweets
+  addAllTweets,
+  likeTweet
 };

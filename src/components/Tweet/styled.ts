@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import {
   flexCenterVertical,
@@ -47,25 +47,25 @@ export const Likes = styled.div`
   ${flexCenterVertical}
   padding: ${({ theme }) => theme.spaces.mediumS}px;
 `;
-export const DeleteButton = styled.button`
+
+const Button = css`
   ${resetButton}
   cursor: pointer;
-  position: absolute;
-  top: 15px;
-  right: 10px;
   transition: 0.1;
   &:hover {
     transform: scale(1.1);
   }
 `;
 
+export const DeleteButton = styled.button`
+  ${Button}
+  position: absolute;
+  top: 10px;
+  right: 10px;
+`;
+
 export const LikesButton = styled.button`
-  ${resetButton}
-  cursor: pointer;
-  transition: 0.1;
-  &:hover {
-    transform: scale(1.1);
-  }
+  ${Button}
 `;
 
 export const Image = styled.img`

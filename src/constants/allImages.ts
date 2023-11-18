@@ -15,6 +15,7 @@ import moreImg from '@/assets/leftMenu/more.svg';
 import notificationImg from '@/assets/leftMenu/notification.svg';
 import profileImg from '@/assets/leftMenu/profile.svg';
 import likeImg from '@/assets/like.svg';
+import likeFill from '@/assets/likeFill.svg';
 import profileBackground from '@/assets/profileBackground.svg';
 import searchIcon from '@/assets/searchIcon.svg';
 import logoImg from '@/assets/twitterLogo.svg';
@@ -30,6 +31,7 @@ export const allImages = {
   profileBackground,
   searchIcon,
   addImg,
+  likeFill,
   likeImg,
   deleteImg,
   leftMenu: [

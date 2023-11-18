@@ -1,4 +1,4 @@
-import { collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDoc, getDocs, setDoc, updateDoc } from 'firebase/firestore';
 
 import { ITweet } from '@/store/slices/tweetsSlice/types';
 
@@ -29,4 +29,16 @@ export const getAllFirebaseDocs = async (collectionName: string) => {
 export const setFirebaseDoc = async (options: IDocumentProps) => {
   const { collectionName, id, document } = options;
   await setDoc(doc(db, collectionName, id), document);
+};
+
+export const deleteFirebaseDoc = async (collectionName: string, prop: string) => {
+  await deleteDoc(doc(db, collectionName, prop));
+};
+
+export const updateLikesInFirebaseDoc = async (
+  collectionName: string,
+  prop: string,
+  newValue: string[]
+) => {
+  await updateDoc(doc(db, collectionName, prop), { likes: newValue });
 };
