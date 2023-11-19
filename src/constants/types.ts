@@ -7,6 +7,7 @@ interface ITheme {
     grey: string;
     lightGrey: string;
     pink: string;
+    green: string;
   };
   fontFamily: string;
   fontWeights: {

@@ -1,3 +1,4 @@
+import { getStorage, ref, uploadBytes } from 'firebase/storage';
 import { ChangeEvent, FC, useState } from 'react';
 
 import { SmallAvatarImg } from '@/components/LeftMenu/styled';
@@ -11,6 +12,7 @@ import {
   AddImageLabel,
   Form,
   Image,
+  NameImage,
   TweetButton,
   TweetInput,
   Wrapper
@@ -24,6 +26,7 @@ const { tweetButtonText, inputPlaceholder } = config;
 const CreateTweet: FC<IProps> = ({ user }) => {
   const { addTweet } = useAction();
   const [tweetText, setTweetText] = useState<string>('');
+  const [image, setImage] = useState<File>();
 
   const { id, photo, name, email } = user;
 
@@ -32,9 +35,14 @@ const CreateTweet: FC<IProps> = ({ user }) => {
     setTweetText(target.value);
   };
 
-  const uploadImageHandler = (event: ChangeEvent<HTMLInputElement>) => {
+  const uploadImageHandler = async (event: ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
-    console.log(files);
+    if (files) {
+      const storage = getStorage();
+      const storageRef = ref(storage, 'some-child');
+      setImage(files[0]);
+      await uploadBytes(storageRef, files[0]);
+    }
   };
 
   const handleSubmit = async () => {
@@ -44,10 +52,12 @@ const CreateTweet: FC<IProps> = ({ user }) => {
         userId: id,
         userPhoto: photo,
         userName: name,
-        userEmail: email
+        userEmail: email,
+        image
       });
       addTweet(newTweet);
       setTweetText('');
+      setImage(undefined);
     }
   };
 
@@ -62,8 +72,10 @@ const CreateTweet: FC<IProps> = ({ user }) => {
             type="file"
             id="uploadFile"
             accept="image/*"
+            hidden
             onChange={uploadImageHandler}
           />
+          {image && <NameImage>{image.name}</NameImage>}
         </AddImageLabel>
         <TweetButton type="submit">{tweetButtonText}</TweetButton>
       </Form>

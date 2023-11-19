@@ -22,7 +22,9 @@ export const Avatar = styled.img`
 
 export const UserAvatarWrapper = styled.div``;
 
-export const Content = styled.div``;
+export const Content = styled.div`
+  width: 100%;
+`;
 
 export const Info = styled.div`
   ${flexCenterVertical}
@@ -39,8 +41,21 @@ export const DateInfo = styled.span`
   opacity: 0.7;
 `;
 
+export const MessageWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const Message = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
+`;
+
+export const TweetImage = styled.img`
+  margin-top: ${({ theme }) => theme.spaces.smallL}px;
+
+  border-radius: 20px;
+  max-width: 680px;
+  max-height: 450px;
 `;
 
 export const Likes = styled.div`

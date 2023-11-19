@@ -12,7 +12,8 @@ const theme: ITheme = {
     blue: Colors.BLUE,
     grey: Colors.GREY,
     lightGrey: Colors.LIGHT_GREY,
-    pink: Colors.PINK
+    pink: Colors.PINK,
+    green: Colors.GREEN
   },
   fontFamily: "'Roboto', sans-serif",
   fontWeights: {

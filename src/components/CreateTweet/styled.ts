@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { blueButton, button, maxSize, resetButton } from '@/constants/styles/commonStyles';
+import { blueButton, flexCenterVertical, maxSize } from '@/constants/styles/commonStyles';
 
 export const Wrapper = styled.div`
   ${maxSize}
@@ -37,11 +37,21 @@ export const TweetButton = styled.button`
 `;
 
 export const AddImageLabel = styled.label`
+  ${flexCenterVertical}
   cursor: pointer;
   position: absolute;
   left: 10px;
   bottom: 10px;
 `;
+
 export const AddImageInput = styled.input``;
 
-export const Image = styled.img``;
+export const NameImage = styled.span`
+  color: ${({ theme }) => theme.colors.green};
+`;
+
+export const Image = styled.img`
+  height: 30px;
+  width: 30px;
+  margin-right: ${({ theme }) => theme.spaces.smallM}px;
+`;

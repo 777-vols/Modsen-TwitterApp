@@ -99,10 +99,10 @@ const Profile: FC = () => {
           </UserInfo>
           <FollowingInfo>
             <Following>
-              <b>67</b> {following}
+              <b>0</b> {following}
             </Following>
             <Following>
-              <b>47</b> {followers}
+              <b>0</b> {followers}
             </Following>
           </FollowingInfo>
           <EditProfileButton>{editProfile}</EditProfileButton>
@@ -112,9 +112,9 @@ const Profile: FC = () => {
 
         <TweetsBlockHeader>{tweets}</TweetsBlockHeader>
 
-        {tweetsArray.map((item) => (
-          <Tweet key={item.id} tweetData={item} currentUserId={currentUserId} />
-        ))}
+        {tweetsArray
+          .map((item) => <Tweet key={item.id} tweetData={item} currentUserId={currentUserId} />)
+          .reverse()}
       </Main>
 
       <RightPart>
