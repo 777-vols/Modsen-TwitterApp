@@ -1,16 +1,17 @@
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import { deleteDoc, doc } from 'firebase/firestore';
+import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { v4 } from 'uuid';
 
 import { FirebaseCollections } from '@/api/firebase/constants';
-import { storage } from '@/api/firebase/firebase';
+import { db, storage } from '@/api/firebase/firebase';
 import { setFirebaseDoc, updateFirebaseDoc } from '@/api/firebase/firebaseHelpers';
 import { ITweet } from '@/store/slices/tweetsSlice/types';
 
-import { IOptions, UploadFileProps } from './types';
+import { IOptions, UploadFileOptions } from './types';
 
 const { TWEETS_COLLECTION } = FirebaseCollections;
 
-export const uploadFile = (options: UploadFileProps) => {
+const uploadImage = (options: UploadFileOptions) => {
   const { collection, file, id } = options;
   const storageRef = ref(storage, id);
   const uploadTask = uploadBytesResumable(storageRef, file);
@@ -37,7 +38,7 @@ export const createNewTweetHelper = async (options: IOptions): Promise<ITweet> =
   };
 
   if (image) {
-    uploadFile({
+    uploadImage({
       collection: TWEETS_COLLECTION,
       id: newTweet.id,
       file: image
@@ -55,4 +56,11 @@ export const createNewTweetHelper = async (options: IOptions): Promise<ITweet> =
   });
 
   return newTweet;
+};
+
+export const deleteTweetHelper = async (collectionName: string, prop: string) => {
+  await deleteDoc(doc(db, collectionName, prop));
+
+  const desertRef = ref(storage, prop);
+  await deleteObject(desertRef);
 };

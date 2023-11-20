@@ -2,7 +2,7 @@ import { FirebaseCollections } from '@/api/firebase/constants';
 
 type TImage = Blob | Uint8Array | ArrayBuffer;
 
-export interface UploadFileProps {
+export interface UploadFileOptions {
   file: TImage;
   id: string;
   collection: FirebaseCollections;

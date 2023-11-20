@@ -39,7 +39,16 @@ import {
 } from './styled';
 import { IOption, ISighUpWithEmailUser, IUserFormData } from './types';
 
-const { header, placeholders, useEmail, dateOfBirth, text, buttonText, errorMessages } = config;
+const {
+  header,
+  placeholders,
+  emailUse,
+  dateOfBirth,
+  text,
+  buttonText,
+  errorMessages,
+  successNotificationText
+} = config;
 const { namePlaceholder, phonePlaceholder, emailPlaceholder, passwordPlaceholder } = placeholders;
 const { nameError, phoneNumberError, emailError, passwordError } = errorMessages;
 
@@ -55,11 +64,11 @@ const customStyles: StylesConfig = {
 };
 
 const { minLineLength, maxLineLength } = minMaxLineLength;
-const { namePattern, phoneNumberPattern, passwordPattern } = formPatterns;
+const { namePattern, phoneNumberPattern, passwordPattern, emailPattern } = formPatterns;
 
 const SignUp: FC = () => {
   const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false);
-  const [currentMonth, setCurrentMonth] = useState<number>(1);
+  const [currentMonth, setCurrentMonth] = useState<number>(0);
   const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear());
 
   const daysOptionsArray = useMemo(
@@ -70,7 +79,7 @@ const SignUp: FC = () => {
   const monthsOptionsArray = useMemo(() => getMonthOptionsArray(), []);
   const navigate = useNavigate();
 
-  const { setIsNotificationActive } = useAction();
+  const { setErrorNotification, setSuccessNotification } = useAction();
 
   const {
     register,
@@ -116,8 +125,13 @@ const SignUp: FC = () => {
 
   const handleSignUpWithEmail = async (userData: IUserFormData) => {
     const user: ISighUpWithEmailUser = convertBirthDate(userData);
-    await signUpWithEmailHelper(user, isValid, reset, errors, setIsNotificationActive);
+    await signUpWithEmailHelper(user, errors, setErrorNotification);
     navigate(LOG_IN);
+
+    if (isValid) {
+      reset();
+      setSuccessNotification({ message: `${successNotificationText}` });
+    }
   };
 
   return (
@@ -157,11 +171,13 @@ const SignUp: FC = () => {
           {errors?.email && <Error>{errors?.email?.message || emailError}</Error>}
           <Input
             type="email"
+            autoComplete="current-password"
             placeholder={emailPlaceholder}
             {...register('email', {
               required: true,
               minLength: minLineLength,
-              maxLength: maxLineLength
+              maxLength: maxLineLength,
+              pattern: emailPattern
             })}
           />
         </InputWrapper>
@@ -169,6 +185,7 @@ const SignUp: FC = () => {
           {errors?.password && <Error>{errors?.password?.message || passwordError}</Error>}
           <Input
             type={isPasswordShown ? 'text' : 'password'}
+            autoComplete="current-password"
             placeholder={passwordPlaceholder}
             {...register('password', {
               required: true,
@@ -182,7 +199,7 @@ const SignUp: FC = () => {
             />
           </ShowHidePassowrd>
         </InputWrapper>
-        <TextLink to={HOME}>{useEmail}</TextLink>
+        <TextLink to={HOME}>{emailUse}</TextLink>
         <BirthDateHeader>{dateOfBirth}</BirthDateHeader>
         <Text>{text}</Text>
 
@@ -193,7 +210,7 @@ const SignUp: FC = () => {
               options={monthsOptionsArray}
               maxMenuHeight={300}
               menuPlacement="top"
-              value={{ value: monthValue, label: allMonthsNames[currentMonth - 1] }}
+              value={{ value: monthValue, label: allMonthsNames[currentMonth] }}
               onChange={changeCurrentMonth}
               isSearchable={false}
               {...restMonthField}

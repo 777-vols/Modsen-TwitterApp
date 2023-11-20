@@ -3,22 +3,23 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup
 } from 'firebase/auth';
+import { doc, DocumentData, updateDoc, WithFieldValue } from 'firebase/firestore';
 import { FieldErrors } from 'react-hook-form';
 
 import { FirebaseCollections } from '@/api/firebase/constants';
-import { auth, provider } from '@/api/firebase/firebase';
+import { auth, db, provider } from '@/api/firebase/firebase';
 import { getFirebaseDoc, setFirebaseDoc } from '@/api/firebase/firebaseHelpers';
 import { IFormProps } from '@/pages/LogIn/types';
 import { ISighUpWithGoogleUser } from '@/pages/Root/types';
 import { ISighUpWithEmailUser, IUserFormData } from '@/pages/SignUp/types';
-import { TypeSetIsNotificationActive } from '@/store/slices/errorSlice';
+import { TypeSetErrorNotification } from '@/store/slices/notificationSlice';
 import { TypeAuthenticateUser } from '@/store/slices/userSlice';
 
 const { USERS_COLLECTION } = FirebaseCollections;
 
 export const signUpWithGoogleHelper = async (
   authenticateUser: TypeAuthenticateUser,
-  setIsNotificationActive: TypeSetIsNotificationActive
+  setErrorNotification: TypeSetErrorNotification
 ) => {
   try {
     const result = await signInWithPopup(auth, provider);
@@ -47,8 +48,7 @@ export const signUpWithGoogleHelper = async (
       authenticateUser(newUser);
     }
   } catch (error) {
-    setIsNotificationActive({
-      isActive: true,
+    setErrorNotification({
       message: (error as Error).message
     });
   }
@@ -56,10 +56,8 @@ export const signUpWithGoogleHelper = async (
 
 export const signUpWithEmailHelper = async (
   formUserData: ISighUpWithEmailUser,
-  isValid: boolean,
-  reset: () => void,
   errors: FieldErrors<IUserFormData>,
-  setIsNotificationActive: TypeSetIsNotificationActive
+  setErrorNotification: TypeSetErrorNotification
 ) => {
   const { name, email, password, phoneNumber, birthDate } = formUserData;
 
@@ -87,12 +85,8 @@ export const signUpWithEmailHelper = async (
         id
       });
     }
-    if (isValid) {
-      reset();
-    }
   } catch (error) {
-    setIsNotificationActive({
-      isActive: true,
+    setErrorNotification({
       message: errors.email?.message || errors.password?.message || (error as Error).message
     });
   }
@@ -101,7 +95,7 @@ export const signUpWithEmailHelper = async (
 export const logInHelper = async (
   formData: IFormProps,
   authenticateUser: TypeAuthenticateUser,
-  setIsNotificationActive: TypeSetIsNotificationActive,
+  setErrorNotification: TypeSetErrorNotification,
   errors: FieldErrors<IFormProps>
 ) => {
   const { email, password } = formData;
@@ -117,11 +111,15 @@ export const logInHelper = async (
       authenticateUser(existedUser);
     }
   } catch (error) {
-    setIsNotificationActive({
-      isActive: true,
+    setErrorNotification({
       message: errors.email?.message || errors.password?.message || (error as Error).message
     });
   }
+};
+
+export const updateUserDataHelper = async (newDoc: WithFieldValue<DocumentData>, id: string) => {
+  const docRef = doc(db, USERS_COLLECTION, id);
+  await updateDoc(docRef, newDoc);
 };
 
 export const convertBirthDate = (userFormData: IUserFormData): ISighUpWithEmailUser => {

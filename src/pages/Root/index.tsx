@@ -46,10 +46,10 @@ const { SIGN_UP, LOG_IN } = Urls;
 const { banner, logoImg, googleIcon } = allImages;
 
 const Root: FC = () => {
-  const { authenticateUser, setIsNotificationActive } = useAction();
+  const { authenticateUser, setErrorNotification } = useAction();
 
   const handleSignUpWithGoogle = async () => {
-    await signUpWithGoogleHelper(authenticateUser, setIsNotificationActive);
+    await signUpWithGoogleHelper(authenticateUser, setErrorNotification);
   };
 
   return (

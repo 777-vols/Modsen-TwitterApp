@@ -3,28 +3,40 @@ import { useSelector } from 'react-redux';
 
 import { useAction } from '@/hooks/useAction';
 import {
-  errorMessageSelector,
-  isNotificationActiveSelector
-} from '@/store/slices/errorSlice/selectors';
+  errorNotificationSelector,
+  notificationMessageSelector,
+  successNotificationSelector
+} from '@/store/slices/notificationSlice/selectors';
 
 import { Message, Wrapper } from './styled';
 
 const ErrorNotification: FC = () => {
-  const isActive = useSelector(isNotificationActiveSelector);
-  const message = useSelector(errorMessageSelector);
-  const { setIsNotificationInactive } = useAction();
+  const isErrorActive = useSelector(errorNotificationSelector);
+  const isSuccessActive = useSelector(successNotificationSelector);
+  const message = useSelector(notificationMessageSelector);
+  const { setNotificationInactive } = useAction();
 
   useEffect(() => {
-    if (isActive) {
-      setTimeout(setIsNotificationInactive, 5000);
+    if (isErrorActive || isSuccessActive) {
+      setTimeout(setNotificationInactive, 5000);
     }
-  }, [isActive, setIsNotificationInactive]);
+  }, [isErrorActive, isSuccessActive, setNotificationInactive]);
 
-  return isActive ? (
-    <Wrapper>
-      <Message>{message}</Message>
-    </Wrapper>
-  ) : null;
+  if (isErrorActive) {
+    return (
+      <Wrapper $isErrorActive>
+        <Message>{message}</Message>
+      </Wrapper>
+    );
+  }
+  if (isSuccessActive) {
+    return (
+      <Wrapper $isErrorActive={false}>
+        <Message>{message}</Message>
+      </Wrapper>
+    );
+  }
+  return null;
 };
 
 export default memo(ErrorNotification);

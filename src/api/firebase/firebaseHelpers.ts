@@ -1,25 +1,9 @@
-import {
-  collection,
-  deleteDoc,
-  doc,
-  DocumentData,
-  getDoc,
-  getDocs,
-  setDoc,
-  updateDoc,
-  WithFieldValue
-} from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDoc, getDocs, setDoc, updateDoc } from 'firebase/firestore';
 
 import { ITweet } from '@/store/slices/tweetsSlice/types';
 
 import { db } from './firebase';
-import { IDocumentProps } from './types';
-
-interface IUpdateProps {
-  collection: string;
-  id: string;
-  newDoc: WithFieldValue<DocumentData>;
-}
+import { IDocumentProps, IUpdateProps } from './types';
 
 export const getFirebaseDoc = async (collectionName: string, prop: string) => {
   const docData = await getDoc(doc(db, collectionName, prop));

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { flexCenter, maxSize } from '@/constants/styles/commonStyles';
+import { flexCenter } from '@/constants/styles/commonStyles';
 
 export const Background = styled.div`
   ${flexCenter}

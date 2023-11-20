@@ -53,7 +53,7 @@ const Profile: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const currentUser = useSelector(userSelector) as IUser;
   const tweetsArray = useSelector(tweetsSelector);
-  const { deauthenticateUser, addAllTweets, setIsNotificationActive } = useAction();
+  const { deauthenticateUser, addAllTweets, setErrorNotification } = useAction();
 
   const { id: currentUserId, photo, name, email } = currentUser;
 
@@ -63,8 +63,7 @@ const Profile: FC = () => {
       addAllTweets(allTweets);
     };
     fetchData().catch((error: Error) => {
-      setIsNotificationActive({
-        isActive: true,
+      setErrorNotification({
         message: error.message
       });
     });
@@ -75,6 +74,11 @@ const Profile: FC = () => {
       tweetsArray
         .map((item) => <Tweet key={item.id} tweetData={item} currentUserId={currentUserId} />)
         .reverse(),
+    [currentUserId, tweetsArray]
+  );
+
+  const tweetsCount = useMemo(
+    () => tweetsArray.filter(({ author }) => author.id === currentUserId).length,
     [currentUserId, tweetsArray]
   );
 
@@ -98,7 +102,7 @@ const Profile: FC = () => {
         <Header>
           <UserName>{name}</UserName>
           <TweetsNumber>
-            {tweetsArray.length} {tweets}
+            {tweetsCount} {tweets}
           </TweetsNumber>
         </Header>
 

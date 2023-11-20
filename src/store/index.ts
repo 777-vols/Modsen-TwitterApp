@@ -2,7 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import errorSlice from './slices/errorSlice';
+import notificationSlice from './slices/notificationSlice';
 import tweetsSlice from './slices/tweetsSlice';
 import userSlice from './slices/userSlice';
 
@@ -13,7 +13,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   user: userSlice,
-  error: errorSlice,
+  notification: notificationSlice,
   tweets: tweetsSlice
 });
 

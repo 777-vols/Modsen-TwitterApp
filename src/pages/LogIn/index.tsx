@@ -38,7 +38,7 @@ const LogIn: FC = () => {
     setIsPasswordShown((prevState) => !prevState);
   };
 
-  const { authenticateUser, setIsNotificationActive } = useAction();
+  const { authenticateUser, setErrorNotification } = useAction();
   const {
     register,
     handleSubmit,
@@ -46,7 +46,7 @@ const LogIn: FC = () => {
   } = useForm<IFormProps>({ mode: 'onChange' });
 
   const handleLogin = async (formData: IFormProps) => {
-    await logInHelper(formData, authenticateUser, setIsNotificationActive, errors);
+    await logInHelper(formData, authenticateUser, setErrorNotification, errors);
   };
 
   return (

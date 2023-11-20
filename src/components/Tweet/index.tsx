@@ -1,8 +1,9 @@
 import { FC, memo, useEffect, useState } from 'react';
 
 import { FirebaseCollections } from '@/api/firebase/constants';
-import { deleteFirebaseDoc, updateLikesInFirebaseDoc } from '@/api/firebase/firebaseHelpers';
+import { updateLikesInFirebaseDoc } from '@/api/firebase/firebaseHelpers';
 import { allImages } from '@/constants/allImages';
+import { deleteTweetHelper } from '@/helpers/tweetHelpers';
 import { useAction } from '@/hooks/useAction';
 import { UserName } from '@/pages/Profile/styled';
 
@@ -44,7 +45,7 @@ const Tweet: FC<IProps> = ({ tweetData, currentUserId }) => {
   const tweetDate = new Date(date);
 
   const deleteButtonHandler = async () => {
-    await deleteFirebaseDoc(TWEETS_COLLECTION, tweetId);
+    await deleteTweetHelper(TWEETS_COLLECTION, tweetId);
     deleteTweet(tweetData);
   };
 

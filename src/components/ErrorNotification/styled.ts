@@ -1,15 +1,27 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const Wrapper = styled.div`
+interface INotificationStylesProps {
+  $isErrorActive: boolean;
+}
+
+export const Wrapper = styled.div<INotificationStylesProps>`
   position: fixed;
   top: 40px;
   right: 40px;
   padding: ${({ theme }) => theme.spaces.smallM}px;
-  border: 2px solid ${({ theme }) => theme.colors.pink};
   border-radius: 10px;
+  color: ${({ theme }) => theme.colors.green};
+  border: 3px solid ${({ theme }) => theme.colors.green};
+
+  ${({ $isErrorActive, theme }) =>
+    $isErrorActive &&
+    css`
+      color: ${theme.colors.pink};
+      border: 3px solid ${theme.colors.pink};
+    `}
 `;
 
 export const Message = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
-  color: ${({ theme }) => theme.colors.pink};
+  font-weight: ${({ theme }) => theme.fontWeights.l};
 `;
