@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 
 import LeftMenu from '@/components/LeftMenu';
 import SideBar from '@/components/SearchTwitter';
@@ -13,4 +13,4 @@ const Home: FC = () => (
   </Wrapper>
 );
 
-export default Home;
+export default memo(Home);

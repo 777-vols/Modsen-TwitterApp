@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 
 import { allImages } from '@/constants/allImages';
 
@@ -15,4 +15,4 @@ const SearchTwitter: FC = () => (
   </Wrapper>
 );
 
-export default SearchTwitter;
+export default memo(SearchTwitter);

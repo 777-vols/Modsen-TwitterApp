@@ -123,6 +123,6 @@ export const TweetsBlockHeader = styled.h1`
   font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
   width: 241px;
   height: 62px;
-  margin-bottom: 48px;
+  margin-bottom: ${({ theme }) => theme.spaces.largeL}px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
 `;

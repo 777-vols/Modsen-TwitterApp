@@ -13,7 +13,8 @@ const theme: ITheme = {
     grey: Colors.GREY,
     lightGrey: Colors.LIGHT_GREY,
     pink: Colors.PINK,
-    green: Colors.GREEN
+    green: Colors.GREEN,
+    modal_bg: Colors.MODAL_BG
   },
   fontFamily: "'Roboto', sans-serif",
   fontWeights: {

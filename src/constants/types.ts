@@ -8,6 +8,7 @@ interface ITheme {
     lightGrey: string;
     pink: string;
     green: string;
+    modal_bg: string;
   };
   fontFamily: string;
   fontWeights: {

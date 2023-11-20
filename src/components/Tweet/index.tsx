@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, memo, useEffect, useState } from 'react';
 
 import { FirebaseCollections } from '@/api/firebase/constants';
 import { deleteFirebaseDoc, updateLikesInFirebaseDoc } from '@/api/firebase/firebaseHelpers';
@@ -98,4 +98,4 @@ const Tweet: FC<IProps> = ({ tweetData, currentUserId }) => {
   );
 };
 
-export default Tweet;
+export default memo(Tweet);

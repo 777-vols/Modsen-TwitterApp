@@ -1,11 +1,14 @@
 import { signOut } from 'firebase/auth';
-import { FC, useEffect } from 'react';
+import { FC, memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { Portal } from 'react-portal';
 import { useSelector } from 'react-redux';
 
 import { FirebaseCollections } from '@/api/firebase/constants';
 import { auth } from '@/api/firebase/firebase';
 import { getAllFirebaseDocs } from '@/api/firebase/firebaseHelpers';
 import CreateTweet from '@/components/CreateTweet';
+import { CreateTweetWrapper } from '@/components/CreateTweet/styled';
+import EditProfileModal from '@/components/EditProfileModal';
 import LeftMenu from '@/components/LeftMenu';
 import { UserEmail } from '@/components/LeftMenu/styled';
 import SearchTwitter from '@/components/SearchTwitter';
@@ -44,10 +47,15 @@ const { profileBackground } = allImages;
 
 const { TWEETS_COLLECTION } = FirebaseCollections;
 
+const { logOut, tweets, following, followers, editProfile } = config;
+
 const Profile: FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const currentUser = useSelector(userSelector) as IUser;
   const tweetsArray = useSelector(tweetsSelector);
   const { deauthenticateUser, addAllTweets, setIsNotificationActive } = useAction();
+
+  const { id: currentUserId, photo, name, email } = currentUser;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,14 +70,22 @@ const Profile: FC = () => {
     });
   }, []);
 
+  const memoizedTweetsArray = useMemo(
+    () =>
+      tweetsArray
+        .map((item) => <Tweet key={item.id} tweetData={item} currentUserId={currentUserId} />)
+        .reverse(),
+    [currentUserId, tweetsArray]
+  );
+
   const handleLogOut = async () => {
     await signOut(auth);
     deauthenticateUser();
   };
 
-  const { id: currentUserId, photo, name, email } = currentUser;
-
-  const { logOut, tweets, following, followers, editProfile } = config;
+  const closeOpenModal = useCallback(() => {
+    setIsModalOpen((prevState) => !prevState);
+  }, []);
 
   return (
     <Wrapper>
@@ -105,23 +121,29 @@ const Profile: FC = () => {
               <b>0</b> {followers}
             </Following>
           </FollowingInfo>
-          <EditProfileButton>{editProfile}</EditProfileButton>
+          <EditProfileButton onClick={closeOpenModal}>{editProfile}</EditProfileButton>
         </ProfileInfo>
 
-        <CreateTweet user={currentUser} />
+        <CreateTweetWrapper>
+          <CreateTweet />
+        </CreateTweetWrapper>
 
         <TweetsBlockHeader>{tweets}</TweetsBlockHeader>
 
-        {tweetsArray
-          .map((item) => <Tweet key={item.id} tweetData={item} currentUserId={currentUserId} />)
-          .reverse()}
+        {memoizedTweetsArray}
       </Main>
 
       <RightPart>
         <SearchTwitter />
       </RightPart>
+
+      {isModalOpen && (
+        <Portal>
+          <EditProfileModal handleCloseModal={closeOpenModal} />
+        </Portal>
+      )}
     </Wrapper>
   );
 };
 
-export default Profile;
+export default memo(Profile);

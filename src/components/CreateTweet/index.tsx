@@ -1,10 +1,14 @@
 import { getStorage, ref, uploadBytes } from 'firebase/storage';
-import { ChangeEvent, FC, useState } from 'react';
+import { ChangeEvent, FC, memo, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { v4 } from 'uuid';
 
 import { SmallAvatarImg } from '@/components/LeftMenu/styled';
 import { allImages } from '@/constants/allImages';
 import { createNewTweetHelper } from '@/helpers/tweetHelpers';
 import { useAction } from '@/hooks/useAction';
+import { IUser } from '@/pages/Profile/types';
+import { userSelector } from '@/store/slices/userSlice/selectors';
 
 import { config } from './config';
 import {
@@ -17,25 +21,27 @@ import {
   TweetInput,
   Wrapper
 } from './styled';
-import { IProps } from './types';
 
 const { addImg } = allImages;
 
 const { tweetButtonText, inputPlaceholder } = config;
 
-const CreateTweet: FC<IProps> = ({ user }) => {
+const CreateTweet: FC = () => {
+  const addImageInputId = v4();
+  const currentUser = useSelector(userSelector) as IUser;
   const { addTweet } = useAction();
+
   const [tweetText, setTweetText] = useState<string>('');
   const [image, setImage] = useState<File>();
 
-  const { id, photo, name, email } = user;
+  const { id, photo, name, email } = currentUser;
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const { target } = event;
     setTweetText(target.value);
   };
 
-  const uploadImageHandler = async (event: ChangeEvent<HTMLInputElement>) => {
+  const handleUploadImage = async (event: ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
     if (files) {
       const storage = getStorage();
@@ -66,14 +72,14 @@ const CreateTweet: FC<IProps> = ({ user }) => {
       <SmallAvatarImg src={photo} alt="user avatar" />
       <Form onSubmit={handleSubmit}>
         <TweetInput placeholder={inputPlaceholder} value={tweetText} onChange={handleInputChange} />
-        <AddImageLabel htmlFor="uploadFile">
+        <AddImageLabel htmlFor={addImageInputId}>
           <Image src={addImg} alt="upload image" />
           <AddImageInput
             type="file"
-            id="uploadFile"
+            id={addImageInputId}
             accept="image/*"
             hidden
-            onChange={uploadImageHandler}
+            onChange={handleUploadImage}
           />
           {image && <NameImage>{image.name}</NameImage>}
         </AddImageLabel>
@@ -83,4 +89,4 @@ const CreateTweet: FC<IProps> = ({ user }) => {
   );
 };
 
-export default CreateTweet;
+export default memo(CreateTweet);
