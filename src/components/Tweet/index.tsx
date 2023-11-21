@@ -45,7 +45,7 @@ const Tweet: FC<IProps> = ({ tweetData, currentUserId }) => {
   const tweetDate = new Date(date);
 
   const deleteButtonHandler = async () => {
-    await deleteTweetHelper(TWEETS_COLLECTION, tweetId);
+    await deleteTweetHelper(TWEETS_COLLECTION, tweetId, image);
     deleteTweet(tweetData);
   };
 

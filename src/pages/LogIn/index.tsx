@@ -42,11 +42,13 @@ const LogIn: FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors, isValid }
   } = useForm<IFormProps>({ mode: 'onChange' });
 
   const handleLogin = async (formData: IFormProps) => {
-    await logInHelper(formData, authenticateUser, setErrorNotification, errors);
+    if (isValid) {
+      await logInHelper(formData, authenticateUser, setErrorNotification, errors);
+    }
   };
 
   return (
@@ -60,6 +62,7 @@ const LogIn: FC = () => {
           {errors?.email && <Error>{errors?.email?.message || emailError}</Error>}
           <Input
             type="email"
+            autoComplete="off"
             placeholder={emailPlaceholder}
             {...register('email', {
               required: true,
@@ -72,6 +75,7 @@ const LogIn: FC = () => {
           {errors?.password && <Error>{errors?.password?.message || passwordError}</Error>}
           <Input
             type={isPasswordShown ? 'text' : 'password'}
+            autoComplete="current-password"
             placeholder={passwordPlaceholder}
             {...register('password', {
               required: true,

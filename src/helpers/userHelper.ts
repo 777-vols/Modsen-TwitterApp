@@ -33,7 +33,7 @@ export const signUpWithGoogleHelper = async (
     if (registeredUser) {
       authenticateUser(registeredUser);
     } else {
-      const newUser: ISighUpWithGoogleUser = {
+      const newUser = {
         id,
         name: displayName,
         photo: photoURL || '',
@@ -45,7 +45,7 @@ export const signUpWithGoogleHelper = async (
         document: newUser,
         id
       });
-      authenticateUser(newUser);
+      authenticateUser(newUser as ISighUpWithGoogleUser);
     }
   } catch (error) {
     setErrorNotification({

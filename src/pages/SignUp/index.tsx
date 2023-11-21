@@ -59,7 +59,7 @@ const { logoImg, eyePasswordHide, eyePasswordOpen } = allImages;
 const customStyles: StylesConfig = {
   control: (provided) => ({
     ...provided,
-    minHeight: '60px'
+    minHeight: '50px'
   })
 };
 
@@ -124,11 +124,10 @@ const SignUp: FC = () => {
   };
 
   const handleSignUpWithEmail = async (userData: IUserFormData) => {
-    const user: ISighUpWithEmailUser = convertBirthDate(userData);
-    await signUpWithEmailHelper(user, errors, setErrorNotification);
-    navigate(LOG_IN);
-
     if (isValid) {
+      const user: ISighUpWithEmailUser = convertBirthDate(userData);
+      await signUpWithEmailHelper(user, errors, setErrorNotification);
+      navigate(LOG_IN);
       reset();
       setSuccessNotification({ message: `${successNotificationText}` });
     }

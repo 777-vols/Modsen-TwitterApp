@@ -69,16 +69,14 @@ const Profile: FC = () => {
     });
   }, []);
 
-  const memoizedTweetsArray = useMemo(
+  const arrayOfTweetComponents = useMemo(
     () =>
       tweetsArray
-        .map((item) => <Tweet key={item.id} tweetData={item} currentUserId={currentUserId} />)
-        .reverse(),
-    [currentUserId, tweetsArray]
-  );
-
-  const tweetsCount = useMemo(
-    () => tweetsArray.filter(({ author }) => author.id === currentUserId).length,
+        .filter(({ author }) => author.id === currentUserId)
+        .sort((tweet1, tweet2) => tweet2.date - tweet1.date)
+        .map((tweet: ITweet) => (
+          <Tweet key={tweet.id} tweetData={tweet} currentUserId={currentUserId} />
+        )),
     [currentUserId, tweetsArray]
   );
 
@@ -102,7 +100,7 @@ const Profile: FC = () => {
         <Header>
           <UserName>{name}</UserName>
           <TweetsNumber>
-            {tweetsCount} {tweets}
+            {arrayOfTweetComponents.length} {tweets}
           </TweetsNumber>
         </Header>
 
@@ -134,7 +132,7 @@ const Profile: FC = () => {
 
         <TweetsBlockHeader>{tweets}</TweetsBlockHeader>
 
-        {memoizedTweetsArray}
+        {arrayOfTweetComponents}
       </Main>
 
       <RightPart>

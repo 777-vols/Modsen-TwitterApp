@@ -8,7 +8,8 @@ import userSlice from './slices/userSlice';
 
 const persistConfig = {
   key: 'root',
-  storage
+  storage,
+  blacklist: ['notification']
 };
 
 const rootReducer = combineReducers({

@@ -6,4 +6,5 @@ export interface IUser {
   password?: string;
   phoneNumber?: string;
   birthDate?: Date;
+  telegram?: string;
 }

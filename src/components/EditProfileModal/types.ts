@@ -4,9 +4,9 @@ export interface IProps {
 
 export interface IUserFormData {
   name: string;
-  password: string;
-  phoneNumber: string;
   email: string;
   gender: string;
+  phoneNumber?: string;
+  password?: string;
   telegram?: string;
 }

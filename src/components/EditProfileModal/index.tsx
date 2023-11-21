@@ -23,13 +23,13 @@ import { IOption } from '@/pages/SignUp/types';
 import { userSelector } from '@/store/slices/userSlice/selectors';
 
 import { config } from './config';
-import { Background, CloseButton, GenderHeader, GenderSelectWrapper, Window } from './styled';
+import { Background, CloseButton, GenderSelectWrapper, Window } from './styled';
 import { IProps, IUserFormData } from './types';
 
 const customStyles: StylesConfig = {
   control: (provided) => ({
     ...provided,
-    minHeight: '60px'
+    minHeight: '50px'
   })
 };
 
@@ -41,7 +41,6 @@ const { namePattern, phoneNumberPattern, passwordPattern, emailPattern, telegram
 
 const {
   header,
-  genderHeader,
   placeholders,
   buttonText,
   successNotificationText,
@@ -60,7 +59,7 @@ const { nameError, phoneNumberError, emailError, passwordError, telegramError } 
 const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
   const currentUser = useSelector(userSelector) as IUser;
   const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false);
-  const { setSuccessNotification } = useAction();
+  const { setSuccessNotification, updateUserData } = useAction();
 
   const {
     register,
@@ -73,7 +72,7 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
     field: { value: genderValue, onChange: genderOnChange, ...restGenderField }
   } = useController({ name: 'gender', control, defaultValue: genderOptionsArray[0].value });
 
-  const { id: userId } = currentUser;
+  const { id: userId, name, email, password, phoneNumber, telegram } = currentUser;
 
   const togglePasswordVisiblity = () => {
     setIsPasswordShown((prevState) => !prevState);
@@ -86,11 +85,15 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
   };
 
   const handleEditProfile = async (userData: IUserFormData) => {
-    if (userData.telegram === '') {
-      delete userData.telegram;
-    }
-    await updateUserDataHelper(userData, userId);
+    Object.keys(userData).forEach((key) => {
+      if (userData[key as keyof IUserFormData] === '') {
+        delete userData[key as keyof IUserFormData];
+      }
+    });
+
     if (isValid) {
+      await updateUserDataHelper(userData, userId);
+      updateUserData(userData);
       setSuccessNotification({ message: `${successNotificationText}` });
     }
   };
@@ -106,6 +109,7 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
             <Input
               type="text"
               autoComplete="off"
+              defaultValue={name || ''}
               placeholder={namePlaceholder}
               {...register('name', {
                 required: true,
@@ -115,29 +119,33 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
               })}
             />
           </InputWrapper>
-          <InputWrapper>
-            {errors?.password && <Error>{errors?.password?.message || passwordError}</Error>}
-            <Input
-              type={isPasswordShown ? 'text' : 'password'}
-              autoComplete="current-password"
-              placeholder={passwordPlaceholder}
-              {...register('password', {
-                required: true,
-                pattern: passwordPattern
-              })}
-            />
-            <ShowHidePassowrd onClick={togglePasswordVisiblity}>
-              <EyeImage
-                src={isPasswordShown ? eyePasswordHide : eyePasswordOpen}
-                alt="eye password"
+          {password && (
+            <InputWrapper>
+              {errors?.password && <Error>{errors?.password?.message || passwordError}</Error>}
+              <Input
+                type={isPasswordShown ? 'text' : 'password'}
+                defaultValue={password || ''}
+                autoComplete="current-password"
+                placeholder={passwordPlaceholder}
+                {...register('password', {
+                  required: true,
+                  pattern: passwordPattern
+                })}
               />
-            </ShowHidePassowrd>
-          </InputWrapper>
+              <ShowHidePassowrd onClick={togglePasswordVisiblity}>
+                <EyeImage
+                  src={isPasswordShown ? eyePasswordHide : eyePasswordOpen}
+                  alt="eye password"
+                />
+              </ShowHidePassowrd>
+            </InputWrapper>
+          )}
           <InputWrapper>
             {errors?.email && <Error>{errors?.email?.message || emailError}</Error>}
             <Input
               type="email"
-              autoComplete="current-password"
+              defaultValue={email || ''}
+              autoComplete="off"
               placeholder={emailPlaceholder}
               {...register('email', {
                 required: true,
@@ -153,9 +161,9 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
             )}
             <Input
               type="text"
+              defaultValue={phoneNumber || ''}
               placeholder={phonePlaceholder}
               {...register('phoneNumber', {
-                required: true,
                 minLength: minLineLength,
                 maxLength: maxLineLength,
                 pattern: phoneNumberPattern
@@ -166,6 +174,7 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
             {errors?.telegram && <Error>{errors?.telegram?.message || telegramError}</Error>}
             <Input
               type="text"
+              defaultValue={telegram || ''}
               placeholder={telegramPlaceholder}
               {...register('telegram', {
                 minLength: minLineLength,
@@ -175,7 +184,6 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
             />
           </InputWrapper>
           <GenderSelectWrapper>
-            <GenderHeader>{genderHeader}</GenderHeader>
             <Select
               styles={customStyles}
               options={genderOptionsArray}

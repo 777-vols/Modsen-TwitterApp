@@ -58,9 +58,11 @@ export const createNewTweetHelper = async (options: IOptions): Promise<ITweet> =
   return newTweet;
 };
 
-export const deleteTweetHelper = async (collectionName: string, prop: string) => {
-  await deleteDoc(doc(db, collectionName, prop));
-
+export const deleteTweetHelper = async (collectionName: string, prop: string, image: string) => {
   const desertRef = ref(storage, prop);
-  await deleteObject(desertRef);
+
+  await deleteDoc(doc(db, collectionName, prop));
+  if (image) {
+    await deleteObject(desertRef);
+  }
 };

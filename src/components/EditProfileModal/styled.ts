@@ -44,14 +44,3 @@ export const GenderSelectWrapper = styled.div`
   position: relative;
   margin-bottom: ${({ theme }) => theme.spaces.smallXL}px;
 `;
-
-export const GenderHeader = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
-  line-height: 24px;
-  position: absolute;
-  top: -23px;
-  left: 15px;
-  @media ((max-width: ${({ theme }) => theme.breakPoints.laptop}px)) {
-    font-size: ${({ theme }) => theme.fontSizes.smallXXL}px;
-  }
-`;

@@ -11,7 +11,7 @@ const tweetsSlice = createSlice({
   initialState,
   reducers: {
     addAllTweets(state, { payload }: PayloadAction<ITweet[]>) {
-      state.tweetsArray = payload.sort((tweet1, tweet2) => tweet1.date - tweet2.date);
+      state.tweetsArray = payload;
     },
     addTweet(state, { payload }: PayloadAction<ITweet>) {
       state.tweetsArray.push(payload);
