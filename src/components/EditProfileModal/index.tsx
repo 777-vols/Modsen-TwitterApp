@@ -149,8 +149,6 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
               placeholder={emailPlaceholder}
               {...register('email', {
                 required: true,
-                minLength: minLineLength,
-                maxLength: maxLineLength,
                 pattern: emailPattern
               })}
             />
@@ -164,8 +162,6 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
               defaultValue={phoneNumber || ''}
               placeholder={phonePlaceholder}
               {...register('phoneNumber', {
-                minLength: minLineLength,
-                maxLength: maxLineLength,
                 pattern: phoneNumberPattern
               })}
             />
@@ -177,8 +173,6 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
               defaultValue={telegram || ''}
               placeholder={telegramPlaceholder}
               {...register('telegram', {
-                minLength: minLineLength,
-                maxLength: maxLineLength,
                 pattern: telegramPattern
               })}
             />

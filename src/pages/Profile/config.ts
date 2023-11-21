@@ -3,5 +3,8 @@ export const config = {
   tweets: 'Tweets',
   following: 'Following',
   followers: 'Followers',
-  editProfile: 'Edit profile'
+  editProfile: 'Edit profile',
+  defaultCount: '0',
+  defaultDescriptionText: 'UX&UI designer at',
+  defaultDescriptionLink: '@abutechuz'
 };

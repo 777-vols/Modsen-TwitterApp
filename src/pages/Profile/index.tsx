@@ -7,7 +7,6 @@ import { FirebaseCollections } from '@/api/firebase/constants';
 import { auth } from '@/api/firebase/firebase';
 import { getAllFirebaseDocs } from '@/api/firebase/firebaseHelpers';
 import CreateTweet from '@/components/CreateTweet';
-import { CreateTweetWrapper } from '@/components/CreateTweet/styled';
 import EditProfileModal from '@/components/EditProfileModal';
 import LeftMenu from '@/components/LeftMenu';
 import { UserEmail } from '@/components/LeftMenu/styled';
@@ -16,18 +15,20 @@ import Tweet from '@/components/Tweet';
 import { allImages } from '@/constants/allImages';
 import { useAction } from '@/hooks/useAction';
 import { TextLink } from '@/pages/Root/styled';
-import { tweetsSelector } from '@/store/slices/tweetsSlice/selectors';
+import { allTweetsSelector } from '@/store/slices/tweetsSlice/selectors';
 import { ITweet } from '@/store/slices/tweetsSlice/types';
 import { userSelector } from '@/store/slices/userSlice/selectors';
 
 import { config } from './config';
 import {
   Banner,
+  CreateTweetWrapper,
   Description,
   EditProfileButton,
   Following,
   FollowingInfo,
   Header,
+  HeaderContent,
   LogOutButton,
   Main,
   Name,
@@ -47,12 +48,21 @@ const { profileBackground } = allImages;
 
 const { TWEETS_COLLECTION } = FirebaseCollections;
 
-const { logOut, tweets, following, followers, editProfile } = config;
+const {
+  logOut,
+  tweets,
+  following,
+  followers,
+  editProfile,
+  defaultCount,
+  defaultDescriptionText,
+  defaultDescriptionLink
+} = config;
 
 const Profile: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const currentUser = useSelector(userSelector) as IUser;
-  const tweetsArray = useSelector(tweetsSelector);
+  const tweetsArray = useSelector(allTweetsSelector);
   const { deauthenticateUser, addAllTweets, setErrorNotification } = useAction();
 
   const { id: currentUserId, photo, name, email } = currentUser;
@@ -98,10 +108,12 @@ const Profile: FC = () => {
 
       <Main>
         <Header>
-          <UserName>{name}</UserName>
-          <TweetsNumber>
-            {arrayOfTweetComponents.length} {tweets}
-          </TweetsNumber>
+          <HeaderContent>
+            <UserName>{name}</UserName>
+            <TweetsNumber>
+              {arrayOfTweetComponents.length} {tweets}
+            </TweetsNumber>
+          </HeaderContent>
         </Header>
 
         <Banner src={profileBackground} alt="profile banner" />
@@ -112,15 +124,15 @@ const Profile: FC = () => {
             <Name>{name}</Name>
             <UserEmail>{email}</UserEmail>
             <Description>
-              UX&UI designer at <TextLink to="#">@abutechuz</TextLink>
+              {defaultDescriptionText} <TextLink to="#">{defaultDescriptionLink}</TextLink>
             </Description>
           </UserInfo>
           <FollowingInfo>
             <Following>
-              <b>0</b> {following}
+              <b>{defaultCount}</b> {following}
             </Following>
             <Following>
-              <b>0</b> {followers}
+              <b>{defaultCount}</b> {followers}
             </Following>
           </FollowingInfo>
           <EditProfileButton onClick={closeOpenModal}>{editProfile}</EditProfileButton>

@@ -19,9 +19,13 @@ export const Main = styled.main`
   max-width: 910px;
 `;
 
-export const Header = styled.div`
+export const Header = styled.header`
+  height: 87px;
   width: 100%;
   padding: ${({ theme }) => theme.spaces.smallXL}px;
+`;
+
+export const HeaderContent = styled.div`
   display: flex;
   flex-direction: column;
 `;
@@ -125,4 +129,9 @@ export const TweetsBlockHeader = styled.h1`
   height: 62px;
   margin-bottom: ${({ theme }) => theme.spaces.largeL}px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
+`;
+
+export const CreateTweetWrapper = styled.div`
+  border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
+  height: 150px;
 `;

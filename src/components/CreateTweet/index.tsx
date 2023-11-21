@@ -14,11 +14,12 @@ import { config } from './config';
 import {
   AddImageInput,
   AddImageLabel,
+  ButtonsWrapper,
   Form,
   Image,
   NameImage,
+  Textarea,
   TweetButton,
-  TweetInput,
   Wrapper
 } from './styled';
 
@@ -71,19 +72,21 @@ const CreateTweet: FC = () => {
     <Wrapper>
       <SmallAvatarImg src={photo} alt="user avatar" />
       <Form onSubmit={handleSubmit}>
-        <TweetInput placeholder={inputPlaceholder} value={tweetText} onChange={handleInputChange} />
-        <AddImageLabel htmlFor={addImageInputId}>
-          <Image src={addImg} alt="upload image" />
-          <AddImageInput
-            type="file"
-            id={addImageInputId}
-            accept="image/*"
-            hidden
-            onChange={handleUploadImage}
-          />
-          {image && <NameImage>{image.name}</NameImage>}
-        </AddImageLabel>
-        <TweetButton type="submit">{tweetButtonText}</TweetButton>
+        <Textarea placeholder={inputPlaceholder} value={tweetText} onChange={handleInputChange} />
+        <ButtonsWrapper>
+          <AddImageLabel htmlFor={addImageInputId}>
+            <Image src={addImg} alt="upload image" />
+            <AddImageInput
+              type="file"
+              id={addImageInputId}
+              accept="image/*"
+              hidden
+              onChange={handleUploadImage}
+            />
+            {image && <NameImage>{image.name}</NameImage>}
+          </AddImageLabel>
+          <TweetButton type="submit">{tweetButtonText}</TweetButton>
+        </ButtonsWrapper>
       </Form>
     </Wrapper>
   );

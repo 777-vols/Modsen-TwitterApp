@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { flexCenter } from '@/constants/styles/commonStyles';
+import { flexCenter, maxSize } from '@/constants/styles/commonStyles';
 
 export const Background = styled.div`
   ${flexCenter}
@@ -18,13 +18,11 @@ export const Window = styled.div`
   font-family: ${({ theme }) => theme.fontFamily};
   background: ${({ theme }) => theme.colors.white};
   max-width: 600px;
-  height: 300px;
   border-radius: 20px;
 `;
 
-export const PanelWrapper = styled.div`
+export const CreateTweetWrapper = styled.div`
   margin-top: ${({ theme }) => theme.spaces.largeS}px;
-  height: 80%;
 `;
 
 export const CloseButton = styled.button`
