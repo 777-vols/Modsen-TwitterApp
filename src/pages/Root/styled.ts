@@ -2,21 +2,23 @@ import { NavLink } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import {
-  appContainer,
+  container,
   flexCenter,
   flexCenterHorizontally,
   flexCenterVertical,
   fullSreen,
   maxSize
-} from '@/constants/styles/commonStyles';
+} from '@/constants/theme/styles/commonStyles';
 
 const fullSize = 100;
 
 export const Wrapper = styled.div`
   width: ${fullSize}%;
+  background: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.black};
   ${fullSreen}
   @media ((max-width: ${({ theme }) => theme.breakPoints.laptop}px)) {
-    ${appContainer}
+    ${container}
   }
 `;
 

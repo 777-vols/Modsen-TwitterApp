@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-export const appContainer = css`
+export const container = css`
   margin: ${({ theme }) => theme.spaces.zero} auto;
   width: 100%;
   max-width: 1650px;

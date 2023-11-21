@@ -5,7 +5,7 @@ import {
   resetButton,
   smallAvatar,
   userEmail
-} from '@/constants/styles/commonStyles';
+} from '@/constants/theme/styles/commonStyles';
 
 export const Wrapper = styled.div`
   position: relative;
@@ -85,8 +85,8 @@ export const LikesButton = styled.button`
 
 export const Image = styled.img`
   margin-right: ${({ theme }) => theme.spaces.smallM}px;
-  height: 20px;
-  width: 20px;
+  height: 30px;
+  width: 30px;
 `;
 
 export const LikesCount = styled.span`

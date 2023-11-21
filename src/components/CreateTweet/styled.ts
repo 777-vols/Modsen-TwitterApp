@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { blueButton, flexCenterVertical, maxSize } from '@/constants/styles/commonStyles';
+import { blueButton, flexCenterVertical, maxSize } from '@/constants/theme/styles/commonStyles';
 
 export const Wrapper = styled.div`
   ${maxSize}

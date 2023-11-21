@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-import { appContainer, blueButton, flexCenter, maxSize } from '@/constants/styles/commonStyles';
+import { blueButton, container, flexCenter, maxSize } from '@/constants/theme/styles/commonStyles';
 
 export const Wrapper = styled.div`
-  ${appContainer}
+  ${container}
   display: flex;
   padding-bottom: ${({ theme }) => theme.spaces.largeXXL}px;
 `;

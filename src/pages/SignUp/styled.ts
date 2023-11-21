@@ -1,21 +1,13 @@
 import styled from 'styled-components';
 
 import {
-  appContainer,
   blueButton,
-  flexCenter,
   flexCenterHorizontally,
   flexCenterVertical
-} from '@/constants/styles/commonStyles';
+} from '@/constants/theme/styles/commonStyles';
 
 const fullSize = 100;
 const halfSize = 50;
-
-export const Wrapper = styled.div`
-  ${appContainer}
-  ${flexCenter} 
-  min-height: ${fullSize}vh;
-`;
 
 export const Button = styled.button`
   ${blueButton}

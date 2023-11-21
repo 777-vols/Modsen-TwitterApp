@@ -1,16 +1,16 @@
 import { createGlobalStyle, DefaultTheme } from 'styled-components';
 
-import theme from '@/constants/theme';
+import { defaultTheme } from '@/constants/theme/defaultTheme';
 
 const GlobalStyle = createGlobalStyle<{ theme: DefaultTheme }>`
 * {
-  font-family: ${theme.fontFamily};
+  font-family: ${defaultTheme.fontFamily};
   box-sizing: border-box;
   text-decoration: none;
   list-style: none;
   outline: none;
-  padding: ${theme.spaces.zero}px;
-  margin: ${theme.spaces.zero}px;
+  padding: ${defaultTheme.spaces.zero}px;
+  margin: ${defaultTheme.spaces.zero}px;
 }`;
 
 export default GlobalStyle;

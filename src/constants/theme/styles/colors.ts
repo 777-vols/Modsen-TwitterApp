@@ -1,6 +1,7 @@
 const enum Colors {
   WHITE = 'rgb(255, 255, 255)',
   BLACK = 'rgb(0, 0, 0)',
+  DARK_BLUE = 'rgb(74, 69, 98)',
   LIGHT_RED = 'rgb(255, 221, 221)',
   BLUE = 'rgb(30, 151, 225)',
   GREY = 'rgb(179, 184, 187)',

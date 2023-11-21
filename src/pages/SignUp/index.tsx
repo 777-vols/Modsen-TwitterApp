@@ -15,6 +15,7 @@ import {
 } from '@/helpers/dateSelectorsHelpers';
 import { convertBirthDate, signUpWithEmailHelper } from '@/helpers/userHelper';
 import { useAction } from '@/hooks/useAction';
+import { Wrapper } from '@/pages/LogIn/styled';
 import { Logo, TextLink } from '@/pages/Root/styled';
 
 import { config } from './config';
@@ -34,7 +35,6 @@ import {
   SelectWrapper,
   ShowHidePassowrd,
   Text,
-  Wrapper,
   YearSelect
 } from './styled';
 import { IOption, ISighUpWithEmailUser, IUserFormData } from './types';

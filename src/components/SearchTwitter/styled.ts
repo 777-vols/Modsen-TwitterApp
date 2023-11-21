@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { flexCenterVertical } from '@/constants/styles/commonStyles';
+import { flexCenterVertical } from '@/constants/theme/styles/commonStyles';
 
 export const Wrapper = styled.div`
   padding: ${({ theme }) => theme.spaces.mediumS}px;

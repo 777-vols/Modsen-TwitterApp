@@ -12,7 +12,10 @@ import { allTweetsSelector } from '@/store/slices/tweetsSlice/selectors';
 import { ITweet } from '@/store/slices/tweetsSlice/types';
 import { userSelector } from '@/store/slices/userSlice/selectors';
 
+import { config } from './config';
 import { CreateTweetWrapper, HeaderContent, PageName } from './styled';
+
+const { header } = config;
 
 const Home: FC = () => {
   const tweetsArray = useSelector(allTweetsSelector);
@@ -39,7 +42,7 @@ const Home: FC = () => {
       <Main>
         <Header>
           <HeaderContent>
-            <PageName>Home</PageName>
+            <PageName>{header}</PageName>
             <Checkbox />
           </HeaderContent>
         </Header>

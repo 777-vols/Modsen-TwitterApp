@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 interface IArguments {
-  $currentTheme: string;
+  $currentTheme: boolean;
 }
 
 export const StyledLabel = styled.label<IArguments>`
@@ -10,18 +10,18 @@ export const StyledLabel = styled.label<IArguments>`
   height: 30px;
   background: transparent;
   display: block;
-  border: 2px solid ${({ theme }) => theme.colors.grey};
+  border: 3px solid ${({ theme }) => theme.colors.grey};
   border-radius: 55px;
   position: relative;
   &:after {
     content: '';
     position: absolute;
-    left: ${({ $currentTheme }) => ($currentTheme === 'lightTheme' ? '25px' : '-2px')};
+    left: ${({ $currentTheme }) => ($currentTheme ? '24px' : '-1px')};
+    top: -1px;
     width: 25px;
     height: 25px;
-    top: -1px;
     background: transparent;
-    border: 2px solid ${({ theme }) => theme.colors.grey};
+    border: 3px solid ${({ theme }) => theme.colors.grey};
     border-radius: 50px;
     transition: 0.2s;
   }

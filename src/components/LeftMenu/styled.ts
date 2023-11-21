@@ -6,7 +6,7 @@ import {
   flexCenterVertical,
   smallAvatar,
   userEmail
-} from '@/constants/styles/commonStyles';
+} from '@/constants/theme/styles/commonStyles';
 
 export const Wrapper = styled.div`
   max-width: 230px;

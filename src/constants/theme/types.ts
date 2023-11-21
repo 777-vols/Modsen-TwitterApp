@@ -1,4 +1,4 @@
-interface ITheme {
+export interface IDefaultTheme {
   colors: {
     white: string;
     black: string;
@@ -54,4 +54,8 @@ interface ITheme {
     mobile: number;
   };
 }
-export default ITheme;
+
+export interface ITheme extends IDefaultTheme {
+  background: string;
+  color: string;
+}
