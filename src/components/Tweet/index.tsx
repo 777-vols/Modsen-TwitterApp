@@ -90,7 +90,7 @@ const Tweet: FC<IProps> = ({ tweetData, currentUserId }) => {
         </MessageWrapper>
         <Likes>
           <LikesButton onClick={likeButtonHandler}>
-            <Image src={isLiked ? likeFill : likeImg} alt="like icon" />
+            <Image src={isLiked ? likeFill : likeImg} alt="like" />
           </LikesButton>
           <LikesCount>{likes ? likes.length : '0'}</LikesCount>
         </Likes>

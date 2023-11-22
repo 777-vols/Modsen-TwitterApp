@@ -6,6 +6,7 @@ import CreateTweet from '@/components/CreateTweet';
 import LeftMenu from '@/components/LeftMenu';
 import SearchTwitter from '@/components/SearchTwitter';
 import Tweet from '@/components/Tweet';
+import { searchUserHelper } from '@/helpers/searchHelpers';
 import { Header, Main, RightPart, SideBar, Wrapper } from '@/pages/Profile/styled';
 import { IUser } from '@/pages/Profile/types';
 import { allTweetsSelector } from '@/store/slices/tweetsSlice/selectors';
@@ -15,7 +16,7 @@ import { userSelector } from '@/store/slices/userSlice/selectors';
 import { config } from './config';
 import { CreateTweetWrapper, HeaderContent, PageName } from './styled';
 
-const { header } = config;
+const { header, searchPlaceholder, searchError } = config;
 
 const Home: FC = () => {
   const tweetsArray = useSelector(allTweetsSelector);
@@ -53,7 +54,11 @@ const Home: FC = () => {
       </Main>
 
       <RightPart>
-        <SearchTwitter />
+        <SearchTwitter
+          placeholder={searchPlaceholder}
+          searchData={searchUserHelper}
+          errorText={searchError}
+        />
       </RightPart>
     </Wrapper>
   );

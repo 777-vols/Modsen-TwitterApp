@@ -3,7 +3,8 @@ import { useController, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import Select, { StylesConfig } from 'react-select';
 
-import ErrorNotification from '@/components/ErrorNotification';
+import { CloseButton } from '@/components/AddTweetModal/styled';
+import Notification from '@/components/Notification';
 import { allImages } from '@/constants/allImages';
 import { formPatterns, minMaxLineLength } from '@/constants/formConstants';
 import { updateUserDataHelper } from '@/helpers/userHelper';
@@ -23,21 +24,20 @@ import { IOption } from '@/pages/SignUp/types';
 import { userSelector } from '@/store/slices/userSlice/selectors';
 
 import { config } from './config';
-import { Background, CloseButton, GenderSelectWrapper, Window } from './styled';
-import { IProps, IUserFormData } from './types';
+import { Background, GenderSelectWrapper, Window } from './styled';
+import { IEditUserFormData, IProps } from './types';
 
 const customStyles: StylesConfig = {
   control: (provided) => ({
     ...provided,
-    minHeight: '50px'
+    minHeight: '60px'
   })
 };
 
 const { eyePasswordHide, eyePasswordOpen } = allImages;
 
 const { minLineLength, maxLineLength } = minMaxLineLength;
-const { namePattern, phoneNumberPattern, passwordPattern, emailPattern, telegramPattern } =
-  formPatterns;
+const { namePattern, phoneNumberPattern, passwordPattern, telegramPattern } = formPatterns;
 
 const {
   header,
@@ -47,14 +47,9 @@ const {
   errorMessages,
   genderOptionsArray
 } = config;
-const {
-  namePlaceholder,
-  phonePlaceholder,
-  emailPlaceholder,
-  passwordPlaceholder,
-  telegramPlaceholder
-} = placeholders;
-const { nameError, phoneNumberError, emailError, passwordError, telegramError } = errorMessages;
+const { namePlaceholder, phonePlaceholder, passwordPlaceholder, telegramPlaceholder } =
+  placeholders;
+const { nameError, phoneNumberError, passwordError, telegramError } = errorMessages;
 
 const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
   const currentUser = useSelector(userSelector) as IUser;
@@ -66,13 +61,13 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
     handleSubmit,
     control,
     formState: { isValid, errors }
-  } = useForm<IUserFormData>({ mode: 'onChange' });
+  } = useForm<IEditUserFormData>({ mode: 'onChange' });
 
   const {
     field: { value: genderValue, onChange: genderOnChange, ...restGenderField }
   } = useController({ name: 'gender', control, defaultValue: genderOptionsArray[0].value });
 
-  const { id: userId, name, email, password, phoneNumber, telegram } = currentUser;
+  const { id: userId, name, password, phoneNumber, telegram } = currentUser;
 
   const togglePasswordVisiblity = () => {
     setIsPasswordShown((prevState) => !prevState);
@@ -84,10 +79,10 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
     }
   };
 
-  const handleEditProfile = async (userData: IUserFormData) => {
+  const handleEditProfile = async (userData: IEditUserFormData) => {
     Object.keys(userData).forEach((key) => {
-      if (userData[key as keyof IUserFormData] === '') {
-        delete userData[key as keyof IUserFormData];
+      if (userData[key as keyof IEditUserFormData] === '') {
+        delete userData[key as keyof IEditUserFormData];
       }
     });
 
@@ -141,19 +136,6 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
             </InputWrapper>
           )}
           <InputWrapper>
-            {errors?.email && <Error>{errors?.email?.message || emailError}</Error>}
-            <Input
-              type="email"
-              defaultValue={email || ''}
-              autoComplete="off"
-              placeholder={emailPlaceholder}
-              {...register('email', {
-                required: true,
-                pattern: emailPattern
-              })}
-            />
-          </InputWrapper>
-          <InputWrapper>
             {errors?.phoneNumber && (
               <Error>{errors?.phoneNumber?.message || phoneNumberError}</Error>
             )}
@@ -192,7 +174,7 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
           <Button type="submit">{buttonText}</Button>
         </Form>
       </Window>
-      <ErrorNotification />
+      <Notification />
     </Background>
   );
 };

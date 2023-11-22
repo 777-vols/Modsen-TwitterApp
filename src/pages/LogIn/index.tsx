@@ -1,7 +1,7 @@
 import { FC, memo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-import ErrorNotification from '@/components/ErrorNotification';
+import Notification from '@/components/Notification';
 import { allImages } from '@/constants/allImages';
 import { formPatterns, minMaxLineLength } from '@/constants/formConstants';
 import { Urls } from '@/constants/urls';
@@ -20,7 +20,7 @@ import {
 
 import { config } from './config';
 import { Form, Header, LinkWrapper, Wrapper } from './styled';
-import { IFormProps } from './types';
+import { ILoginFormData } from './types';
 
 const { header, emailPlaceholder, passwordPlaceholder, signUp, logIn } = config;
 
@@ -43,9 +43,9 @@ const LogIn: FC = () => {
     register,
     handleSubmit,
     formState: { errors, isValid }
-  } = useForm<IFormProps>({ mode: 'onChange' });
+  } = useForm<ILoginFormData>({ mode: 'onChange' });
 
-  const handleLogin = async (formData: IFormProps) => {
+  const handleLogin = async (formData: ILoginFormData) => {
     if (isValid) {
       await logInHelper(formData, authenticateUser, setErrorNotification, errors);
     }
@@ -94,7 +94,7 @@ const LogIn: FC = () => {
           <TextLink to={SIGN_UP}>{signUp}</TextLink>
         </LinkWrapper>
       </Form>
-      <ErrorNotification />
+      <Notification />
     </Wrapper>
   );
 };

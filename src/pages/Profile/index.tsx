@@ -13,6 +13,7 @@ import { UserEmail } from '@/components/LeftMenu/styled';
 import SearchTwitter from '@/components/SearchTwitter';
 import Tweet from '@/components/Tweet';
 import { allImages } from '@/constants/allImages';
+import { searchTweetHelper } from '@/helpers/searchHelpers';
 import { useAction } from '@/hooks/useAction';
 import { TextLink } from '@/pages/Root/styled';
 import { allTweetsSelector } from '@/store/slices/tweetsSlice/selectors';
@@ -56,7 +57,9 @@ const {
   editProfile,
   defaultCount,
   defaultDescriptionText,
-  defaultDescriptionLink
+  defaultDescriptionLink,
+  searchPlaceholder,
+  searchError
 } = config;
 
 const Profile: FC = () => {
@@ -148,7 +151,11 @@ const Profile: FC = () => {
       </Main>
 
       <RightPart>
-        <SearchTwitter />
+        <SearchTwitter
+          placeholder={searchPlaceholder}
+          searchData={searchTweetHelper}
+          errorText={searchError}
+        />
       </RightPart>
 
       {isModalOpen && (

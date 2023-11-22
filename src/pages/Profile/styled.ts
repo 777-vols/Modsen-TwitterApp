@@ -85,8 +85,9 @@ export const Description = styled.span`
 
 export const EditProfileButton = styled.button`
   cursor: pointer;
+  color: ${({ theme }) => theme.color};
   background: transparent;
-  border: 1px solid ${({ theme }) => theme.colors.black};
+  border: 1px solid ${({ theme }) => theme.color};
   padding: ${({ theme }) => theme.spaces.smallM}px ${({ theme }) => theme.spaces.smallL}px;
   font-weight: ${({ theme }) => theme.fontWeights.l};
   font-size: ${({ theme }) => theme.fontSizes.mediumS}px;

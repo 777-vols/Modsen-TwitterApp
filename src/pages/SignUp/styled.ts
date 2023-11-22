@@ -72,6 +72,7 @@ export const Text = styled.p`
 
 export const InputWrapper = styled.div`
   ${flexCenterVertical}
+  background:${({ theme }) => theme.colors.white};
   height: 50px;
   padding: ${({ theme }) => theme.spaces.zero} ${({ theme }) => theme.spaces.mediumS}px;
   margin-bottom: ${({ theme }) => theme.spaces.mediumS}px;

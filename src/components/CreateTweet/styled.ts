@@ -14,10 +14,16 @@ export const Form = styled.form`
 `;
 
 export const Textarea = styled.textarea`
+  background: transparent;
+  color: ${({ theme }) => theme.color};
   width: 100%;
   height: 50%;
   font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
   border: none;
+  &::placeholder {
+    color: ${({ theme }) => theme.color};
+    opacity: 0.8;
+  }
 `;
 
 export const ButtonsWrapper = styled.div`
@@ -28,11 +34,10 @@ export const ButtonsWrapper = styled.div`
 
 export const TweetButton = styled.button`
   ${blueButton}
+  margin-top: ${({ theme }) => theme.spaces.smallM}px;
   font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
   width: 116px;
   height: 50px;
-  bottom: 10px;
-  right: 10px;
   &:hover {
     font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
   }

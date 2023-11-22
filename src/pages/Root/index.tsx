@@ -1,6 +1,6 @@
 import { FC, memo } from 'react';
 
-import ErrorNotification from '@/components/ErrorNotification';
+import Notification from '@/components/Notification';
 import { allImages } from '@/constants/allImages';
 import { Urls } from '@/constants/urls';
 import { signUpWithGoogleHelper } from '@/helpers/userHelper';
@@ -96,7 +96,7 @@ const Root: FC = () => {
           </NavList>
         </nav>
       </Footer>
-      <ErrorNotification />
+      <Notification />
     </Wrapper>
   );
 };

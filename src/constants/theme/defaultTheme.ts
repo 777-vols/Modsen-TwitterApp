@@ -10,6 +10,7 @@ export const defaultTheme: IDefaultTheme = {
     black: Colors.BLACK,
     lightRed: Colors.LIGHT_RED,
     blue: Colors.BLUE,
+    darkGrey: Colors.DARK_GREY,
     grey: Colors.GREY,
     lightGrey: Colors.LIGHT_GREY,
     pink: Colors.PINK,

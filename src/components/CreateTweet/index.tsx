@@ -32,14 +32,14 @@ const CreateTweet: FC = () => {
   const currentUser = useSelector(userSelector) as IUser;
   const { addTweet } = useAction();
 
-  const [tweetText, setTweetText] = useState<string>('');
+  const [inputValue, setInputValue] = useState<string>('');
   const [image, setImage] = useState<File>();
 
   const { id, photo, name, email } = currentUser;
 
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const { target } = event;
-    setTweetText(target.value);
+    setInputValue(target.value);
   };
 
   const handleUploadImage = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -53,9 +53,9 @@ const CreateTweet: FC = () => {
   };
 
   const handleSubmit = async () => {
-    if (tweetText) {
+    if (inputValue) {
       const newTweet = await createNewTweetHelper({
-        tweetText,
+        tweetText: inputValue,
         userId: id,
         userPhoto: photo,
         userName: name,
@@ -63,7 +63,7 @@ const CreateTweet: FC = () => {
         image
       });
       addTweet(newTweet);
-      setTweetText('');
+      setInputValue('');
       setImage(undefined);
     }
   };
@@ -72,7 +72,7 @@ const CreateTweet: FC = () => {
     <Wrapper>
       <SmallAvatarImg src={photo} alt="user avatar" />
       <Form onSubmit={handleSubmit}>
-        <Textarea placeholder={inputPlaceholder} value={tweetText} onChange={handleInputChange} />
+        <Textarea placeholder={inputPlaceholder} value={inputValue} onChange={handleInputChange} />
         <ButtonsWrapper>
           <AddImageLabel htmlFor={addImageInputId}>
             <Image src={addImg} alt="upload image" />

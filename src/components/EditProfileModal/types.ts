@@ -2,7 +2,7 @@ export interface IProps {
   handleCloseModal: () => void;
 }
 
-export interface IUserFormData {
+export interface IEditUserFormData {
   name: string;
   email: string;
   gender: string;

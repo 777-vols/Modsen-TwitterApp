@@ -32,7 +32,7 @@ export const getMonthOptionsArray = (): IOption[] => {
   const optionsArray = [];
 
   for (let monthIndex = 0; monthIndex <= 11; monthIndex += 1) {
-    optionsArray.push({ value: String(monthIndex), label: allMonthsNames[monthIndex - 1] });
+    optionsArray.push({ value: String(monthIndex), label: allMonthsNames[monthIndex] });
   }
   return optionsArray;
 };

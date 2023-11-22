@@ -1,15 +1,17 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signInWithPopup
+  signInWithPopup,
+  updatePassword
 } from 'firebase/auth';
-import { doc, DocumentData, updateDoc, WithFieldValue } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 import { FieldErrors } from 'react-hook-form';
 
 import { FirebaseCollections } from '@/api/firebase/constants';
 import { auth, db, provider } from '@/api/firebase/firebase';
 import { getFirebaseDoc, setFirebaseDoc } from '@/api/firebase/firebaseHelpers';
-import { IFormProps } from '@/pages/LogIn/types';
+import { IEditUserFormData } from '@/components/EditProfileModal/types';
+import { ILoginFormData } from '@/pages/LogIn/types';
 import { ISighUpWithGoogleUser } from '@/pages/Root/types';
 import { ISighUpWithEmailUser, IUserFormData } from '@/pages/SignUp/types';
 import { TypeSetErrorNotification } from '@/store/slices/notificationSlice';
@@ -93,10 +95,10 @@ export const signUpWithEmailHelper = async (
 };
 
 export const logInHelper = async (
-  formData: IFormProps,
+  formData: ILoginFormData,
   authenticateUser: TypeAuthenticateUser,
   setErrorNotification: TypeSetErrorNotification,
-  errors: FieldErrors<IFormProps>
+  errors: FieldErrors<ILoginFormData>
 ) => {
   const { email, password } = formData;
   try {
@@ -117,9 +119,20 @@ export const logInHelper = async (
   }
 };
 
-export const updateUserDataHelper = async (newDoc: WithFieldValue<DocumentData>, id: string) => {
+export const updateUserDataHelper = async (
+  { password, ...otherProps }: IEditUserFormData,
+  id: string
+) => {
   const docRef = doc(db, USERS_COLLECTION, id);
-  await updateDoc(docRef, newDoc);
+
+  const user = auth.currentUser;
+  const newUserData = { ...otherProps };
+
+  await updateDoc(docRef, newUserData);
+  if (password && user) {
+    await updatePassword(user, password);
+    await updateDoc(docRef, { password });
+  }
 };
 
 export const convertBirthDate = (userFormData: IUserFormData): ISighUpWithEmailUser => {

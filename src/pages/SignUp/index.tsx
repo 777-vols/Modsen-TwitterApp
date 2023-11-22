@@ -3,7 +3,7 @@ import { useController, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import Select, { StylesConfig } from 'react-select';
 
-import ErrorNotification from '@/components/ErrorNotification';
+import Notification from '@/components/Notification';
 import { allImages } from '@/constants/allImages';
 import { formPatterns, minMaxLineLength } from '@/constants/formConstants';
 import { Urls } from '@/constants/urls';
@@ -244,7 +244,7 @@ const SignUp: FC = () => {
         </SelectBlock>
         <Button type="submit">{buttonText}</Button>
       </Form>
-      <ErrorNotification />
+      <Notification />
     </Wrapper>
   );
 };

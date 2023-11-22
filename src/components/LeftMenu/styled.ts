@@ -29,7 +29,7 @@ export const NavItem = styled.div`
 
 export const StyledLink = styled(NavLink)`
   font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
-  color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.color};
   transition: 0.1s;
   &:hover {
     font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;

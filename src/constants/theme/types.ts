@@ -4,6 +4,7 @@ export interface IDefaultTheme {
     black: string;
     lightRed: string;
     blue: string;
+    darkGrey: string;
     grey: string;
     lightGrey: string;
     pink: string;
