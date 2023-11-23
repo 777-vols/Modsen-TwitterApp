@@ -1,11 +1,11 @@
 import { Dispatch, SetStateAction } from 'react';
 
-import { IProps as ITweetItem } from '@/components/SearchTwitter/TweetItem/types';
-import { IProps as IUserItem } from '@/components/SearchTwitter/UserItem/types';
+import { IProps as IUserItem } from '@/components/SearchTwitter/SearchItem/types';
+import { ITweet } from '@/store/slices/tweetsSlice/types';
 
 export interface IProps {
   placeholder: string;
-  searchData: (searchValue: string) => Promise<ITweetItem[] | IUserItem[]>;
+  searchData: (searchValue: string) => Promise<ITweet[] | IUserItem[]>;
   errorText: string;
 }
 

@@ -70,7 +70,7 @@ const CreateTweet: FC = () => {
 
   return (
     <Wrapper>
-      <SmallAvatarImg src={photo} alt="user avatar" />
+      <SmallAvatarImg src={photo} alt="create tweet avatar" />
       <Form onSubmit={handleSubmit}>
         <Textarea placeholder={inputPlaceholder} value={inputValue} onChange={handleInputChange} />
         <ButtonsWrapper>

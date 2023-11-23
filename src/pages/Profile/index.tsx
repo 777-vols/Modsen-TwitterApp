@@ -122,7 +122,7 @@ const Profile: FC = () => {
         <Banner src={profileBackground} alt="profile banner" />
 
         <ProfileInfo>
-          <UserAvatar src={photo} alt="user avatar" />
+          <UserAvatar src={photo} alt="profile avatar" />
           <UserInfo>
             <Name>{name}</Name>
             <UserEmail>{email}</UserEmail>

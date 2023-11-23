@@ -3,4 +3,5 @@ export interface IProps {
   name: string;
   email: string;
   photo: string;
+  isUserSearch?: boolean;
 }

@@ -73,7 +73,7 @@ const Tweet: FC<IProps> = ({ tweetData, currentUserId }) => {
         </DeleteButton>
       )}
       <UserAvatarWrapper>
-        <Avatar src={photo} alt="user avatar" />
+        <Avatar src={photo} alt="tweet avatar" />
       </UserAvatarWrapper>
       <Content>
         <Info>

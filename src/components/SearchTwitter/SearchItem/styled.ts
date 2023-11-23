@@ -19,6 +19,7 @@ export const UserData = styled.div`
 `;
 
 export const Button = styled.button`
+  cursor: pointer;
   border: none;
   border-radius: 50px;
   background: ${({ theme }) => theme.colors.black};

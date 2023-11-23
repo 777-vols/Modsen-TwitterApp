@@ -1,17 +1,18 @@
-import { ChangeEvent, FC, memo, useState } from 'react';
+import { ChangeEvent, FC, memo, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import Notification from '@/components/Notification';
-import { IProps as ITweetItem } from '@/components/SearchTwitter/TweetItem/types';
-import { IProps as IUserItem } from '@/components/SearchTwitter/UserItem/types';
+import { IProps as IUserItem } from '@/components/SearchTwitter/SearchItem/types';
 import { allImages } from '@/constants/allImages';
 import { Urls } from '@/constants/urls';
 import { comparePathHelper } from '@/helpers/searchHelpers';
 import { useAction } from '@/hooks/useAction';
 import { config as rootConfig } from '@/pages/Root/config';
 import { TextLink } from '@/pages/Root/styled';
+import { ITweet } from '@/store/slices/tweetsSlice/types';
 
 import { config } from './config';
+import SearchItem from './SearchItem';
 import {
   Button,
   Content,
@@ -26,9 +27,7 @@ import {
   Title,
   Wrapper
 } from './styled';
-import TweetItem from './TweetItem';
 import { IProps, SetState } from './types';
-import UserItem from './UserItem';
 
 const { HOME } = Urls;
 
@@ -40,12 +39,24 @@ const { footerLinks, company } = rootConfig;
 const SearchTwitter: FC<IProps> = ({ placeholder, searchData, errorText }) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [usersArray, setUsersArray] = useState<IUserItem[]>([]);
-  const [tweetsArray, setTweetsArray] = useState<ITweetItem[]>([]);
+  const [tweetsArray, setTweetsArray] = useState<ITweet[]>([]);
   const { setErrorNotification } = useAction();
-
   const { pathname } = useLocation();
 
   const isHomePage = comparePathHelper(HOME, pathname);
+
+  const searchResultArray = useMemo(
+    () =>
+      isHomePage
+        ? usersArray.map(({ id, name, photo, email }) => (
+            <SearchItem key={id} id={id} name={name} photo={photo} email={email} isUserSearch />
+          ))
+        : tweetsArray.map(({ id, author }) => {
+            const { name, photo, email } = author;
+            return <SearchItem key={id} id={id} name={name} photo={photo} email={email} />;
+          }),
+    [isHomePage, tweetsArray, usersArray]
+  );
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { target } = event;
@@ -84,13 +95,7 @@ const SearchTwitter: FC<IProps> = ({ placeholder, searchData, errorText }) => {
       </SearchForm>
       <Content>
         <Title>{mainTitle}</Title>
-        <SearchResult>
-          {isHomePage
-            ? usersArray.map(({ id, name, photo, email }) => (
-                <UserItem key={id} id={id} name={name} photo={photo} email={email} />
-              ))
-            : tweetsArray.map(() => <TweetItem key={Math.random()} />)}
-        </SearchResult>
+        <SearchResult>{searchResultArray}</SearchResult>
         <TextLink to="#">{showMore}</TextLink>
       </Content>
       <NavList>
