@@ -13,6 +13,10 @@ export const UserName = styled.span`
   font-weight: ${({ theme }) => theme.fontWeights.l};
 `;
 
+export const UserInfo = styled.div`
+  display: flex;
+`;
+
 export const UserData = styled.div`
   display: flex;
   flex-direction: column;

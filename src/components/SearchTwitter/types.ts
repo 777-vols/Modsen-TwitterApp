@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 
-import { IProps as IUserItem } from '@/components/SearchTwitter/SearchItem/types';
+import { IProps as IUserItem } from '@/components/SearchTwitter/SearchResultItem/types';
 import { ITweet } from '@/store/slices/tweetsSlice/types';
 
 export interface IProps {

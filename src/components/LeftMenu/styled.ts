@@ -77,3 +77,15 @@ export const TweetButton = styled.button`
     font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
   }
 `;
+
+export const LogOutButton = styled.button`
+  ${blueButton}
+  max-width: 230px;
+  height: 55px;
+  background: ${({ theme }) => theme.colors.grey};
+  font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
+  margin-top: ${({ theme }) => theme.spaces.smallXL}px;
+  &:hover {
+    font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
+  }
+`;

@@ -7,7 +7,7 @@ interface INotificationStylesProps {
 export const Wrapper = styled.div<INotificationStylesProps>`
   position: fixed;
   top: 40px;
-  right: 40px;
+  left: 40px;
   padding: ${({ theme }) => theme.spaces.smallM}px;
   border-radius: 10px;
   color: ${({ theme }) => theme.colors.green};

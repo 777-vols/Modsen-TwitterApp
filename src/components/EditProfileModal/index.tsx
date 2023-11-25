@@ -119,7 +119,6 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
               {errors?.password && <Error>{errors?.password?.message || passwordError}</Error>}
               <Input
                 type={isPasswordShown ? 'text' : 'password'}
-                defaultValue={password || ''}
                 autoComplete="current-password"
                 placeholder={passwordPlaceholder}
                 {...register('password', {

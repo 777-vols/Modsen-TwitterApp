@@ -1,4 +1,5 @@
 import { FC, memo, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { FirebaseCollections } from '@/api/firebase/constants';
 import { updateLikesInFirebaseDoc } from '@/api/firebase/firebaseHelpers';
@@ -6,6 +7,8 @@ import { allImages } from '@/constants/allImages';
 import { deleteTweetHelper } from '@/helpers/tweetHelpers';
 import { useAction } from '@/hooks/useAction';
 import { UserName } from '@/pages/Profile/styled';
+import { IUser } from '@/pages/Profile/types';
+import { userSelector } from '@/store/slices/userSlice/selectors';
 
 import {
   Avatar,
@@ -30,8 +33,9 @@ const { TWEETS_COLLECTION } = FirebaseCollections;
 
 const { likeImg, likeFill, deleteImg } = allImages;
 
-const Tweet: FC<IProps> = ({ tweetData, currentUserId }) => {
+const Tweet: FC<IProps> = ({ tweetData, currentUserId, isUserAuth }) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
+  const authorizedUser = useSelector(userSelector) as IUser;
   const { deleteTweet, likeTweet } = useAction();
 
   useEffect(() => {
@@ -50,7 +54,7 @@ const Tweet: FC<IProps> = ({ tweetData, currentUserId }) => {
   };
 
   const likeButtonHandler = async () => {
-    likeTweet(tweetData);
+    likeTweet({ tweetData, userId: authorizedUser.id });
     setIsLiked((prevState) => !prevState);
 
     if (!isLiked && !tweetData.likes.includes(currentUserId)) {
@@ -67,7 +71,7 @@ const Tweet: FC<IProps> = ({ tweetData, currentUserId }) => {
 
   return (
     <Wrapper>
-      {currentUserId === tweetAuthorId && (
+      {currentUserId === tweetAuthorId && isUserAuth && (
         <DeleteButton onClick={deleteButtonHandler}>
           <Image src={deleteImg} alt="delete icon" />
         </DeleteButton>

@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 
-import { blueButton, container, flexCenter, maxSize } from '@/constants/theme/styles/commonStyles';
+import {
+  container,
+  flexCenter,
+  flexCenterVertical,
+  maxSize,
+  resetButton
+} from '@/constants/theme/styles/commonStyles';
 
 export const Wrapper = styled.div`
   ${container}
@@ -25,7 +31,18 @@ export const Header = styled.header`
   padding: ${({ theme }) => theme.spaces.smallXL}px;
 `;
 
+export const BackButton = styled.button`
+  ${resetButton}
+  cursor: pointer;
+  margin-right: ${({ theme }) => theme.spaces.mediumS}px;
+  font-size: ${({ theme }) => theme.fontSizes.largeM}px;
+`;
+
 export const HeaderContent = styled.div`
+  display: flex;
+`;
+
+export const Info = styled.div`
   display: flex;
   flex-direction: column;
 `;
@@ -111,18 +128,6 @@ export const RightPart = styled.aside`
   border-left: 1px solid ${({ theme }) => theme.colors.grey};
 `;
 
-export const LogOutButton = styled.button`
-  ${blueButton}
-  max-width: 230px;
-  height: 55px;
-  background: ${({ theme }) => theme.colors.grey};
-  font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
-  margin-top: ${({ theme }) => theme.spaces.smallXL}px;
-  &:hover {
-    font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
-  }
-`;
-
 export const TweetsBlockHeader = styled.h1`
   ${flexCenter}
   font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
@@ -135,4 +140,8 @@ export const TweetsBlockHeader = styled.h1`
 export const CreateTweetWrapper = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
   height: 150px;
+`;
+
+export const BackWrapper = styled.div`
+  ${flexCenterVertical}
 `;

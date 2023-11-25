@@ -54,3 +54,24 @@ export const searchUserHelper = async (searchValue: string): Promise<IUser[]> =>
 
   return usersArray;
 };
+
+export const searchRecommemdedUsersHelper = async (currentUserId: string): Promise<IUser[]> => {
+  const data = query(collection(db, USERS_COLLECTION));
+
+  const querySnapshot = await getDocs(data);
+  const usersArray: IUser[] = [];
+
+  querySnapshot.docs.forEach((doc) => {
+    const { id, name, email, photo } = doc.data() as IUser;
+    if (id !== currentUserId) {
+      usersArray.push({
+        id,
+        name,
+        email,
+        photo
+      });
+    }
+  });
+
+  return usersArray;
+};

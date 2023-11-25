@@ -1,18 +1,19 @@
-import { signOut } from 'firebase/auth';
 import { FC, memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { Portal } from 'react-portal';
 import { useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { FirebaseCollections } from '@/api/firebase/constants';
-import { auth } from '@/api/firebase/firebase';
-import { getAllFirebaseDocs } from '@/api/firebase/firebaseHelpers';
+import { getFirebaseDoc } from '@/api/firebase/firebaseHelpers';
 import CreateTweet from '@/components/CreateTweet';
 import EditProfileModal from '@/components/EditProfileModal';
 import LeftMenu from '@/components/LeftMenu';
 import { UserEmail } from '@/components/LeftMenu/styled';
+import NoTweets from '@/components/NoTweets';
 import SearchTwitter from '@/components/SearchTwitter';
 import Tweet from '@/components/Tweet';
 import { allImages } from '@/constants/allImages';
+import { Urls } from '@/constants/urls';
 import { searchTweetHelper } from '@/helpers/searchHelpers';
 import { useAction } from '@/hooks/useAction';
 import { TextLink } from '@/pages/Root/styled';
@@ -22,6 +23,7 @@ import { userSelector } from '@/store/slices/userSlice/selectors';
 
 import { config } from './config';
 import {
+  BackButton,
   Banner,
   CreateTweetWrapper,
   Description,
@@ -30,7 +32,7 @@ import {
   FollowingInfo,
   Header,
   HeaderContent,
-  LogOutButton,
+  Info,
   Main,
   Name,
   ProfileInfo,
@@ -45,12 +47,13 @@ import {
 } from './styled';
 import { IUser } from './types';
 
-const { profileBackground } = allImages;
+const { HOME } = Urls;
 
-const { TWEETS_COLLECTION } = FirebaseCollections;
+const { profileBackground, arrowBack, defaultUserPhoto } = allImages;
+
+const { USERS_COLLECTION } = FirebaseCollections;
 
 const {
-  logOut,
   tweets,
   following,
   followers,
@@ -64,38 +67,51 @@ const {
 
 const Profile: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const currentUser = useSelector(userSelector) as IUser;
+  const [user, setUser] = useState(useSelector(userSelector) as IUser);
+  const authorizedUser = useSelector(userSelector) as IUser;
   const tweetsArray = useSelector(allTweetsSelector);
-  const { deauthenticateUser, addAllTweets, setErrorNotification } = useAction();
+  const navigate = useNavigate();
+  const { setErrorNotification } = useAction();
 
-  const { id: currentUserId, photo, name, email } = currentUser;
+  const { id: currentUserId, photo, name, email } = user;
+
+  const { pathname } = useLocation();
+  const pathUserIdIndex = 2;
+  const pathUserId = pathname.split('/')[pathUserIdIndex];
 
   useEffect(() => {
     const fetchData = async () => {
-      const allTweets: ITweet[] = await getAllFirebaseDocs(TWEETS_COLLECTION);
-      addAllTweets(allTweets);
+      const userFoundInSearch = (await getFirebaseDoc(USERS_COLLECTION, pathUserId)) as IUser;
+
+      if (userFoundInSearch) {
+        setUser(userFoundInSearch);
+      }
     };
     fetchData().catch((error: Error) => {
       setErrorNotification({
         message: error.message
       });
     });
-  }, []);
+  }, [currentUserId, pathUserId]);
 
   const arrayOfTweetComponents = useMemo(
     () =>
       tweetsArray
-        .filter(({ author }) => author.id === currentUserId)
+        .filter((tweet: ITweet) => tweet.author.id === user.id)
         .sort((tweet1, tweet2) => tweet2.date - tweet1.date)
         .map((tweet: ITweet) => (
-          <Tweet key={tweet.id} tweetData={tweet} currentUserId={currentUserId} />
+          <Tweet
+            key={tweet.id}
+            tweetData={tweet}
+            currentUserId={currentUserId}
+            isUserAuth={authorizedUser.id === user.id}
+          />
         )),
-    [currentUserId, tweetsArray]
+    [authorizedUser.id, currentUserId, tweetsArray, user.id]
   );
 
-  const handleLogOut = async () => {
-    await signOut(auth);
-    deauthenticateUser();
+  const handleBackToHomePage = () => {
+    navigate(HOME);
   };
 
   const closeOpenModal = useCallback(() => {
@@ -106,23 +122,29 @@ const Profile: FC = () => {
     <Wrapper>
       <SideBar>
         <LeftMenu />
-        <LogOutButton onClick={handleLogOut}>{logOut}</LogOutButton>
       </SideBar>
 
       <Main>
         <Header>
           <HeaderContent>
-            <UserName>{name}</UserName>
-            <TweetsNumber>
-              {arrayOfTweetComponents.length} {tweets}
-            </TweetsNumber>
+            {authorizedUser.id !== user.id && (
+              <BackButton onClick={handleBackToHomePage}>
+                <img src={arrowBack} alt="arrow back" />
+              </BackButton>
+            )}
+            <Info>
+              <UserName>{name}</UserName>
+              <TweetsNumber>
+                {arrayOfTweetComponents.length} {tweets}
+              </TweetsNumber>
+            </Info>
           </HeaderContent>
         </Header>
 
         <Banner src={profileBackground} alt="profile banner" />
 
         <ProfileInfo>
-          <UserAvatar src={photo} alt="profile avatar" />
+          <UserAvatar src={photo || defaultUserPhoto} alt="profile avatar" />
           <UserInfo>
             <Name>{name}</Name>
             <UserEmail>{email}</UserEmail>
@@ -138,16 +160,20 @@ const Profile: FC = () => {
               <b>{defaultCount}</b> {followers}
             </Following>
           </FollowingInfo>
-          <EditProfileButton onClick={closeOpenModal}>{editProfile}</EditProfileButton>
+          {authorizedUser.id === user.id && (
+            <EditProfileButton onClick={closeOpenModal}>{editProfile}</EditProfileButton>
+          )}
         </ProfileInfo>
 
-        <CreateTweetWrapper>
-          <CreateTweet />
-        </CreateTweetWrapper>
+        {authorizedUser.id === user.id && (
+          <CreateTweetWrapper>
+            <CreateTweet />
+          </CreateTweetWrapper>
+        )}
 
         <TweetsBlockHeader>{tweets}</TweetsBlockHeader>
 
-        {arrayOfTweetComponents}
+        {arrayOfTweetComponents.length > 0 ? arrayOfTweetComponents : <NoTweets />}
       </Main>
 
       <RightPart>

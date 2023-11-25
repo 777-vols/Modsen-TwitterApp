@@ -1,18 +1,21 @@
-import { ChangeEvent, FC, memo, useMemo, useState } from 'react';
+import { ChangeEvent, FC, memo, useEffect, useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 import Notification from '@/components/Notification';
-import { IProps as IUserItem } from '@/components/SearchTwitter/SearchItem/types';
+import { IProps as IUserItem } from '@/components/SearchTwitter/SearchResultItem/types';
 import { allImages } from '@/constants/allImages';
 import { Urls } from '@/constants/urls';
-import { comparePathHelper } from '@/helpers/searchHelpers';
+import { comparePathHelper, searchRecommemdedUsersHelper } from '@/helpers/searchHelpers';
 import { useAction } from '@/hooks/useAction';
+import { IUser } from '@/pages/Profile/types';
 import { config as rootConfig } from '@/pages/Root/config';
 import { TextLink } from '@/pages/Root/styled';
 import { ITweet } from '@/store/slices/tweetsSlice/types';
+import { userSelector } from '@/store/slices/userSlice/selectors';
 
 import { config } from './config';
-import SearchItem from './SearchItem';
+import SearchResultItem from './SearchResultItem';
 import {
   Button,
   Content,
@@ -41,22 +44,36 @@ const SearchTwitter: FC<IProps> = ({ placeholder, searchData, errorText }) => {
   const [usersArray, setUsersArray] = useState<IUserItem[]>([]);
   const [tweetsArray, setTweetsArray] = useState<ITweet[]>([]);
   const { setErrorNotification } = useAction();
+  const authorizedUser = useSelector(userSelector) as IUser;
   const { pathname } = useLocation();
 
   const isHomePage = comparePathHelper(HOME, pathname);
 
-  const searchResultArray = useMemo(
-    () =>
-      isHomePage
-        ? usersArray.map(({ id, name, photo, email }) => (
-            <SearchItem key={id} id={id} name={name} photo={photo} email={email} isUserSearch />
-          ))
-        : tweetsArray.map(({ id, author }) => {
-            const { name, photo, email } = author;
-            return <SearchItem key={id} id={id} name={name} photo={photo} email={email} />;
-          }),
-    [isHomePage, tweetsArray, usersArray]
-  );
+  const searchResultArray = useMemo(() => {
+    if (inputValue !== '' && !isHomePage) {
+      return tweetsArray.map(({ id, author }) => {
+        const { name, photo, email } = author;
+        return <SearchResultItem key={id} id={id} name={name} photo={photo} email={email} />;
+      });
+    }
+    return usersArray.map(({ id, name, photo, email }) => (
+      <SearchResultItem key={id} id={id} name={name} photo={photo} email={email} isUserSearch />
+    ));
+  }, [isHomePage, tweetsArray, usersArray]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (inputValue === '') {
+        const users = await searchRecommemdedUsersHelper(authorizedUser.id);
+        setUsersArray(users);
+      }
+    };
+    fetchData().catch((error: Error) => {
+      setErrorNotification({
+        message: error.message
+      });
+    });
+  }, [authorizedUser.id, inputValue]);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { target } = event;

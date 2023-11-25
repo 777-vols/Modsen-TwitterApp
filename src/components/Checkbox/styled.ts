@@ -16,8 +16,8 @@ export const StyledLabel = styled.label<IArguments>`
   &:after {
     content: '';
     position: absolute;
-    left: ${({ $currentTheme }) => ($currentTheme ? '24px' : '-1px')};
-    top: -1px;
+    left: ${({ $currentTheme }) => ($currentTheme ? '24px' : '-3px')};
+    top: -2px;
     width: 25px;
     height: 25px;
     background: transparent;
