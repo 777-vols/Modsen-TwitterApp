@@ -7,7 +7,8 @@ const notificationSlice = createSlice({
   initialState: {
     isErrorActive: false,
     isSuccessActive: false,
-    message: ''
+    message: '',
+    isLoading: false
   },
   reducers: {
     setErrorNotification(state, action: PayloadAction<IMessageObject>) {
@@ -26,12 +27,19 @@ const notificationSlice = createSlice({
       state.isErrorActive = false;
       state.isSuccessActive = false;
       state.message = '';
+    },
+    setIsLoading(state, { payload }: PayloadAction<boolean>) {
+      state.isLoading = payload;
     }
   }
 });
 
-export const { setErrorNotification, setSuccessNotification, setNotificationInactive } =
-  notificationSlice.actions;
+export const {
+  setErrorNotification,
+  setSuccessNotification,
+  setNotificationInactive,
+  setIsLoading
+} = notificationSlice.actions;
 export type TypeSetErrorNotification = typeof setErrorNotification;
 export type TypeSetSuccessNotification = typeof setSuccessNotification;
 

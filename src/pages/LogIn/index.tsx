@@ -1,6 +1,9 @@
 import { FC, memo, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 
+import { Background } from '@/components/EditProfileModal/styled';
+import { Loader } from '@/components/Loader';
 import Notification from '@/components/Notification';
 import { allImages } from '@/constants/allImages';
 import { formPatterns, minMaxLineLength } from '@/constants/formConstants';
@@ -17,6 +20,7 @@ import {
   LogoWrapper,
   ShowHidePassowrd
 } from '@/pages/SignUp/styled';
+import { setIsLoadingSelector } from '@/store/slices/notificationSlice/selectors';
 
 import { config } from './config';
 import { Form, Header, LinkWrapper, Wrapper } from './styled';
@@ -34,11 +38,12 @@ const { passwordPattern } = formPatterns;
 
 const LogIn: FC = () => {
   const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false);
+  const isLoading = useSelector(setIsLoadingSelector) as boolean;
   const togglePasswordVisiblity = () => {
     setIsPasswordShown((prevState) => !prevState);
   };
 
-  const { authenticateUser, setErrorNotification } = useAction();
+  const { authenticateUser, setErrorNotification, setIsLoading } = useAction();
   const {
     register,
     handleSubmit,
@@ -47,11 +52,17 @@ const LogIn: FC = () => {
 
   const handleLogin = async (formData: ILoginFormData) => {
     if (isValid) {
+      setIsLoading(true);
       await logInHelper(formData, authenticateUser, setErrorNotification, errors);
+      setIsLoading(false);
     }
   };
 
-  return (
+  return isLoading ? (
+    <Background>
+      <Loader />
+    </Background>
+  ) : (
     <Wrapper>
       <Form onSubmit={handleSubmit(handleLogin)}>
         <LogoWrapper>

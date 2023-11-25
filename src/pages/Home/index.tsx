@@ -7,6 +7,7 @@ import { getAllFirebaseDocs, getFirebaseDoc } from '@/api/firebase/firebaseHelpe
 import Checkbox from '@/components/Checkbox';
 import CreateTweet from '@/components/CreateTweet';
 import LeftMenu from '@/components/LeftMenu';
+import { Loader } from '@/components/Loader';
 import SearchTwitter from '@/components/SearchTwitter';
 import Tweet from '@/components/Tweet';
 import { allImages } from '@/constants/allImages';
@@ -17,18 +18,25 @@ import {
   BackButton,
   BackWrapper,
   Header,
-  Main,
   RightPart,
   SideBar,
   Wrapper
 } from '@/pages/Profile/styled';
 import { IUser } from '@/pages/Profile/types';
+import { setIsLoadingSelector } from '@/store/slices/notificationSlice/selectors';
 import { allTweetsSelector } from '@/store/slices/tweetsSlice/selectors';
 import { ITweet } from '@/store/slices/tweetsSlice/types';
 import { userSelector } from '@/store/slices/userSlice/selectors';
 
 import { config } from './config';
-import { CreateTweetWrapper, HeaderContent, PageName } from './styled';
+import {
+  AllTweetsWrapper,
+  CreateTweetWrapper,
+  HeaderContent,
+  Main,
+  MainWrapper,
+  PageName
+} from './styled';
 
 const { HOME } = Urls;
 const { TWEETS_COLLECTION } = FirebaseCollections;
@@ -40,8 +48,9 @@ const Home: FC = () => {
   const [currentTweet, setCurrentTweet] = useState<ITweet>();
   const tweetsArray = useSelector(allTweetsSelector);
   const currentUser = useSelector(userSelector) as IUser;
+  const isLoading = useSelector(setIsLoadingSelector) as boolean;
   const { pathname } = useLocation();
-  const { setErrorNotification, addAllTweets } = useAction();
+  const { setErrorNotification, addAllTweets, setIsLoading } = useAction();
   const navigate = useNavigate();
 
   const pathUserIdIndex = 2;
@@ -51,8 +60,10 @@ const Home: FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       const allTweets: ITweet[] = await getAllFirebaseDocs(TWEETS_COLLECTION);
       addAllTweets(allTweets);
+      setIsLoading(false);
     };
     fetchData().catch((error: Error) => {
       setErrorNotification({
@@ -96,8 +107,7 @@ const Home: FC = () => {
       <SideBar>
         <LeftMenu />
       </SideBar>
-
-      <Main>
+      <MainWrapper>
         <Header>
           <HeaderContent>
             <BackWrapper>
@@ -111,18 +121,31 @@ const Home: FC = () => {
             <Checkbox />
           </HeaderContent>
         </Header>
-        {!pathTweetId && (
-          <CreateTweetWrapper>
-            <CreateTweet />
-          </CreateTweetWrapper>
-        )}
-        {pathTweetId && currentTweet ? (
-          <Tweet key={currentTweet.id} tweetData={currentTweet} currentUserId={currentUserId} />
-        ) : (
-          arrayOfTweetComponents
-        )}
-      </Main>
 
+        <Main>
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <AllTweetsWrapper>
+              {!pathTweetId && (
+                <CreateTweetWrapper>
+                  <CreateTweet />
+                </CreateTweetWrapper>
+              )}
+
+              {pathTweetId && currentTweet ? (
+                <Tweet
+                  key={currentTweet.id}
+                  tweetData={currentTweet}
+                  currentUserId={currentUserId}
+                />
+              ) : (
+                arrayOfTweetComponents
+              )}
+            </AllTweetsWrapper>
+          )}
+        </Main>
+      </MainWrapper>
       <RightPart>
         <SearchTwitter
           placeholder={searchPlaceholder}

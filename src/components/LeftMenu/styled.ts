@@ -5,6 +5,7 @@ import {
   blueButton,
   flexCenterVertical,
   smallAvatar,
+  textElipsis,
   userEmail
 } from '@/constants/theme/styles/commonStyles';
 
@@ -59,14 +60,17 @@ export const UserCard = styled.div`
 `;
 
 export const UserName = styled.span`
+  ${textElipsis}
   margin-bottom: ${({ theme }) => theme.spaces.smallS}px;
-  overflow: hidden;
+  max-width: 155px;
   font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
   font-weight: ${({ theme }) => theme.fontWeights.l};
 `;
 
 export const UserEmail = styled.span`
   ${userEmail}
+  ${textElipsis}
+  max-width: 155px;
 `;
 
 export const TweetButton = styled.button`

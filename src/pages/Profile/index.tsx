@@ -8,7 +8,6 @@ import { getFirebaseDoc } from '@/api/firebase/firebaseHelpers';
 import CreateTweet from '@/components/CreateTweet';
 import EditProfileModal from '@/components/EditProfileModal';
 import LeftMenu from '@/components/LeftMenu';
-import { UserEmail } from '@/components/LeftMenu/styled';
 import NoTweets from '@/components/NoTweets';
 import SearchTwitter from '@/components/SearchTwitter';
 import Tweet from '@/components/Tweet';
@@ -16,6 +15,7 @@ import { allImages } from '@/constants/allImages';
 import { Urls } from '@/constants/urls';
 import { searchTweetHelper } from '@/helpers/searchHelpers';
 import { useAction } from '@/hooks/useAction';
+import { Main } from '@/pages/Home/styled';
 import { TextLink } from '@/pages/Root/styled';
 import { allTweetsSelector } from '@/store/slices/tweetsSlice/selectors';
 import { ITweet } from '@/store/slices/tweetsSlice/types';
@@ -33,8 +33,8 @@ import {
   Header,
   HeaderContent,
   Info,
-  Main,
-  Name,
+  InfoEmail,
+  InfoName,
   ProfileInfo,
   RightPart,
   SideBar,
@@ -146,8 +146,8 @@ const Profile: FC = () => {
         <ProfileInfo>
           <UserAvatar src={photo || defaultUserPhoto} alt="profile avatar" />
           <UserInfo>
-            <Name>{name}</Name>
-            <UserEmail>{email}</UserEmail>
+            <InfoName>{name}</InfoName>
+            <InfoEmail>{email}</InfoEmail>
             <Description>
               {defaultDescriptionText} <TextLink to="#">{defaultDescriptionLink}</TextLink>
             </Description>

@@ -1,5 +1,6 @@
 import {
   setErrorNotification,
+  setIsLoading,
   setNotificationInactive,
   setSuccessNotification
 } from '@/store/slices/notificationSlice';
@@ -13,6 +14,7 @@ export const actionCreators = {
   deleteTweet,
   changeTheme,
   addAllTweets,
+  setIsLoading,
   updateUserData,
   authenticateUser,
   deauthenticateUser,

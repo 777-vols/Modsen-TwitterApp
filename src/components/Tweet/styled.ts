@@ -81,6 +81,7 @@ export const DeleteButton = styled.button`
 
 export const LikesButton = styled.button`
   ${Button}
+  ${flexCenterVertical}
 `;
 
 export const Image = styled.img`
@@ -91,5 +92,5 @@ export const Image = styled.img`
 `;
 
 export const LikesCount = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
+  font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
 `;

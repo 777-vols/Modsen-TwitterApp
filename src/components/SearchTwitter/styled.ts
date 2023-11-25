@@ -47,7 +47,9 @@ export const Title = styled.h3`
   padding: ${({ theme }) => theme.fontSizes.mediumL}px ${({ theme }) => theme.spaces.zero};
   font-weight: ${({ theme }) => theme.fontWeights.l};
 `;
-export const SearchResult = styled.div``;
+export const SearchResult = styled.div`
+  min-height: 40px;
+`;
 
 export const NavList = styled.ul`
   display: flex;

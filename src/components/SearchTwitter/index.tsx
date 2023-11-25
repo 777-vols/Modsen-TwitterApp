@@ -11,9 +11,11 @@ import { useAction } from '@/hooks/useAction';
 import { IUser } from '@/pages/Profile/types';
 import { config as rootConfig } from '@/pages/Root/config';
 import { TextLink } from '@/pages/Root/styled';
+import { setIsLoadingSelector } from '@/store/slices/notificationSlice/selectors';
 import { ITweet } from '@/store/slices/tweetsSlice/types';
 import { userSelector } from '@/store/slices/userSlice/selectors';
 
+import { Loader } from '../Loader';
 import { config } from './config';
 import SearchResultItem from './SearchResultItem';
 import {
@@ -43,7 +45,8 @@ const SearchTwitter: FC<IProps> = ({ placeholder, searchData, errorText }) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [usersArray, setUsersArray] = useState<IUserItem[]>([]);
   const [tweetsArray, setTweetsArray] = useState<ITweet[]>([]);
-  const { setErrorNotification } = useAction();
+  const { setErrorNotification, setIsLoading } = useAction();
+  const isLoading = useSelector(setIsLoadingSelector) as boolean;
   const authorizedUser = useSelector(userSelector) as IUser;
   const { pathname } = useLocation();
 
@@ -64,8 +67,10 @@ const SearchTwitter: FC<IProps> = ({ placeholder, searchData, errorText }) => {
   useEffect(() => {
     const fetchData = async () => {
       if (inputValue === '') {
+        setIsLoading(true);
         const users = await searchRecommemdedUsersHelper(authorizedUser.id);
         setUsersArray(users);
+        setIsLoading(false);
       }
     };
     fetchData().catch((error: Error) => {
@@ -82,7 +87,9 @@ const SearchTwitter: FC<IProps> = ({ placeholder, searchData, errorText }) => {
 
   const searchDataHelper = async <T,>(stateSetter: SetState<T[]>) => {
     if (inputValue) {
+      setIsLoading(true);
       const data = (await searchData(inputValue)) as T[];
+      setIsLoading(false);
 
       if (data.length === 0) {
         setErrorNotification({
@@ -102,6 +109,11 @@ const SearchTwitter: FC<IProps> = ({ placeholder, searchData, errorText }) => {
     }
   };
 
+  useEffect(() => {
+    const timerId = setTimeout(handleSubmitForm, 700);
+    return () => clearTimeout(timerId);
+  }, [inputValue]);
+
   return (
     <Wrapper>
       <SearchForm onSubmit={handleSubmitForm}>
@@ -112,7 +124,7 @@ const SearchTwitter: FC<IProps> = ({ placeholder, searchData, errorText }) => {
       </SearchForm>
       <Content>
         <Title>{mainTitle}</Title>
-        <SearchResult>{searchResultArray}</SearchResult>
+        <SearchResult>{isLoading ? <Loader /> : searchResultArray}</SearchResult>
         <TextLink to="#">{showMore}</TextLink>
       </Content>
       <NavList>

@@ -4,8 +4,9 @@ import {
   container,
   flexCenter,
   flexCenterVertical,
-  maxSize,
-  resetButton
+  resetButton,
+  textElipsis,
+  userEmail
 } from '@/constants/theme/styles/commonStyles';
 
 export const Wrapper = styled.div`
@@ -18,11 +19,6 @@ export const SideBar = styled.div`
   max-width: 280px;
   width: 100%;
   border-right: 1px solid ${({ theme }) => theme.colors.grey};
-`;
-
-export const Main = styled.main`
-  ${maxSize}
-  max-width: 910px;
 `;
 
 export const Header = styled.header`
@@ -48,6 +44,8 @@ export const Info = styled.div`
 `;
 
 export const UserName = styled.span`
+  ${textElipsis}
+  max-width: 250px;
   font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
   font-weight: ${({ theme }) => theme.fontWeights.m};
 `;
@@ -64,11 +62,6 @@ export const ProfileInfo = styled.div`
   padding: ${({ theme }) => theme.spaces.mediumM}px;
   padding-bottom: ${({ theme }) => theme.spaces.largeL}px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
-`;
-
-export const InfoName = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.largeS}px;
-  font-weight: ${({ theme }) => theme.fontWeights.l};
 `;
 
 export const UserAvatar = styled.img`
@@ -118,10 +111,18 @@ export const EditProfileButton = styled.button`
   }
 `;
 
-export const Name = styled.span`
+export const InfoName = styled.span`
+  ${textElipsis}
+  max-width: 250px;
   margin-bottom: ${({ theme }) => theme.spaces.smallS}px;
   font-size: ${({ theme }) => theme.fontSizes.largeS}px;
   font-weight: ${({ theme }) => theme.fontWeights.l};
+`;
+
+export const InfoEmail = styled.span`
+  ${textElipsis}
+  max-width: 250px;
+  ${userEmail}
 `;
 
 export const RightPart = styled.aside`

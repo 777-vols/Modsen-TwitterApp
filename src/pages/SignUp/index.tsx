@@ -1,7 +1,7 @@
 import { FC, memo, useMemo, useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import Select, { StylesConfig } from 'react-select';
+import Select from 'react-select';
 
 import Notification from '@/components/Notification';
 import { allImages } from '@/constants/allImages';
@@ -18,7 +18,7 @@ import { useAction } from '@/hooks/useAction';
 import { Wrapper } from '@/pages/LogIn/styled';
 import { Logo, TextLink } from '@/pages/Root/styled';
 
-import { config } from './config';
+import { config, customStyles } from './config';
 import {
   BirthDateHeader,
   Button,
@@ -55,13 +55,6 @@ const { nameError, phoneNumberError, emailError, passwordError } = errorMessages
 const { HOME, LOG_IN } = Urls;
 
 const { logoImg, eyePasswordHide, eyePasswordOpen } = allImages;
-
-const customStyles: StylesConfig = {
-  control: (provided) => ({
-    ...provided,
-    minHeight: '50px'
-  })
-};
 
 const { minLineLength, maxLineLength } = minMaxLineLength;
 const { namePattern, phoneNumberPattern, passwordPattern, emailPattern } = formPatterns;

@@ -1,7 +1,7 @@
 import { FC, memo, useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import Select, { StylesConfig } from 'react-select';
+import Select from 'react-select';
 
 import { CloseButton } from '@/components/AddTweetModal/styled';
 import Notification from '@/components/Notification';
@@ -10,6 +10,7 @@ import { formPatterns, minMaxLineLength } from '@/constants/formConstants';
 import { updateUserDataHelper } from '@/helpers/userHelper';
 import { useAction } from '@/hooks/useAction';
 import { IUser } from '@/pages/Profile/types';
+import { customStyles } from '@/pages/SignUp/config';
 import {
   Button,
   Error,
@@ -26,13 +27,6 @@ import { userSelector } from '@/store/slices/userSlice/selectors';
 import { config } from './config';
 import { Background, GenderSelectWrapper, Window } from './styled';
 import { IEditUserFormData, IProps } from './types';
-
-const customStyles: StylesConfig = {
-  control: (provided) => ({
-    ...provided,
-    minHeight: '60px'
-  })
-};
 
 const { eyePasswordHide, eyePasswordOpen } = allImages;
 
@@ -81,7 +75,7 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
 
   const handleEditProfile = async (userData: IEditUserFormData) => {
     Object.keys(userData).forEach((key) => {
-      if (userData[key as keyof IEditUserFormData] === '') {
+      if (!userData[key as keyof IEditUserFormData]) {
         delete userData[key as keyof IEditUserFormData];
       }
     });
@@ -122,7 +116,6 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
                 autoComplete="current-password"
                 placeholder={passwordPlaceholder}
                 {...register('password', {
-                  required: true,
                   pattern: passwordPattern
                 })}
               />

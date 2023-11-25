@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { flexCenterVertical } from '@/constants/theme/styles/commonStyles';
+import { flexCenterVertical, textElipsis } from '@/constants/theme/styles/commonStyles';
 
 export const Wrapper = styled.div`
   ${flexCenterVertical}
@@ -9,6 +9,8 @@ export const Wrapper = styled.div`
 `;
 
 export const UserName = styled.span`
+  ${textElipsis}
+  max-width: 180px;
   font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
   font-weight: ${({ theme }) => theme.fontWeights.l};
 `;

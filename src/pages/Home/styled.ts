@@ -1,11 +1,24 @@
 import styled from 'styled-components';
 
+import { maxSize } from '@/constants/theme/styles/commonStyles';
+
 export const CreateTweetWrapper = styled.div`
   border-top: 1px solid ${({ theme }) => theme.colors.grey};
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
 `;
 
-export const Main = styled.main``;
+export const MainWrapper = styled.div`
+  width: 100%;
+`;
+
+export const Main = styled.main`
+  ${maxSize}
+  max-width: 910px;
+`;
+
+export const AllTweetsWrapper = styled.div`
+  width: 100%;
+`;
 
 export const HeaderContent = styled.div`
   height: 100%;

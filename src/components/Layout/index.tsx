@@ -1,6 +1,7 @@
 import { FC, memo } from 'react';
 
-import AllRouters from '../AllRouters';
+import AllRouters from '@/components/AllRouters';
+
 import { AppWrapper } from './styled';
 
 const Layout: FC = () => (

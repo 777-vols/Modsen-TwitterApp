@@ -65,3 +65,10 @@ export const userEmail = css`
   font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
   opacity: 0.8;
 `;
+
+export const textElipsis = css`
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
