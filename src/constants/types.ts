@@ -7,6 +7,8 @@ interface ITheme {
     grey: string;
     lightGrey: string;
     pink: string;
+    green: string;
+    modal_bg: string;
   };
   fontFamily: string;
   fontWeights: {
@@ -30,6 +32,7 @@ interface ITheme {
     smallS: number;
   };
   spaces: {
+    largeXXL: number;
     largeXL: number;
     largeL: number;
     largeM: number;

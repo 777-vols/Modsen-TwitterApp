@@ -17,6 +17,7 @@ export interface ISighUpWithEmailUser {
   phoneNumber: string;
   email: string;
   birthDate: Date;
+  photo?: string;
 }
 
 export interface IOption {

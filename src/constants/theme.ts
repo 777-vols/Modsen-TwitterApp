@@ -12,7 +12,9 @@ const theme: ITheme = {
     blue: Colors.BLUE,
     grey: Colors.GREY,
     lightGrey: Colors.LIGHT_GREY,
-    pink: Colors.PINK
+    pink: Colors.PINK,
+    green: Colors.GREEN,
+    modal_bg: Colors.MODAL_BG
   },
   fontFamily: "'Roboto', sans-serif",
   fontWeights: {
@@ -36,6 +38,7 @@ const theme: ITheme = {
     smallS: FontSize.SMALL_S
   },
   spaces: {
+    largeXXL: Spaces.LARGE_XXL,
     largeXL: Spaces.LARGE_XL,
     largeL: Spaces.LARGE_L,
     largeM: Spaces.LARGE_M,

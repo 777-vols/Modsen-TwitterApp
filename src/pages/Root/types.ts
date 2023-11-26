@@ -1,6 +1,6 @@
 export interface ISighUpWithGoogleUser {
   id: string;
-  name: string | null;
+  name: string;
   photo: string;
-  email: string | null;
+  email: string;
 }

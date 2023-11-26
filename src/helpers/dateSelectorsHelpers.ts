@@ -31,7 +31,7 @@ export const getYearsOptionsArray = (): IOption[] => {
 export const getMonthOptionsArray = (): IOption[] => {
   const optionsArray = [];
 
-  for (let monthIndex = 1; monthIndex <= 12; monthIndex += 1) {
+  for (let monthIndex = 0; monthIndex <= 11; monthIndex += 1) {
     optionsArray.push({ value: String(monthIndex), label: allMonthsNames[monthIndex - 1] });
   }
   return optionsArray;

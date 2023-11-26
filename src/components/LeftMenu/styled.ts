@@ -1,9 +1,14 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { blueButton, flexCenterVertical } from '@/constants/styles/commonStyles';
+import {
+  blueButton,
+  flexCenterVertical,
+  smallAvatar,
+  userEmail
+} from '@/constants/styles/commonStyles';
 
-export const Wrapper = styled.aside`
+export const Wrapper = styled.div`
   max-width: 230px;
   width: 100%;
 `;
@@ -30,9 +35,41 @@ export const StyledLink = styled(NavLink)`
     font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
     color: ${({ theme }) => theme.colors.blue};
   }
+  &[aria-current] {
+    font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
+    font-weight: ${({ theme }) => theme.fontWeights.l};
+  }
 `;
 
-export const Button = styled.button`
+export const CardInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const SmallAvatarImg = styled.img`
+  margin-right: ${({ theme }) => theme.spaces.mediumS}px;
+  ${smallAvatar}
+`;
+
+export const UserCard = styled.div`
+  display: flex;
+  margin-top: ${({ theme }) => theme.spaces.largeXL}px;
+  padding: ${({ theme }) => theme.spaces.mediumS}px ${({ theme }) => theme.spaces.mediumS}px
+    ${({ theme }) => theme.spaces.mediumS}px ${({ theme }) => theme.spaces.zero};
+`;
+
+export const UserName = styled.span`
+  margin-bottom: ${({ theme }) => theme.spaces.smallS}px;
+  overflow: hidden;
+  font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
+  font-weight: ${({ theme }) => theme.fontWeights.l};
+`;
+
+export const UserEmail = styled.span`
+  ${userEmail}
+`;
+
+export const TweetButton = styled.button`
   ${blueButton}
   height: 55px;
   font-size: ${({ theme }) => theme.fontSizes.mediumL}px;

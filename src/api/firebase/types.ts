@@ -5,3 +5,9 @@ export interface IDocumentProps {
   id: string;
   document: WithFieldValue<DocumentData>;
 }
+
+export interface IUpdateProps {
+  collection: string;
+  id: string;
+  newDoc: WithFieldValue<DocumentData>;
+}

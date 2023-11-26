@@ -38,28 +38,31 @@ const LogIn: FC = () => {
     setIsPasswordShown((prevState) => !prevState);
   };
 
-  const { authenticateUser, setIsNotificationActive } = useAction();
+  const { authenticateUser, setErrorNotification } = useAction();
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors, isValid }
   } = useForm<IFormProps>({ mode: 'onChange' });
 
   const handleLogin = async (formData: IFormProps) => {
-    await logInHelper(formData, authenticateUser, setIsNotificationActive, errors);
+    if (isValid) {
+      await logInHelper(formData, authenticateUser, setErrorNotification, errors);
+    }
   };
 
   return (
     <Wrapper>
       <Form onSubmit={handleSubmit(handleLogin)}>
         <LogoWrapper>
-          <Logo alt="logoImg" src={logoImg} />
+          <Logo alt="logo" src={logoImg} />
         </LogoWrapper>
         <Header>{header}</Header>
         <InputWrapper>
           {errors?.email && <Error>{errors?.email?.message || emailError}</Error>}
           <Input
             type="email"
+            autoComplete="off"
             placeholder={emailPlaceholder}
             {...register('email', {
               required: true,
@@ -72,6 +75,7 @@ const LogIn: FC = () => {
           {errors?.password && <Error>{errors?.password?.message || passwordError}</Error>}
           <Input
             type={isPasswordShown ? 'text' : 'password'}
+            autoComplete="current-password"
             placeholder={passwordPlaceholder}
             {...register('password', {
               required: true,
@@ -79,7 +83,10 @@ const LogIn: FC = () => {
             })}
           />
           <ShowHidePassowrd onClick={togglePasswordVisiblity}>
-            <EyeImage src={isPasswordShown ? eyePasswordHide : eyePasswordOpen} alt="eyePassword" />
+            <EyeImage
+              src={isPasswordShown ? eyePasswordHide : eyePasswordOpen}
+              alt="eye password"
+            />
           </ShowHidePassowrd>
         </InputWrapper>
         <Button type="submit">{logIn}</Button>

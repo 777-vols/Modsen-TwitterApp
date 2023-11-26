@@ -46,23 +46,23 @@ const { SIGN_UP, LOG_IN } = Urls;
 const { banner, logoImg, googleIcon } = allImages;
 
 const Root: FC = () => {
-  const { authenticateUser, setIsNotificationActive } = useAction();
+  const { authenticateUser, setErrorNotification } = useAction();
 
   const handleSignUpWithGoogle = async () => {
-    await signUpWithGoogleHelper(authenticateUser, setIsNotificationActive);
+    await signUpWithGoogleHelper(authenticateUser, setErrorNotification);
   };
 
   return (
     <Wrapper>
       <Main>
-        <Banner alt="backgoundImage" src={banner} />
+        <Banner alt="banner" src={banner} />
         <Panel>
           <Content>
-            <Logo alt="logoImg" src={logoImg} />
+            <Logo alt="logo" src={logoImg} />
             <MainHeader>{mainHeader}</MainHeader>
             <SubHeader>{subHeader}</SubHeader>
             <GoogleButton onClick={handleSignUpWithGoogle}>
-              <GoogleButtonImg alt="googleIcon" src={googleIcon} />
+              <GoogleButtonImg alt="google icon" src={googleIcon} />
               {googleSignUp}
             </GoogleButton>
             <EmailButton to={SIGN_UP}>{emailSignUp}</EmailButton>

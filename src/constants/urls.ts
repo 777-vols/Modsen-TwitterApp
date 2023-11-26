@@ -3,12 +3,12 @@ export enum Urls {
   NOT_FOUND = '*',
   LOG_IN = '/logIn',
   SIGN_UP = '/signUp',
-  HOME = '/home',
+  HOME = '/feed',
   EXPLORE = '/explore',
   NOTIFICATIONS = '/notifications',
   MESSAGES = '/messages',
   BOOKMARKS = '/bookmarks',
   LISTS = '/lists',
-  PROFILE = '/profile',
+  PROFILE = '/profile/:id',
   MORE = '/more'
 }
