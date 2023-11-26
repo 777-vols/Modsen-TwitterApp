@@ -25,15 +25,15 @@ export const Content = styled.div`
   height: ${sizeXL}px;
   background-image: url(${errorBoundary});
 
-  @media ((max-width: ${({ theme }) => theme.breakPoints.laptop}px)) {
+  @media (max-width: ${({ theme }) => theme.breakPoints.laptop}px) {
     width: ${sizeL}px;
     height: ${sizeL}px;
   }
-  @media ((max-width: ${({ theme }) => theme.breakPoints.tablet}px)) {
+  @media (max-width: ${({ theme }) => theme.breakPoints.tablet}px) {
     width: ${sizeM}px;
     height: ${sizeM}px;
   }
-  @media ((max-width: ${({ theme }) => theme.breakPoints.mobile}px)) {
+  @media (max-width: ${({ theme }) => theme.breakPoints.mobile}px) {
     width: ${sizeS}px;
     height: ${sizeS}px;
   }

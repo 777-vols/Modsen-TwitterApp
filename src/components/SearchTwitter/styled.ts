@@ -8,10 +8,11 @@ import {
 } from '@/constants/theme/styles/commonStyles';
 
 export const Wrapper = styled.div`
+  position: sticky;
+  top: 20px;
   margin: ${({ theme }) => theme.spaces.mediumS}px ${({ theme }) => theme.spaces.zero}
     ${({ theme }) => theme.spaces.mediumS}px ${({ theme }) => theme.spaces.mediumM}px;
   width: 100%;
-  max-width: 383px;
 `;
 
 export const SearchForm = styled.form`

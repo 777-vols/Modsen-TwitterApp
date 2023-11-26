@@ -16,7 +16,15 @@ import { allImages } from '@/constants/allImages';
 import { Urls } from '@/constants/urls';
 import { searchTweetHelper } from '@/helpers/searchHelpers';
 import { useAction } from '@/hooks/useAction';
-import { AllTweetsWrapper, Main, MainWrapper } from '@/pages/Home/styled';
+import {
+  AllTweetsWrapper,
+  Header,
+  LeftSideBar,
+  Main,
+  MainWrapper,
+  RigthSideBar,
+  Wrapper
+} from '@/pages/Home/styled';
 import { TextLink } from '@/pages/Root/styled';
 import { isLoadingSelector } from '@/store/slices/notificationSlice/selectors';
 import { allTweetsSelector } from '@/store/slices/tweetsSlice/selectors';
@@ -32,20 +40,16 @@ import {
   EditProfileButton,
   Following,
   FollowingInfo,
-  Header,
   HeaderContent,
   Info,
   InfoEmail,
   InfoName,
   ProfileInfo,
-  RightPart,
-  SideBar,
   TweetsBlockHeader,
   TweetsNumber,
   UserAvatar,
   UserInfo,
-  UserName,
-  Wrapper
+  UserName
 } from './styled';
 import { IUser } from './types';
 
@@ -123,9 +127,9 @@ const Profile: FC = () => {
 
   return (
     <Wrapper>
-      <SideBar>
+      <LeftSideBar>
         <LeftMenu />
-      </SideBar>
+      </LeftSideBar>
 
       <MainWrapper>
         <Header>
@@ -187,13 +191,13 @@ const Profile: FC = () => {
         </Main>
       </MainWrapper>
 
-      <RightPart>
+      <RigthSideBar>
         <SearchTwitter
           placeholder={searchPlaceholder}
           searchData={searchTweetHelper}
           errorText={searchError}
         />
-      </RightPart>
+      </RigthSideBar>
 
       {isModalOpen && (
         <Portal>

@@ -14,14 +14,7 @@ import { allImages } from '@/constants/allImages';
 import { Urls } from '@/constants/urls';
 import { searchUserHelper } from '@/helpers/searchHelpers';
 import { useAction } from '@/hooks/useAction';
-import {
-  BackButton,
-  BackWrapper,
-  Header,
-  RightPart,
-  SideBar,
-  Wrapper
-} from '@/pages/Profile/styled';
+import { BackButton, BackWrapper } from '@/pages/Profile/styled';
 import { IUser } from '@/pages/Profile/types';
 import { isLoadingSelector } from '@/store/slices/notificationSlice/selectors';
 import { allTweetsSelector } from '@/store/slices/tweetsSlice/selectors';
@@ -32,10 +25,14 @@ import { config } from './config';
 import {
   AllTweetsWrapper,
   CreateTweetWrapper,
+  Header,
   HeaderContent,
+  LeftSideBar,
   Main,
   MainWrapper,
-  PageName
+  PageName,
+  RigthSideBar,
+  Wrapper
 } from './styled';
 
 const { HOME } = Urls;
@@ -104,9 +101,9 @@ const Home: FC = () => {
 
   return (
     <Wrapper>
-      <SideBar>
+      <LeftSideBar>
         <LeftMenu />
-      </SideBar>
+      </LeftSideBar>
 
       <MainWrapper>
         <Header>
@@ -147,13 +144,13 @@ const Home: FC = () => {
           )}
         </Main>
       </MainWrapper>
-      <RightPart>
+      <RigthSideBar>
         <SearchTwitter
           placeholder={searchPlaceholder}
           searchData={searchUserHelper}
           errorText={searchError}
         />
-      </RightPart>
+      </RigthSideBar>
     </Wrapper>
   );
 };

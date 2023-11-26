@@ -30,7 +30,6 @@ import {
   Error,
   EyeImage,
   Form,
-  Header,
   Input,
   InputWrapper,
   LogoWrapper,
@@ -41,6 +40,7 @@ import {
   SelectWrapper,
   ShowHidePassowrd,
   Text,
+  Title,
   YearSelect
 } from './styled';
 import { IOption, ISighUpWithEmailUser, IUserFormData } from './types';
@@ -153,7 +153,7 @@ const SignUp: FC = () => {
         <LogoWrapper>
           <Logo alt="logo" src={logoImg} />
         </LogoWrapper>
-        <Header>{header}</Header>
+        <Title>{header}</Title>
         <InputWrapper>
           {errors?.name && <Error>{errors?.name?.message || nameError}</Error>}
           <Input

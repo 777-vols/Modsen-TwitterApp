@@ -1,31 +1,12 @@
 import styled from 'styled-components';
 
 import {
-  container,
   flexCenter,
   flexCenterVertical,
   resetButton,
   textElipsis,
   userEmail
 } from '@/constants/theme/styles/commonStyles';
-
-export const Wrapper = styled.div`
-  ${container}
-  display: flex;
-  padding-bottom: ${({ theme }) => theme.spaces.largeXXL}px;
-`;
-
-export const SideBar = styled.div`
-  max-width: 280px;
-  width: 100%;
-  border-right: 1px solid ${({ theme }) => theme.colors.grey};
-`;
-
-export const Header = styled.header`
-  height: 87px;
-  width: 100%;
-  padding: ${({ theme }) => theme.spaces.smallXL}px;
-`;
 
 export const BackButton = styled.button`
   ${resetButton}
@@ -123,10 +104,6 @@ export const InfoEmail = styled.span`
   ${textElipsis}
   max-width: 250px;
   ${userEmail}
-`;
-
-export const RightPart = styled.aside`
-  border-left: 1px solid ${({ theme }) => theme.colors.grey};
 `;
 
 export const TweetsBlockHeader = styled.h1`

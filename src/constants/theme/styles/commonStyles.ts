@@ -3,8 +3,12 @@ import { css } from 'styled-components';
 export const container = css`
   margin: ${({ theme }) => theme.spaces.zero} auto;
   width: 100%;
-  max-width: 1650px;
+  max-width: 1200px;
   padding: ${({ theme }) => theme.spaces.zero} ${({ theme }) => theme.spaces.mediumM}px;
+
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    max-width: 1650px;
+  }
 `;
 
 export const fullSreen = css`
@@ -57,13 +61,20 @@ export const blueButton = css`
 
 export const smallAvatar = css`
   border-radius: 100px;
-  height: 50px;
-  width: 50px;
+  height: 35px;
+  width: 35px;
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    height: 50px;
+    width: 50px;
+  }
 `;
 
 export const userEmail = css`
-  font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
+  font-size: ${({ theme }) => theme.fontSizes.smallXXL}px;
   opacity: 0.8;
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
+  }
 `;
 
 export const textElipsis = css`

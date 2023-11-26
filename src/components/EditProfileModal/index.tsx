@@ -16,12 +16,12 @@ import {
   Error,
   EyeImage,
   Form,
-  Header,
   Input,
   InputWrapper,
   PasswordError,
   PasswordWrapper,
-  ShowHidePassowrd
+  ShowHidePassowrd,
+  Title
 } from '@/pages/SignUp/styled';
 import { IOption } from '@/pages/SignUp/types';
 import { userSelector } from '@/store/slices/userSlice/selectors';
@@ -104,7 +104,7 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
       <Window>
         <CloseButton onClick={handleCloseModal}>X</CloseButton>
         <Form onSubmit={handleSubmit(handleEditProfile)}>
-          <Header>{header}</Header>
+          <Title>{header}</Title>
           <InputWrapper>
             {errors?.name && <Error>{errors?.name?.message || nameError}</Error>}
             <Input
