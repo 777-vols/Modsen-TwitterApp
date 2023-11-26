@@ -1,9 +1,16 @@
 import styled from 'styled-components';
 
-import { appContainer, blueButton, flexCenter, maxSize } from '@/constants/styles/commonStyles';
+import {
+  container,
+  flexCenter,
+  flexCenterVertical,
+  resetButton,
+  textElipsis,
+  userEmail
+} from '@/constants/theme/styles/commonStyles';
 
 export const Wrapper = styled.div`
-  ${appContainer}
+  ${container}
   display: flex;
   padding-bottom: ${({ theme }) => theme.spaces.largeXXL}px;
 `;
@@ -14,19 +21,31 @@ export const SideBar = styled.div`
   border-right: 1px solid ${({ theme }) => theme.colors.grey};
 `;
 
-export const Main = styled.main`
-  ${maxSize}
-  max-width: 910px;
-`;
-
-export const Header = styled.div`
+export const Header = styled.header`
+  height: 87px;
   width: 100%;
   padding: ${({ theme }) => theme.spaces.smallXL}px;
+`;
+
+export const BackButton = styled.button`
+  ${resetButton}
+  cursor: pointer;
+  margin-right: ${({ theme }) => theme.spaces.mediumS}px;
+  font-size: ${({ theme }) => theme.fontSizes.largeM}px;
+`;
+
+export const HeaderContent = styled.div`
+  display: flex;
+`;
+
+export const Info = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
 export const UserName = styled.span`
+  ${textElipsis}
+  max-width: 250px;
   font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
   font-weight: ${({ theme }) => theme.fontWeights.m};
 `;
@@ -43,11 +62,6 @@ export const ProfileInfo = styled.div`
   padding: ${({ theme }) => theme.spaces.mediumM}px;
   padding-bottom: ${({ theme }) => theme.spaces.largeL}px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
-`;
-
-export const InfoName = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.largeS}px;
-  font-weight: ${({ theme }) => theme.fontWeights.l};
 `;
 
 export const UserAvatar = styled.img`
@@ -81,8 +95,9 @@ export const Description = styled.span`
 
 export const EditProfileButton = styled.button`
   cursor: pointer;
+  color: ${({ theme }) => theme.color};
   background: transparent;
-  border: 1px solid ${({ theme }) => theme.colors.black};
+  border: 1px solid ${({ theme }) => theme.color};
   padding: ${({ theme }) => theme.spaces.smallM}px ${({ theme }) => theme.spaces.smallL}px;
   font-weight: ${({ theme }) => theme.fontWeights.l};
   font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
@@ -96,26 +111,22 @@ export const EditProfileButton = styled.button`
   }
 `;
 
-export const Name = styled.span`
+export const InfoName = styled.span`
+  ${textElipsis}
+  max-width: 250px;
   margin-bottom: ${({ theme }) => theme.spaces.smallS}px;
   font-size: ${({ theme }) => theme.fontSizes.largeS}px;
   font-weight: ${({ theme }) => theme.fontWeights.l};
 `;
 
-export const RightPart = styled.aside`
-  border-left: 1px solid ${({ theme }) => theme.colors.grey};
+export const InfoEmail = styled.span`
+  ${textElipsis}
+  max-width: 250px;
+  ${userEmail}
 `;
 
-export const LogOutButton = styled.button`
-  ${blueButton}
-  max-width: 230px;
-  height: 55px;
-  background: ${({ theme }) => theme.colors.grey};
-  font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
-  margin-top: ${({ theme }) => theme.spaces.smallXL}px;
-  &:hover {
-    font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
-  }
+export const RightPart = styled.aside`
+  border-left: 1px solid ${({ theme }) => theme.colors.grey};
 `;
 
 export const TweetsBlockHeader = styled.h1`
@@ -125,4 +136,13 @@ export const TweetsBlockHeader = styled.h1`
   height: 62px;
   margin-bottom: ${({ theme }) => theme.spaces.largeL}px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
+`;
+
+export const CreateTweetWrapper = styled.div`
+  border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
+  height: 150px;
+`;
+
+export const BackWrapper = styled.div`
+  ${flexCenterVertical}
 `;

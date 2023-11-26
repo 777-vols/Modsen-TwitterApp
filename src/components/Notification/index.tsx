@@ -10,7 +10,7 @@ import {
 
 import { Message, Wrapper } from './styled';
 
-const ErrorNotification: FC = () => {
+const Notification: FC = () => {
   const isErrorActive = useSelector(errorNotificationSelector);
   const isSuccessActive = useSelector(successNotificationSelector);
   const message = useSelector(notificationMessageSelector);
@@ -39,4 +39,4 @@ const ErrorNotification: FC = () => {
   return null;
 };
 
-export default memo(ErrorNotification);
+export default memo(Notification);

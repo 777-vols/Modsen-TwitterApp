@@ -1,7 +1,10 @@
 import { FC, memo, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 
-import ErrorNotification from '@/components/ErrorNotification';
+import { Background } from '@/components/EditProfileModal/styled';
+import { Loader } from '@/components/Loader';
+import Notification from '@/components/Notification';
 import { allImages } from '@/constants/allImages';
 import { formPatterns, minMaxLineLength } from '@/constants/formConstants';
 import { Urls } from '@/constants/urls';
@@ -17,12 +20,13 @@ import {
   LogoWrapper,
   ShowHidePassowrd
 } from '@/pages/SignUp/styled';
+import { isLoadingSelector } from '@/store/slices/notificationSlice/selectors';
 
 import { config } from './config';
 import { Form, Header, LinkWrapper, Wrapper } from './styled';
-import { IFormProps } from './types';
+import { ILoginFormData } from './types';
 
-const { header, emailPlaceholder, passwordPlaceholder, signUp, logIn } = config;
+const { header, emailPlaceholder, passwordPlaceholder, signUp, logIn, errorMessage } = config;
 
 const { SIGN_UP } = Urls;
 
@@ -34,24 +38,37 @@ const { passwordPattern } = formPatterns;
 
 const LogIn: FC = () => {
   const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false);
+  const isLoading = useSelector(isLoadingSelector) as boolean;
   const togglePasswordVisiblity = () => {
     setIsPasswordShown((prevState) => !prevState);
   };
 
-  const { authenticateUser, setErrorNotification } = useAction();
+  const { authenticateUser, setErrorNotification, setIsLoading } = useAction();
   const {
     register,
     handleSubmit,
     formState: { errors, isValid }
-  } = useForm<IFormProps>({ mode: 'onChange' });
+  } = useForm<ILoginFormData>({ mode: 'onChange' });
 
-  const handleLogin = async (formData: IFormProps) => {
-    if (isValid) {
-      await logInHelper(formData, authenticateUser, setErrorNotification, errors);
+  const handleLogin = async (formData: ILoginFormData) => {
+    try {
+      if (isValid) {
+        setIsLoading(true);
+        await logInHelper(formData, authenticateUser);
+      }
+    } catch (error) {
+      setErrorNotification({
+        message: errorMessage
+      });
     }
+    setIsLoading(false);
   };
 
-  return (
+  return isLoading ? (
+    <Background>
+      <Loader />
+    </Background>
+  ) : (
     <Wrapper>
       <Form onSubmit={handleSubmit(handleLogin)}>
         <LogoWrapper>
@@ -94,7 +111,7 @@ const LogIn: FC = () => {
           <TextLink to={SIGN_UP}>{signUp}</TextLink>
         </LinkWrapper>
       </Form>
-      <ErrorNotification />
+      <Notification />
     </Wrapper>
   );
 };

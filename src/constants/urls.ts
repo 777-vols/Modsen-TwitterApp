@@ -4,6 +4,7 @@ export enum Urls {
   LOG_IN = '/logIn',
   SIGN_UP = '/signUp',
   HOME = '/feed',
+  HOME_TWEET = '/feed/:id',
   EXPLORE = '/explore',
   NOTIFICATIONS = '/notifications',
   MESSAGES = '/messages',

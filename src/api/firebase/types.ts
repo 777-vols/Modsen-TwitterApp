@@ -1,13 +1,7 @@
 import { DocumentData, WithFieldValue } from 'firebase/firestore';
 
-export interface IDocumentProps {
+export interface IOptions {
   collectionName: string;
   id: string;
   document: WithFieldValue<DocumentData>;
-}
-
-export interface IUpdateProps {
-  collection: string;
-  id: string;
-  newDoc: WithFieldValue<DocumentData>;
 }

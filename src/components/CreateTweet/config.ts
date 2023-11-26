@@ -1,4 +1,4 @@
 export const config = {
   tweetButtonText: 'Tweet',
-  inputPlaceholder: "What's Happening"
+  inputPlaceholder: 'Write a new tweet...'
 };

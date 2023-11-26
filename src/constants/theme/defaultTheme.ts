@@ -2,14 +2,15 @@ import BreakPoints from './styles/breakPoints';
 import Colors from './styles/colors';
 import FontSize from './styles/fontSizes';
 import Spaces from './styles/spaces';
-import ITheme from './types';
+import { IDefaultTheme } from './types';
 
-const theme: ITheme = {
+export const defaultTheme: IDefaultTheme = {
   colors: {
     white: Colors.WHITE,
     black: Colors.BLACK,
     lightRed: Colors.LIGHT_RED,
     blue: Colors.BLUE,
+    darkGrey: Colors.DARK_GREY,
     grey: Colors.GREY,
     lightGrey: Colors.LIGHT_GREY,
     pink: Colors.PINK,
@@ -60,5 +61,3 @@ const theme: ITheme = {
     mobile: BreakPoints.MOBILE
   }
 };
-
-export default theme;

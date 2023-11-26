@@ -1,10 +1,14 @@
 import { FC, memo } from 'react';
+import { useSelector } from 'react-redux';
 
-import ErrorNotification from '@/components/ErrorNotification';
+import { Background } from '@/components/EditProfileModal/styled';
+import { Loader } from '@/components/Loader';
+import Notification from '@/components/Notification';
 import { allImages } from '@/constants/allImages';
 import { Urls } from '@/constants/urls';
 import { signUpWithGoogleHelper } from '@/helpers/userHelper';
 import { useAction } from '@/hooks/useAction';
+import { isLoadingSelector } from '@/store/slices/notificationSlice/selectors';
 
 import { config } from './config';
 import {
@@ -39,20 +43,34 @@ const {
   agreeText,
   agreeLinks,
   haveAccountText,
-  haveAccountLink
+  haveAccountLink,
+  errorNotificationText
 } = config;
 
 const { SIGN_UP, LOG_IN } = Urls;
 const { banner, logoImg, googleIcon } = allImages;
 
 const Root: FC = () => {
-  const { authenticateUser, setErrorNotification } = useAction();
+  const { authenticateUser, setErrorNotification, setIsLoading } = useAction();
+  const isLoading = useSelector(isLoadingSelector) as boolean;
 
   const handleSignUpWithGoogle = async () => {
-    await signUpWithGoogleHelper(authenticateUser, setErrorNotification);
+    try {
+      setIsLoading(true);
+      await signUpWithGoogleHelper(authenticateUser);
+    } catch (error) {
+      setErrorNotification({
+        message: errorNotificationText
+      });
+    }
+    setIsLoading(true);
   };
 
-  return (
+  return isLoading ? (
+    <Background>
+      <Loader />
+    </Background>
+  ) : (
     <Wrapper>
       <Main>
         <Banner alt="banner" src={banner} />
@@ -96,7 +114,7 @@ const Root: FC = () => {
           </NavList>
         </nav>
       </Footer>
-      <ErrorNotification />
+      <Notification />
     </Wrapper>
   );
 };

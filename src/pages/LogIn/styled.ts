@@ -1,14 +1,16 @@
 import styled from 'styled-components';
 
 import {
-  appContainer,
+  container,
   flexCenter,
   flexCenterHorizontally,
   fullSreen
-} from '@/constants/styles/commonStyles';
+} from '@/constants/theme/styles/commonStyles';
 
 export const Wrapper = styled.div`
-  ${appContainer}
+  background: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.black};
+  ${container}
   ${fullSreen}
   ${flexCenter}
 `;

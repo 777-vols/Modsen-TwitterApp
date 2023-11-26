@@ -30,5 +30,9 @@ export const privateRoutes: IRoute[] = [
   {
     path: Urls.HOME,
     Component: Home
+  },
+  {
+    path: Urls.HOME_TWEET,
+    Component: Home
   }
 ];

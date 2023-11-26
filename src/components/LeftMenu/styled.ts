@@ -5,8 +5,9 @@ import {
   blueButton,
   flexCenterVertical,
   smallAvatar,
+  textElipsis,
   userEmail
-} from '@/constants/styles/commonStyles';
+} from '@/constants/theme/styles/commonStyles';
 
 export const Wrapper = styled.div`
   max-width: 230px;
@@ -29,7 +30,7 @@ export const NavItem = styled.div`
 
 export const StyledLink = styled(NavLink)`
   font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
-  color: ${({ theme }) => theme.colors.black};
+  color: ${({ theme }) => theme.color};
   transition: 0.1s;
   &:hover {
     font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
@@ -59,20 +60,35 @@ export const UserCard = styled.div`
 `;
 
 export const UserName = styled.span`
+  ${textElipsis}
   margin-bottom: ${({ theme }) => theme.spaces.smallS}px;
-  overflow: hidden;
+  max-width: 155px;
   font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
   font-weight: ${({ theme }) => theme.fontWeights.l};
 `;
 
 export const UserEmail = styled.span`
   ${userEmail}
+  ${textElipsis}
+  max-width: 155px;
 `;
 
 export const TweetButton = styled.button`
   ${blueButton}
   height: 55px;
   font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
+  &:hover {
+    font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
+  }
+`;
+
+export const LogOutButton = styled.button`
+  ${blueButton}
+  max-width: 230px;
+  height: 55px;
+  background: ${({ theme }) => theme.colors.grey};
+  font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
+  margin-top: ${({ theme }) => theme.spaces.smallXL}px;
   &:hover {
     font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
   }

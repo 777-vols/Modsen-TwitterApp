@@ -19,7 +19,7 @@ export const allMonthsNames: string[] = [
 
 export const getYearsOptionsArray = (): IOption[] => {
   const startYear = new Date().getFullYear() - 100;
-  const lastYear = new Date().getFullYear();
+  const lastYear = new Date().getFullYear() - 16;
   const optionsArray = [];
 
   for (let year = startYear; year <= lastYear; year += 1) {
@@ -32,7 +32,7 @@ export const getMonthOptionsArray = (): IOption[] => {
   const optionsArray = [];
 
   for (let monthIndex = 0; monthIndex <= 11; monthIndex += 1) {
-    optionsArray.push({ value: String(monthIndex), label: allMonthsNames[monthIndex - 1] });
+    optionsArray.push({ value: String(monthIndex), label: allMonthsNames[monthIndex] });
   }
   return optionsArray;
 };

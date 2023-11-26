@@ -5,7 +5,7 @@ import {
   resetButton,
   smallAvatar,
   userEmail
-} from '@/constants/styles/commonStyles';
+} from '@/constants/theme/styles/commonStyles';
 
 export const Wrapper = styled.div`
   position: relative;
@@ -81,14 +81,16 @@ export const DeleteButton = styled.button`
 
 export const LikesButton = styled.button`
   ${Button}
+  ${flexCenterVertical}
 `;
 
 export const Image = styled.img`
   margin-right: ${({ theme }) => theme.spaces.smallM}px;
-  height: 20px;
-  width: 20px;
+  height: 23px;
+  width: 23px;
+  filter: invert(10%) sepia(94%) saturate(7149%) hue-rotate(3deg) brightness(97%) contrast(83%);
 `;
 
 export const LikesCount = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
+  font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
 `;

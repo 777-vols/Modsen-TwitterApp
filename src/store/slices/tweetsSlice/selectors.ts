@@ -1,3 +1,3 @@
 import { TypeState } from '@/store/index';
 
-export const tweetsSelector = (state: TypeState) => state.tweets.tweetsArray;
+export const allTweetsSelector = (state: TypeState) => state.tweets.tweetsArray;

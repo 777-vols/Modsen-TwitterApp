@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { blueButton, flexCenterVertical, maxSize } from '@/constants/styles/commonStyles';
+import { blueButton, flexCenterVertical, maxSize } from '@/constants/theme/styles/commonStyles';
 
 export const Wrapper = styled.div`
   ${maxSize}
@@ -10,25 +10,34 @@ export const Wrapper = styled.div`
 
 export const Form = styled.form`
   position: relative;
-  min-height: 117px;
-  width: 100%;
+  ${maxSize}
 `;
 
-export const TweetInput = styled.textarea`
+export const Textarea = styled.textarea`
+  background: transparent;
+  color: ${({ theme }) => theme.color};
   width: 100%;
-  height: 70%;
+  height: 50%;
   font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
   border: none;
+  &::placeholder {
+    color: ${({ theme }) => theme.color};
+    opacity: 0.8;
+  }
+`;
+
+export const ButtonsWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
 `;
 
 export const TweetButton = styled.button`
   ${blueButton}
-  position: absolute;
+  margin-top: ${({ theme }) => theme.spaces.smallM}px;
   font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
   width: 116px;
   height: 50px;
-  bottom: 10px;
-  right: 10px;
   &:hover {
     font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
   }
@@ -37,7 +46,6 @@ export const TweetButton = styled.button`
 export const AddImageLabel = styled.label`
   ${flexCenterVertical}
   cursor: pointer;
-  position: absolute;
   left: 10px;
   bottom: 10px;
 `;
@@ -52,8 +60,4 @@ export const Image = styled.img`
   height: 30px;
   width: 30px;
   margin-right: ${({ theme }) => theme.spaces.smallM}px;
-`;
-
-export const CreateTweetWrapper = styled.div`
-  border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
 `;

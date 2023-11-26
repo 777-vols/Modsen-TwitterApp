@@ -1,36 +1,42 @@
-import { signOut } from 'firebase/auth';
 import { FC, memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { Portal } from 'react-portal';
 import { useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { FirebaseCollections } from '@/api/firebase/constants';
-import { auth } from '@/api/firebase/firebase';
-import { getAllFirebaseDocs } from '@/api/firebase/firebaseHelpers';
+import { getFirebaseDoc } from '@/api/firebase/firebaseHelpers';
 import CreateTweet from '@/components/CreateTweet';
-import { CreateTweetWrapper } from '@/components/CreateTweet/styled';
 import EditProfileModal from '@/components/EditProfileModal';
 import LeftMenu from '@/components/LeftMenu';
-import { UserEmail } from '@/components/LeftMenu/styled';
+import { Loader } from '@/components/Loader';
+import NoTweets from '@/components/NoTweets';
 import SearchTwitter from '@/components/SearchTwitter';
 import Tweet from '@/components/Tweet';
 import { allImages } from '@/constants/allImages';
+import { Urls } from '@/constants/urls';
+import { searchTweetHelper } from '@/helpers/searchHelpers';
 import { useAction } from '@/hooks/useAction';
+import { AllTweetsWrapper, Main, MainWrapper } from '@/pages/Home/styled';
 import { TextLink } from '@/pages/Root/styled';
-import { tweetsSelector } from '@/store/slices/tweetsSlice/selectors';
+import { isLoadingSelector } from '@/store/slices/notificationSlice/selectors';
+import { allTweetsSelector } from '@/store/slices/tweetsSlice/selectors';
 import { ITweet } from '@/store/slices/tweetsSlice/types';
 import { userSelector } from '@/store/slices/userSlice/selectors';
 
 import { config } from './config';
 import {
+  BackButton,
   Banner,
+  CreateTweetWrapper,
   Description,
   EditProfileButton,
   Following,
   FollowingInfo,
   Header,
-  LogOutButton,
-  Main,
-  Name,
+  HeaderContent,
+  Info,
+  InfoEmail,
+  InfoName,
   ProfileInfo,
   RightPart,
   SideBar,
@@ -43,46 +49,72 @@ import {
 } from './styled';
 import { IUser } from './types';
 
-const { profileBackground } = allImages;
+const { HOME } = Urls;
 
-const { TWEETS_COLLECTION } = FirebaseCollections;
+const { profileBackground, arrowBack, defaultUserPhoto } = allImages;
 
-const { logOut, tweets, following, followers, editProfile } = config;
+const { USERS_COLLECTION } = FirebaseCollections;
+
+const {
+  tweets,
+  following,
+  followers,
+  editProfile,
+  defaultCount,
+  defaultDescriptionText,
+  defaultDescriptionLink,
+  searchPlaceholder,
+  searchError
+} = config;
 
 const Profile: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const currentUser = useSelector(userSelector) as IUser;
-  const tweetsArray = useSelector(tweetsSelector);
-  const { deauthenticateUser, addAllTweets, setErrorNotification } = useAction();
+  const [user, setUser] = useState(useSelector(userSelector) as IUser);
+  const authorizedUser = useSelector(userSelector) as IUser;
+  const isLoading = useSelector(isLoadingSelector) as boolean;
+  const tweetsArray = useSelector(allTweetsSelector);
+  const navigate = useNavigate();
+  const { setErrorNotification } = useAction();
 
-  const { id: currentUserId, photo, name, email } = currentUser;
+  const { id: currentUserId, photo, name, email } = user;
+
+  const { pathname } = useLocation();
+  const pathUserIdIndex = 2;
+  const pathUserId = pathname.split('/')[pathUserIdIndex];
 
   useEffect(() => {
     const fetchData = async () => {
-      const allTweets: ITweet[] = await getAllFirebaseDocs(TWEETS_COLLECTION);
-      addAllTweets(allTweets);
+      const userFoundInSearch = (await getFirebaseDoc(USERS_COLLECTION, pathUserId)) as IUser;
+
+      if (userFoundInSearch) {
+        setUser(userFoundInSearch);
+      }
     };
     fetchData().catch((error: Error) => {
       setErrorNotification({
         message: error.message
       });
     });
-  }, []);
+  }, [currentUserId, pathUserId]);
 
   const arrayOfTweetComponents = useMemo(
     () =>
       tweetsArray
-        .filter(({ author }) => author.id === currentUserId)
+        .filter((tweet: ITweet) => tweet.author.id === user.id)
         .sort((tweet1, tweet2) => tweet2.date - tweet1.date)
         .map((tweet: ITweet) => (
-          <Tweet key={tweet.id} tweetData={tweet} currentUserId={currentUserId} />
+          <Tweet
+            key={tweet.id}
+            tweetData={tweet}
+            currentUserId={currentUserId}
+            isUserAuth={authorizedUser.id === user.id}
+          />
         )),
-    [currentUserId, tweetsArray]
+    [authorizedUser.id, currentUserId, tweetsArray, user.id]
   );
 
-  const handleLogOut = async () => {
-    await signOut(auth);
-    deauthenticateUser();
+  const handleBackToHomePage = () => {
+    navigate(HOME);
   };
 
   const closeOpenModal = useCallback(() => {
@@ -93,50 +125,74 @@ const Profile: FC = () => {
     <Wrapper>
       <SideBar>
         <LeftMenu />
-        <LogOutButton onClick={handleLogOut}>{logOut}</LogOutButton>
       </SideBar>
 
-      <Main>
+      <MainWrapper>
         <Header>
-          <UserName>{name}</UserName>
-          <TweetsNumber>
-            {arrayOfTweetComponents.length} {tweets}
-          </TweetsNumber>
+          <HeaderContent>
+            {authorizedUser.id !== user.id && (
+              <BackButton onClick={handleBackToHomePage}>
+                <img src={arrowBack} alt="arrow back" />
+              </BackButton>
+            )}
+            <Info>
+              <UserName>{name}</UserName>
+              <TweetsNumber>
+                {arrayOfTweetComponents.length} {tweets}
+              </TweetsNumber>
+            </Info>
+          </HeaderContent>
         </Header>
 
-        <Banner src={profileBackground} alt="profile banner" />
+        <Main>
+          <Banner src={profileBackground} alt="profile banner" />
 
-        <ProfileInfo>
-          <UserAvatar src={photo} alt="user avatar" />
-          <UserInfo>
-            <Name>{name}</Name>
-            <UserEmail>{email}</UserEmail>
-            <Description>
-              UX&UI designer at <TextLink to="#">@abutechuz</TextLink>
-            </Description>
-          </UserInfo>
-          <FollowingInfo>
-            <Following>
-              <b>0</b> {following}
-            </Following>
-            <Following>
-              <b>0</b> {followers}
-            </Following>
-          </FollowingInfo>
-          <EditProfileButton onClick={closeOpenModal}>{editProfile}</EditProfileButton>
-        </ProfileInfo>
+          <ProfileInfo>
+            <UserAvatar src={photo || defaultUserPhoto} alt="profile avatar" />
+            <UserInfo>
+              <InfoName>{name}</InfoName>
+              <InfoEmail>{email}</InfoEmail>
+              <Description>
+                {defaultDescriptionText} <TextLink to="#">{defaultDescriptionLink}</TextLink>
+              </Description>
+            </UserInfo>
+            <FollowingInfo>
+              <Following>
+                <b>{defaultCount}</b> {following}
+              </Following>
+              <Following>
+                <b>{defaultCount}</b> {followers}
+              </Following>
+            </FollowingInfo>
+            {authorizedUser.id === user.id && (
+              <EditProfileButton onClick={closeOpenModal}>{editProfile}</EditProfileButton>
+            )}
+          </ProfileInfo>
 
-        <CreateTweetWrapper>
-          <CreateTweet />
-        </CreateTweetWrapper>
+          {authorizedUser.id === user.id && (
+            <CreateTweetWrapper>
+              <CreateTweet />
+            </CreateTweetWrapper>
+          )}
 
-        <TweetsBlockHeader>{tweets}</TweetsBlockHeader>
+          <TweetsBlockHeader>{tweets}</TweetsBlockHeader>
 
-        {arrayOfTweetComponents}
-      </Main>
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <AllTweetsWrapper>
+              {arrayOfTweetComponents.length > 0 ? arrayOfTweetComponents : <NoTweets />}
+            </AllTweetsWrapper>
+          )}
+        </Main>
+      </MainWrapper>
 
       <RightPart>
-        <SearchTwitter />
+        <SearchTwitter
+          placeholder={searchPlaceholder}
+          searchData={searchTweetHelper}
+          errorText={searchError}
+        />
       </RightPart>
 
       {isModalOpen && (

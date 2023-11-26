@@ -1,21 +1,13 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import {
-  appContainer,
   blueButton,
-  flexCenter,
   flexCenterHorizontally,
   flexCenterVertical
-} from '@/constants/styles/commonStyles';
+} from '@/constants/theme/styles/commonStyles';
 
 const fullSize = 100;
 const halfSize = 50;
-
-export const Wrapper = styled.div`
-  ${appContainer}
-  ${flexCenter} 
-  min-height: ${fullSize}vh;
-`;
 
 export const Button = styled.button`
   ${blueButton}
@@ -34,7 +26,6 @@ export const Button = styled.button`
 export const Form = styled.form`
   max-width: 600px;
   width: 100%;
-  padding: ${({ theme }) => theme.spaces.mediumS}px ${({ theme }) => theme.spaces.zero};
   @media ((min-width: ${({ theme }) => theme.breakPoints.bigScreen}px)) {
     max-width: 750px;
   }
@@ -52,7 +43,7 @@ export const Header = styled.h1`
     margin: ${({ theme }) => theme.spaces.largeS}px ${({ theme }) => theme.spaces.zero};
   }
   @media ((max-width: ${({ theme }) => theme.breakPoints.mobile}px)) {
-    margin: ${({ theme }) => theme.spaces.smallXL}px ${({ theme }) => theme.spaces.zero};
+    margin: ${({ theme }) => theme.spaces.mediumS}px ${({ theme }) => theme.spaces.zero};
   }
 `;
 
@@ -78,18 +69,37 @@ export const Text = styled.p`
   }
 `;
 
-export const InputWrapper = styled.div`
+const InputWrapperStyles = css`
   ${flexCenterVertical}
+  background:${({ theme }) => theme.colors.white};
   height: 50px;
   padding: ${({ theme }) => theme.spaces.zero} ${({ theme }) => theme.spaces.mediumS}px;
-  margin-bottom: ${({ theme }) => theme.spaces.mediumS}px;
   border-radius: 6px;
   border: 1px solid ${({ theme }) => theme.colors.lightGrey};
   position: relative;
+`;
+
+export const InputWrapper = styled.div`
+  ${InputWrapperStyles}
+
+  margin-bottom: ${({ theme }) => theme.spaces.mediumS}px;
   @media ((min-width: ${({ theme }) => theme.breakPoints.bigScreen}px)) {
     height: 70px;
     padding: ${({ theme }) => theme.spaces.mediumM}px;
     margin-bottom: ${({ theme }) => theme.spaces.mediumM}px;
+  }
+`;
+
+export const PasswordWrapper = styled.div`
+  ${InputWrapperStyles}
+
+  margin-top: ${({ theme }) => theme.spaces.mediumL}px;
+  margin-bottom: ${({ theme }) => theme.spaces.mediumM}px;
+  @media ((min-width: ${({ theme }) => theme.breakPoints.bigScreen}px)) {
+    height: 70px;
+    padding: ${({ theme }) => theme.spaces.mediumM}px;
+    margin-bottom: ${({ theme }) => theme.spaces.mediumM}px;
+    margin-top: ${({ theme }) => theme.spaces.largeS}px;
   }
 `;
 
@@ -118,12 +128,30 @@ export const EyeImage = styled.img`
 export const Error = styled.span`
   font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
   color: ${({ theme }) => theme.colors.pink};
-  line-height: 24px;
+  line-height: 25px;
   position: absolute;
   top: -25px;
   left: 15px;
   @media ((max-width: ${({ theme }) => theme.breakPoints.laptop}px)) {
     font-size: ${({ theme }) => theme.fontSizes.smallXXL}px;
+  }
+`;
+
+export const PasswordError = styled.span`
+  color: ${({ theme }) => theme.colors.pink};
+  position: absolute;
+  left: 15px;
+  top: -20px;
+  font-size: ${({ theme }) => theme.fontSizes.smallXL}px;
+  @media ((min-width: ${({ theme }) => theme.breakPoints.bigScreen}px)) {
+    font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
+    top: -30px;
+  }
+  @media ((max-width: ${({ theme }) => theme.breakPoints.laptop}px)) {
+    top: -20px;
+  }
+  @media ((max-width: ${({ theme }) => theme.breakPoints.tablet}px)) {
+    top: -30px;
   }
 `;
 

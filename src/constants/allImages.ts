@@ -1,4 +1,5 @@
 import addImg from '@/assets/addImage.svg';
+import arrowBack from '@/assets/arrowBack.svg';
 import banner from '@/assets/backTwitter.png';
 import defaultUserPhoto from '@/assets/defaultUserPhoto.svg';
 import deleteImg from '@/assets/deleteTweet.svg';
@@ -34,6 +35,7 @@ export const allImages = {
   likeFill,
   likeImg,
   deleteImg,
+  arrowBack,
   leftMenu: [
     bookmarksImg,
     exploreImg,

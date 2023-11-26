@@ -1,14 +1,16 @@
 import { FC, memo, useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import Select, { StylesConfig } from 'react-select';
+import Select from 'react-select';
 
-import ErrorNotification from '@/components/ErrorNotification';
+import { CloseButton } from '@/components/AddTweetModal/styled';
+import Notification from '@/components/Notification';
 import { allImages } from '@/constants/allImages';
 import { formPatterns, minMaxLineLength } from '@/constants/formConstants';
 import { updateUserDataHelper } from '@/helpers/userHelper';
 import { useAction } from '@/hooks/useAction';
 import { IUser } from '@/pages/Profile/types';
+import { customStyles } from '@/pages/SignUp/config';
 import {
   Button,
   Error,
@@ -17,62 +19,53 @@ import {
   Header,
   Input,
   InputWrapper,
+  PasswordError,
+  PasswordWrapper,
   ShowHidePassowrd
 } from '@/pages/SignUp/styled';
 import { IOption } from '@/pages/SignUp/types';
 import { userSelector } from '@/store/slices/userSlice/selectors';
 
 import { config } from './config';
-import { Background, CloseButton, GenderSelectWrapper, Window } from './styled';
-import { IProps, IUserFormData } from './types';
-
-const customStyles: StylesConfig = {
-  control: (provided) => ({
-    ...provided,
-    minHeight: '50px'
-  })
-};
+import { Background, GenderSelectWrapper, Window } from './styled';
+import { IEditUserFormData, IProps } from './types';
 
 const { eyePasswordHide, eyePasswordOpen } = allImages;
 
 const { minLineLength, maxLineLength } = minMaxLineLength;
-const { namePattern, phoneNumberPattern, passwordPattern, emailPattern, telegramPattern } =
-  formPatterns;
+const { namePattern, phoneNumberPattern, passwordPattern, telegramPattern } = formPatterns;
 
 const {
   header,
   placeholders,
   buttonText,
   successNotificationText,
+  errorNotificationText,
   errorMessages,
   genderOptionsArray
 } = config;
-const {
-  namePlaceholder,
-  phonePlaceholder,
-  emailPlaceholder,
-  passwordPlaceholder,
-  telegramPlaceholder
-} = placeholders;
-const { nameError, phoneNumberError, emailError, passwordError, telegramError } = errorMessages;
+const { namePlaceholder, phonePlaceholder, passwordPlaceholder, telegramPlaceholder } =
+  placeholders;
+const { nameError, phoneNumberError, passwordError, telegramError } = errorMessages;
 
 const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
   const currentUser = useSelector(userSelector) as IUser;
   const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false);
-  const { setSuccessNotification, updateUserData } = useAction();
+  const { setSuccessNotification, setErrorNotification, updateUserData, setIsLoading } =
+    useAction();
 
   const {
     register,
     handleSubmit,
     control,
     formState: { isValid, errors }
-  } = useForm<IUserFormData>({ mode: 'onChange' });
+  } = useForm<IEditUserFormData>({ mode: 'onChange' });
 
   const {
     field: { value: genderValue, onChange: genderOnChange, ...restGenderField }
   } = useController({ name: 'gender', control, defaultValue: genderOptionsArray[0].value });
 
-  const { id: userId, name, email, password, phoneNumber, telegram } = currentUser;
+  const { id: userId, name, password, phoneNumber, telegram } = currentUser;
 
   const togglePasswordVisiblity = () => {
     setIsPasswordShown((prevState) => !prevState);
@@ -84,17 +77,25 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
     }
   };
 
-  const handleEditProfile = async (userData: IUserFormData) => {
+  const handleEditProfile = async (userData: IEditUserFormData) => {
     Object.keys(userData).forEach((key) => {
-      if (userData[key as keyof IUserFormData] === '') {
-        delete userData[key as keyof IUserFormData];
+      if (!userData[key as keyof IEditUserFormData]) {
+        delete userData[key as keyof IEditUserFormData];
       }
     });
 
     if (isValid) {
-      await updateUserDataHelper(userData, userId);
-      updateUserData(userData);
-      setSuccessNotification({ message: `${successNotificationText}` });
+      try {
+        setIsLoading(true);
+        await updateUserDataHelper(userData, userId);
+        updateUserData(userData);
+        setSuccessNotification({ message: `${successNotificationText}` });
+      } catch (error) {
+        setErrorNotification({
+          message: errorNotificationText
+        });
+      }
+      setIsLoading(false);
     }
   };
 
@@ -120,15 +121,15 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
             />
           </InputWrapper>
           {password && (
-            <InputWrapper>
-              {errors?.password && <Error>{errors?.password?.message || passwordError}</Error>}
+            <PasswordWrapper>
+              {errors?.password && (
+                <PasswordError>{errors?.password?.message || passwordError}</PasswordError>
+              )}
               <Input
                 type={isPasswordShown ? 'text' : 'password'}
-                defaultValue={password || ''}
                 autoComplete="current-password"
                 placeholder={passwordPlaceholder}
                 {...register('password', {
-                  required: true,
                   pattern: passwordPattern
                 })}
               />
@@ -138,23 +139,8 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
                   alt="eye password"
                 />
               </ShowHidePassowrd>
-            </InputWrapper>
+            </PasswordWrapper>
           )}
-          <InputWrapper>
-            {errors?.email && <Error>{errors?.email?.message || emailError}</Error>}
-            <Input
-              type="email"
-              defaultValue={email || ''}
-              autoComplete="off"
-              placeholder={emailPlaceholder}
-              {...register('email', {
-                required: true,
-                minLength: minLineLength,
-                maxLength: maxLineLength,
-                pattern: emailPattern
-              })}
-            />
-          </InputWrapper>
           <InputWrapper>
             {errors?.phoneNumber && (
               <Error>{errors?.phoneNumber?.message || phoneNumberError}</Error>
@@ -164,8 +150,6 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
               defaultValue={phoneNumber || ''}
               placeholder={phonePlaceholder}
               {...register('phoneNumber', {
-                minLength: minLineLength,
-                maxLength: maxLineLength,
                 pattern: phoneNumberPattern
               })}
             />
@@ -177,8 +161,6 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
               defaultValue={telegram || ''}
               placeholder={telegramPlaceholder}
               {...register('telegram', {
-                minLength: minLineLength,
-                maxLength: maxLineLength,
                 pattern: telegramPattern
               })}
             />
@@ -198,7 +180,7 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
           <Button type="submit">{buttonText}</Button>
         </Form>
       </Window>
-      <ErrorNotification />
+      <Notification />
     </Background>
   );
 };

@@ -15,7 +15,8 @@ const [
 const { HOME, EXPLORE, NOTIFICATIONS, MESSAGES, BOOKMARKS, LISTS, PROFILE, MORE } = Urls;
 
 export const config = {
-  buttonName: 'Tweet',
+  tweetButton: 'Tweet',
+  logOutButton: 'Log out',
   menuItems: [
     {
       name: 'Home',

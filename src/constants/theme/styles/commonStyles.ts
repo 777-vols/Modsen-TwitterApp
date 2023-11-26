@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-export const appContainer = css`
+export const container = css`
   margin: ${({ theme }) => theme.spaces.zero} auto;
   width: 100%;
   max-width: 1650px;
@@ -64,4 +64,11 @@ export const smallAvatar = css`
 export const userEmail = css`
   font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
   opacity: 0.8;
+`;
+
+export const textElipsis = css`
+  overflow: hidden;
+  display: inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { allImages } from '@/constants/allImages';
-import { flexCenterHorizontally, fullSreen } from '@/constants/styles/commonStyles';
+import { flexCenterHorizontally, fullSreen } from '@/constants/theme/styles/commonStyles';
 
 const { errorBoundary } = allImages;
 

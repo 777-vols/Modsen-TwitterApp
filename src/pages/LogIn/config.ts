@@ -7,5 +7,6 @@ export const config = {
   errorMessages: {
     emailError: 'Email is invalid!',
     passwordError: 'Password is invalid!'
-  }
+  },
+  errorMessage: 'Authorization error, check that the entered data is correct!'
 };

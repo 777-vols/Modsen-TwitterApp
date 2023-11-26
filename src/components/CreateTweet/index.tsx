@@ -14,11 +14,12 @@ import { config } from './config';
 import {
   AddImageInput,
   AddImageLabel,
+  ButtonsWrapper,
   Form,
   Image,
   NameImage,
+  Textarea,
   TweetButton,
-  TweetInput,
   Wrapper
 } from './styled';
 
@@ -31,14 +32,14 @@ const CreateTweet: FC = () => {
   const currentUser = useSelector(userSelector) as IUser;
   const { addTweet } = useAction();
 
-  const [tweetText, setTweetText] = useState<string>('');
+  const [inputValue, setInputValue] = useState<string>('');
   const [image, setImage] = useState<File>();
 
   const { id, photo, name, email } = currentUser;
 
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const { target } = event;
-    setTweetText(target.value);
+    setInputValue(target.value);
   };
 
   const handleUploadImage = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -52,9 +53,9 @@ const CreateTweet: FC = () => {
   };
 
   const handleSubmit = async () => {
-    if (tweetText) {
+    if (inputValue) {
       const newTweet = await createNewTweetHelper({
-        tweetText,
+        tweetText: inputValue,
         userId: id,
         userPhoto: photo,
         userName: name,
@@ -62,28 +63,30 @@ const CreateTweet: FC = () => {
         image
       });
       addTweet(newTweet);
-      setTweetText('');
+      setInputValue('');
       setImage(undefined);
     }
   };
 
   return (
     <Wrapper>
-      <SmallAvatarImg src={photo} alt="user avatar" />
+      <SmallAvatarImg src={photo} alt="create tweet avatar" />
       <Form onSubmit={handleSubmit}>
-        <TweetInput placeholder={inputPlaceholder} value={tweetText} onChange={handleInputChange} />
-        <AddImageLabel htmlFor={addImageInputId}>
-          <Image src={addImg} alt="upload image" />
-          <AddImageInput
-            type="file"
-            id={addImageInputId}
-            accept="image/*"
-            hidden
-            onChange={handleUploadImage}
-          />
-          {image && <NameImage>{image.name}</NameImage>}
-        </AddImageLabel>
-        <TweetButton type="submit">{tweetButtonText}</TweetButton>
+        <Textarea placeholder={inputPlaceholder} value={inputValue} onChange={handleInputChange} />
+        <ButtonsWrapper>
+          <AddImageLabel htmlFor={addImageInputId}>
+            <Image src={addImg} alt="upload image" />
+            <AddImageInput
+              type="file"
+              id={addImageInputId}
+              accept="image/*"
+              hidden
+              onChange={handleUploadImage}
+            />
+            {image && <NameImage>{image.name}</NameImage>}
+          </AddImageLabel>
+          <TweetButton type="submit">{tweetButtonText}</TweetButton>
+        </ButtonsWrapper>
       </Form>
     </Wrapper>
   );
