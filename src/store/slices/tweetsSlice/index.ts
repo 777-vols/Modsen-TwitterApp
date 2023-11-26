@@ -26,18 +26,18 @@ const tweetsSlice = createSlice({
     },
     likeTweet(state, { payload }: PayloadAction<LikeActionProps>) {
       const { tweetData, userId } = payload;
-      state.tweetsArray.forEach((tweetItem) => {
-        if (tweetItem.id === tweetData.id) {
-          if (tweetItem.likes.includes(userId)) {
-            tweetItem.likes = tweetItem.likes.filter((id) => id !== userId);
-          } else {
-            tweetItem.likes.push(userId);
-          }
+      const tweetItem = state.tweetsArray.find((item) => item.id === tweetData.id);
+      if (tweetItem) {
+        if (tweetItem.likes.includes(userId)) {
+          tweetItem.likes = tweetItem.likes.filter((id) => id !== userId);
+        } else {
+          tweetItem.likes.push(userId);
         }
-      });
+      }
     }
   }
 });
 
 export const { addTweet, addAllTweets, deleteTweet, likeTweet } = tweetsSlice.actions;
+
 export default tweetsSlice.reducer;

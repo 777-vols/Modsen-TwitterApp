@@ -1,9 +1,9 @@
 import { ChangeEvent, FC, memo, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { v4 } from 'uuid';
 
 import Notification from '@/components/Notification';
-import { IProps as IUserItem } from '@/components/SearchTwitter/SearchResultItem/types';
 import { allImages } from '@/constants/allImages';
 import { Urls } from '@/constants/urls';
 import { comparePathHelper, searchRecommemdedUsersHelper } from '@/helpers/searchHelpers';
@@ -43,7 +43,7 @@ const { footerLinks, company } = rootConfig;
 
 const SearchTwitter: FC<IProps> = ({ placeholder, searchData, errorText }) => {
   const [inputValue, setInputValue] = useState<string>('');
-  const [usersArray, setUsersArray] = useState<IUserItem[]>([]);
+  const [usersArray, setUsersArray] = useState<IUser[]>([]);
   const [tweetsArray, setTweetsArray] = useState<ITweet[]>([]);
   const { setErrorNotification } = useAction();
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -54,14 +54,9 @@ const SearchTwitter: FC<IProps> = ({ placeholder, searchData, errorText }) => {
 
   const searchResultArray = useMemo(() => {
     if (inputValue !== '' && !isHomePage) {
-      return tweetsArray.map(({ id, author }) => {
-        const { name, photo, email } = author;
-        return <SearchResultItem key={id} id={id} name={name} photo={photo} email={email} />;
-      });
+      return tweetsArray.map(({ id, author }) => <SearchResultItem key={id} author={author} />);
     }
-    return usersArray.map(({ id, name, photo, email }) => (
-      <SearchResultItem key={id} id={id} name={name} photo={photo} email={email} isUserSearch />
-    ));
+    return usersArray.map((author) => <SearchResultItem key={v4()} author={author} isUserSearch />);
   }, [isHomePage, tweetsArray, usersArray]);
 
   useEffect(() => {
@@ -85,7 +80,7 @@ const SearchTwitter: FC<IProps> = ({ placeholder, searchData, errorText }) => {
     setInputValue(target.value);
   };
 
-  const searchDataHelper = async <T,>(stateSetter: SetState<T[]>) => {
+  const setResultItemsArray = async <T,>(stateSetter: SetState<T[]>) => {
     if (inputValue) {
       setIsLoading(true);
       const data = (await searchData(inputValue)) as T[];
@@ -103,9 +98,9 @@ const SearchTwitter: FC<IProps> = ({ placeholder, searchData, errorText }) => {
 
   const handleSubmitForm = async () => {
     if (isHomePage) {
-      await searchDataHelper(setUsersArray);
+      await setResultItemsArray(setUsersArray);
     } else {
-      await searchDataHelper(setTweetsArray);
+      await setResultItemsArray(setTweetsArray);
     }
   };
 

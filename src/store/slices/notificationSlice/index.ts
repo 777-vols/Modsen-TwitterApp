@@ -40,7 +40,8 @@ export const {
   setNotificationInactive,
   setIsLoading
 } = notificationSlice.actions;
-export type TypeSetErrorNotification = typeof setErrorNotification;
-export type TypeSetSuccessNotification = typeof setSuccessNotification;
 
 export default notificationSlice.reducer;
+
+export type TypeSetErrorNotification = typeof setErrorNotification;
+export type TypeSetSuccessNotification = typeof setSuccessNotification;

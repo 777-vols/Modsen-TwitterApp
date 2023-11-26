@@ -1,7 +1,6 @@
+import { IUser } from '@/pages/Profile/types';
+
 export interface IProps {
-  id: string;
-  name: string;
-  email: string;
-  photo: string;
+  author: IUser;
   isUserSearch?: boolean;
 }

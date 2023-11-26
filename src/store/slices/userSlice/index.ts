@@ -32,6 +32,7 @@ const userSlice = createSlice({
 });
 
 export const { authenticateUser, deauthenticateUser, updateUserData } = userSlice.actions;
+
 export default userSlice.reducer;
 
 export type TypeAuthenticateUser = typeof authenticateUser;

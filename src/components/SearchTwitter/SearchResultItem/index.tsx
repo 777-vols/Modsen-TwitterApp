@@ -13,8 +13,8 @@ const { defaultUserPhoto } = allImages;
 
 const { userButtonName, tweetButtonName } = config;
 
-const SearchResultItem: FC<IProps> = (props) => {
-  const { id, name, photo, email, isUserSearch } = props;
+const SearchResultItem: FC<IProps> = ({ author, isUserSearch }) => {
+  const { id, name, photo, email } = author;
 
   const navigate = useNavigate();
 

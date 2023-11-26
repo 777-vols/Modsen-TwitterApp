@@ -3,7 +3,7 @@ import { collection, deleteDoc, doc, getDoc, getDocs, setDoc, updateDoc } from '
 import { ITweet } from '@/store/slices/tweetsSlice/types';
 
 import { db } from './firebase';
-import { IDocumentProps, IUpdateProps } from './types';
+import { IOptions } from './types';
 
 export const getFirebaseDoc = async (collectionName: string, prop: string) => {
   const docData = await getDoc(doc(db, collectionName, prop));
@@ -26,7 +26,7 @@ export const getAllFirebaseDocs = async (collectionName: string) => {
   return result;
 };
 
-export const setFirebaseDoc = async (options: IDocumentProps) => {
+export const setFirebaseDoc = async (options: IOptions) => {
   const { collectionName, id, document } = options;
   await setDoc(doc(db, collectionName, id), document);
 };
@@ -35,10 +35,10 @@ export const deleteFirebaseDoc = async (collectionName: string, prop: string) =>
   await deleteDoc(doc(db, collectionName, prop));
 };
 
-export const updateFirebaseDoc = async (options: IUpdateProps) => {
-  const { collection: collectionName, newDoc, id } = options;
+export const updateFirebaseDoc = async (options: IOptions) => {
+  const { collectionName, document, id } = options;
   const docRef = doc(db, collectionName, id);
-  await updateDoc(docRef, newDoc);
+  await updateDoc(docRef, document);
 };
 
 export const updateLikesInFirebaseDoc = async (

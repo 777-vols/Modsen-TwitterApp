@@ -19,9 +19,9 @@ const uploadImage = (options: UploadFileOptions) => {
   uploadTask.on('state_changed', null, null, async () => {
     const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
     await updateFirebaseDoc({
-      collection,
+      collectionName: collection,
       id,
-      newDoc: { image: downloadURL }
+      document: { image: downloadURL }
     });
   });
 };
