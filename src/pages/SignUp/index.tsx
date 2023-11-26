@@ -1,8 +1,11 @@
 import { FC, memo, useMemo, useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 
+import { Background } from '@/components/EditProfileModal/styled';
+import { Loader } from '@/components/Loader';
 import Notification from '@/components/Notification';
 import { allImages } from '@/constants/allImages';
 import { formPatterns, minMaxLineLength } from '@/constants/formConstants';
@@ -17,6 +20,7 @@ import { convertBirthDate, signUpWithEmailHelper } from '@/helpers/userHelper';
 import { useAction } from '@/hooks/useAction';
 import { Wrapper } from '@/pages/LogIn/styled';
 import { Logo, TextLink } from '@/pages/Root/styled';
+import { isLoadingSelector } from '@/store/slices/notificationSlice/selectors';
 
 import { config, customStyles } from './config';
 import {
@@ -31,6 +35,8 @@ import {
   InputWrapper,
   LogoWrapper,
   MonthSelect,
+  PasswordError,
+  PasswordWrapper,
   SelectBlock,
   SelectWrapper,
   ShowHidePassowrd,
@@ -47,7 +53,8 @@ const {
   text,
   buttonText,
   errorMessages,
-  successNotificationText
+  successNotificationText,
+  errorMessage
 } = config;
 const { namePlaceholder, phonePlaceholder, emailPlaceholder, passwordPlaceholder } = placeholders;
 const { nameError, phoneNumberError, emailError, passwordError } = errorMessages;
@@ -61,6 +68,7 @@ const { namePattern, phoneNumberPattern, passwordPattern, emailPattern } = formP
 
 const SignUp: FC = () => {
   const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false);
+  const isLoading = useSelector(isLoadingSelector) as boolean;
   const [currentMonth, setCurrentMonth] = useState<number>(0);
   const [currentYear, setCurrentYear] = useState<number>(new Date().getFullYear());
 
@@ -72,7 +80,7 @@ const SignUp: FC = () => {
   const monthsOptionsArray = useMemo(() => getMonthOptionsArray(), []);
   const navigate = useNavigate();
 
-  const { setErrorNotification, setSuccessNotification } = useAction();
+  const { setErrorNotification, setSuccessNotification, setIsLoading } = useAction();
 
   const {
     register,
@@ -118,15 +126,28 @@ const SignUp: FC = () => {
 
   const handleSignUpWithEmail = async (userData: IUserFormData) => {
     if (isValid) {
-      const user: ISighUpWithEmailUser = convertBirthDate(userData);
-      await signUpWithEmailHelper(user, errors, setErrorNotification);
-      navigate(LOG_IN);
-      reset();
-      setSuccessNotification({ message: `${successNotificationText}` });
+      try {
+        setIsLoading(true);
+
+        const user: ISighUpWithEmailUser = convertBirthDate(userData);
+        await signUpWithEmailHelper(user);
+        navigate(LOG_IN);
+        reset();
+        setSuccessNotification({ message: `${successNotificationText}` });
+      } catch (error) {
+        setErrorNotification({
+          message: errorMessage
+        });
+      }
+      setIsLoading(false);
     }
   };
 
-  return (
+  return isLoading ? (
+    <Background>
+      <Loader />
+    </Background>
+  ) : (
     <Wrapper>
       <Form onSubmit={handleSubmit(handleSignUpWithEmail)}>
         <LogoWrapper>
@@ -173,8 +194,10 @@ const SignUp: FC = () => {
             })}
           />
         </InputWrapper>
-        <InputWrapper>
-          {errors?.password && <Error>{errors?.password?.message || passwordError}</Error>}
+        <PasswordWrapper>
+          {errors?.password && (
+            <PasswordError>{errors?.password?.message || passwordError}</PasswordError>
+          )}
           <Input
             type={isPasswordShown ? 'text' : 'password'}
             autoComplete="current-password"
@@ -190,7 +213,7 @@ const SignUp: FC = () => {
               alt="eye password"
             />
           </ShowHidePassowrd>
-        </InputWrapper>
+        </PasswordWrapper>
         <TextLink to={HOME}>{emailUse}</TextLink>
         <BirthDateHeader>{dateOfBirth}</BirthDateHeader>
         <Text>{text}</Text>

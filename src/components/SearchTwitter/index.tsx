@@ -11,7 +11,6 @@ import { useAction } from '@/hooks/useAction';
 import { IUser } from '@/pages/Profile/types';
 import { config as rootConfig } from '@/pages/Root/config';
 import { TextLink } from '@/pages/Root/styled';
-import { setIsLoadingSelector } from '@/store/slices/notificationSlice/selectors';
 import { ITweet } from '@/store/slices/tweetsSlice/types';
 import { userSelector } from '@/store/slices/userSlice/selectors';
 
@@ -23,6 +22,7 @@ import {
   Content,
   Image,
   Input,
+  LodaderWrapper,
   NavItem,
   NavList,
   SearchForm,
@@ -45,8 +45,8 @@ const SearchTwitter: FC<IProps> = ({ placeholder, searchData, errorText }) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [usersArray, setUsersArray] = useState<IUserItem[]>([]);
   const [tweetsArray, setTweetsArray] = useState<ITweet[]>([]);
-  const { setErrorNotification, setIsLoading } = useAction();
-  const isLoading = useSelector(setIsLoadingSelector) as boolean;
+  const { setErrorNotification } = useAction();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const authorizedUser = useSelector(userSelector) as IUser;
   const { pathname } = useLocation();
 
@@ -70,7 +70,6 @@ const SearchTwitter: FC<IProps> = ({ placeholder, searchData, errorText }) => {
         setIsLoading(true);
         const users = await searchRecommemdedUsersHelper(authorizedUser.id);
         setUsersArray(users);
-        setIsLoading(false);
       }
     };
     fetchData().catch((error: Error) => {
@@ -78,6 +77,7 @@ const SearchTwitter: FC<IProps> = ({ placeholder, searchData, errorText }) => {
         message: error.message
       });
     });
+    setIsLoading(false);
   }, [authorizedUser.id, inputValue]);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -124,7 +124,15 @@ const SearchTwitter: FC<IProps> = ({ placeholder, searchData, errorText }) => {
       </SearchForm>
       <Content>
         <Title>{mainTitle}</Title>
-        <SearchResult>{isLoading ? <Loader /> : searchResultArray}</SearchResult>
+        <SearchResult>
+          {isLoading ? (
+            <LodaderWrapper>
+              <Loader size={50} />
+            </LodaderWrapper>
+          ) : (
+            searchResultArray
+          )}
+        </SearchResult>
         <TextLink to="#">{showMore}</TextLink>
       </Content>
       <NavList>

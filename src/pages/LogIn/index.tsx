@@ -20,13 +20,13 @@ import {
   LogoWrapper,
   ShowHidePassowrd
 } from '@/pages/SignUp/styled';
-import { setIsLoadingSelector } from '@/store/slices/notificationSlice/selectors';
+import { isLoadingSelector } from '@/store/slices/notificationSlice/selectors';
 
 import { config } from './config';
 import { Form, Header, LinkWrapper, Wrapper } from './styled';
 import { ILoginFormData } from './types';
 
-const { header, emailPlaceholder, passwordPlaceholder, signUp, logIn } = config;
+const { header, emailPlaceholder, passwordPlaceholder, signUp, logIn, errorMessage } = config;
 
 const { SIGN_UP } = Urls;
 
@@ -38,7 +38,7 @@ const { passwordPattern } = formPatterns;
 
 const LogIn: FC = () => {
   const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false);
-  const isLoading = useSelector(setIsLoadingSelector) as boolean;
+  const isLoading = useSelector(isLoadingSelector) as boolean;
   const togglePasswordVisiblity = () => {
     setIsPasswordShown((prevState) => !prevState);
   };
@@ -51,11 +51,17 @@ const LogIn: FC = () => {
   } = useForm<ILoginFormData>({ mode: 'onChange' });
 
   const handleLogin = async (formData: ILoginFormData) => {
-    if (isValid) {
-      setIsLoading(true);
-      await logInHelper(formData, authenticateUser, setErrorNotification, errors);
-      setIsLoading(false);
+    try {
+      if (isValid) {
+        setIsLoading(true);
+        await logInHelper(formData, authenticateUser);
+      }
+    } catch (error) {
+      setErrorNotification({
+        message: errorMessage
+      });
     }
+    setIsLoading(false);
   };
 
   return isLoading ? (

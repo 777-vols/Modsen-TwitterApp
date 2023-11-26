@@ -9,11 +9,11 @@ export const CreateTweetWrapper = styled.div`
 
 export const MainWrapper = styled.div`
   width: 100%;
+  max-width: 910px;
 `;
 
 export const Main = styled.main`
   ${maxSize}
-  max-width: 910px;
 `;
 
 export const AllTweetsWrapper = styled.div`

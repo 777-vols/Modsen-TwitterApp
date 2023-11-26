@@ -1,7 +1,11 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { flexCenterVertical, resetButton } from '@/constants/theme/styles/commonStyles';
+import {
+  flexCenterHorizontally,
+  flexCenterVertical,
+  resetButton
+} from '@/constants/theme/styles/commonStyles';
 
 export const Wrapper = styled.div`
   margin: ${({ theme }) => theme.spaces.mediumS}px ${({ theme }) => theme.spaces.zero}
@@ -37,6 +41,7 @@ export const Input = styled.input`
 `;
 
 export const Content = styled.div`
+  width: 100%;
   background: ${({ theme }) => theme.colors.lightGrey};
   padding: ${({ theme }) => theme.fontSizes.mediumM}px;
   border-radius: 10px;
@@ -75,4 +80,8 @@ export const StyledLink = styled(NavLink)`
 export const Signature = styled.span`
   line-height: 25px;
   color: ${({ theme }) => theme.colors.black};
+`;
+
+export const LodaderWrapper = styled.div`
+  ${flexCenterHorizontally}
 `;

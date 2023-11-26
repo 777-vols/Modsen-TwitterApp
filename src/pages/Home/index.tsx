@@ -23,7 +23,7 @@ import {
   Wrapper
 } from '@/pages/Profile/styled';
 import { IUser } from '@/pages/Profile/types';
-import { setIsLoadingSelector } from '@/store/slices/notificationSlice/selectors';
+import { isLoadingSelector } from '@/store/slices/notificationSlice/selectors';
 import { allTweetsSelector } from '@/store/slices/tweetsSlice/selectors';
 import { ITweet } from '@/store/slices/tweetsSlice/types';
 import { userSelector } from '@/store/slices/userSlice/selectors';
@@ -48,7 +48,7 @@ const Home: FC = () => {
   const [currentTweet, setCurrentTweet] = useState<ITweet>();
   const tweetsArray = useSelector(allTweetsSelector);
   const currentUser = useSelector(userSelector) as IUser;
-  const isLoading = useSelector(setIsLoadingSelector) as boolean;
+  const isLoading = useSelector(isLoadingSelector) as boolean;
   const { pathname } = useLocation();
   const { setErrorNotification, addAllTweets, setIsLoading } = useAction();
   const navigate = useNavigate();
@@ -107,6 +107,7 @@ const Home: FC = () => {
       <SideBar>
         <LeftMenu />
       </SideBar>
+
       <MainWrapper>
         <Header>
           <HeaderContent>

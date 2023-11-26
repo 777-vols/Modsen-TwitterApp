@@ -19,6 +19,8 @@ import {
   Header,
   Input,
   InputWrapper,
+  PasswordError,
+  PasswordWrapper,
   ShowHidePassowrd
 } from '@/pages/SignUp/styled';
 import { IOption } from '@/pages/SignUp/types';
@@ -38,6 +40,7 @@ const {
   placeholders,
   buttonText,
   successNotificationText,
+  errorNotificationText,
   errorMessages,
   genderOptionsArray
 } = config;
@@ -48,7 +51,8 @@ const { nameError, phoneNumberError, passwordError, telegramError } = errorMessa
 const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
   const currentUser = useSelector(userSelector) as IUser;
   const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false);
-  const { setSuccessNotification, updateUserData } = useAction();
+  const { setSuccessNotification, setErrorNotification, updateUserData, setIsLoading } =
+    useAction();
 
   const {
     register,
@@ -81,9 +85,17 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
     });
 
     if (isValid) {
-      await updateUserDataHelper(userData, userId);
-      updateUserData(userData);
-      setSuccessNotification({ message: `${successNotificationText}` });
+      try {
+        setIsLoading(true);
+        await updateUserDataHelper(userData, userId);
+        updateUserData(userData);
+        setSuccessNotification({ message: `${successNotificationText}` });
+      } catch (error) {
+        setErrorNotification({
+          message: errorNotificationText
+        });
+      }
+      setIsLoading(false);
     }
   };
 
@@ -109,8 +121,10 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
             />
           </InputWrapper>
           {password && (
-            <InputWrapper>
-              {errors?.password && <Error>{errors?.password?.message || passwordError}</Error>}
+            <PasswordWrapper>
+              {errors?.password && (
+                <PasswordError>{errors?.password?.message || passwordError}</PasswordError>
+              )}
               <Input
                 type={isPasswordShown ? 'text' : 'password'}
                 autoComplete="current-password"
@@ -125,7 +139,7 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
                   alt="eye password"
                 />
               </ShowHidePassowrd>
-            </InputWrapper>
+            </PasswordWrapper>
           )}
           <InputWrapper>
             {errors?.phoneNumber && (

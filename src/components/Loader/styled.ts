@@ -27,11 +27,10 @@ export const Spinner = styled.span<IStyleProps>`
     }
   }
   ${maxSize}
-  /* ${({ $size }) =>
-    css`
-      width: ${$size}px
-      height: ${$size}px
-    `} */
+  ${({ $size }) => css`
+    width: ${$size}px;
+    height: ${$size}px;
+  `}
   max-width: 100px;
   max-height: 100px;
   border-radius: 50%;

@@ -77,5 +77,6 @@ export const config = {
     { name: 'Cookie Use', path: '#' }
   ],
   haveAccountText: 'Already have an account? ',
-  haveAccountLink: 'Log in'
+  haveAccountLink: 'Log in',
+  errorNotificationText: 'Authorization error, check that the entered data is correct!'
 };
