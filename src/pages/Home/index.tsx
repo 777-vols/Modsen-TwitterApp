@@ -14,7 +14,6 @@ import { allImages } from '@/constants/allImages';
 import { Urls } from '@/constants/urls';
 import { searchUserHelper } from '@/helpers/searchHelpers';
 import { useAction } from '@/hooks/useAction';
-import { BackButton, BackWrapper } from '@/pages/Profile/styled';
 import { IUser } from '@/pages/Profile/types';
 import { isLoadingSelector } from '@/store/slices/notificationSlice/selectors';
 import { allTweetsSelector } from '@/store/slices/tweetsSlice/selectors';
@@ -24,6 +23,9 @@ import { userSelector } from '@/store/slices/userSlice/selectors';
 import { config } from './config';
 import {
   AllTweetsWrapper,
+  BackButton,
+  BackWrapper,
+  BurgerMenuButton,
   CreateTweetWrapper,
   Header,
   HeaderContent,
@@ -32,6 +34,7 @@ import {
   MainWrapper,
   PageName,
   RigthSideBar,
+  StyledBar,
   Wrapper
 } from './styled';
 
@@ -42,6 +45,7 @@ const { arrowBack } = allImages;
 const { header, searchPlaceholder, searchError } = config;
 
 const Home: FC = () => {
+  const [burgerMenuIsOpen, setBurgerMenuIsOpen] = useState<boolean>(false);
   const [currentTweet, setCurrentTweet] = useState<ITweet>();
   const tweetsArray = useSelector(allTweetsSelector);
   const currentUser = useSelector(userSelector) as IUser;
@@ -82,9 +86,9 @@ const Home: FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (pathTweetId) {
-        const newTweet = (await getFirebaseDoc(TWEETS_COLLECTION, pathTweetId)) as ITweet;
-        if (newTweet) {
-          setCurrentTweet(newTweet);
+        const tweet = (await getFirebaseDoc(TWEETS_COLLECTION, pathTweetId)) as ITweet;
+        if (tweet) {
+          setCurrentTweet(tweet);
         }
       }
     };
@@ -99,6 +103,10 @@ const Home: FC = () => {
     navigate(HOME);
   };
 
+  const burgerButtonHandler = () => {
+    setBurgerMenuIsOpen((prevState) => !prevState);
+  };
+
   return (
     <Wrapper>
       <LeftSideBar>
@@ -107,6 +115,14 @@ const Home: FC = () => {
 
       <MainWrapper>
         <Header>
+          <BurgerMenuButton
+            className={burgerMenuIsOpen ? 'active' : ''}
+            onClick={burgerButtonHandler}>
+            <StyledBar />
+            <StyledBar />
+            <StyledBar />
+          </BurgerMenuButton>
+
           <HeaderContent>
             <BackWrapper>
               {pathTweetId && (
@@ -144,6 +160,7 @@ const Home: FC = () => {
           )}
         </Main>
       </MainWrapper>
+
       <RigthSideBar>
         <SearchTwitter
           placeholder={searchPlaceholder}

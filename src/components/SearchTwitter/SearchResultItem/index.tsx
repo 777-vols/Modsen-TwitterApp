@@ -13,7 +13,7 @@ const { defaultUserPhoto } = allImages;
 
 const { userButtonName, tweetButtonName } = config;
 
-const SearchResultItem: FC<IProps> = ({ author, isUserSearch }) => {
+const SearchResultItem: FC<IProps> = ({ tweetId, author, isUserSearch }) => {
   const { id, name, photo, email } = author;
 
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const SearchResultItem: FC<IProps> = ({ author, isUserSearch }) => {
     if (isUserSearch) {
       navigate(`/profile/${id}`);
     } else {
-      navigate(`/feed/${id}`);
+      navigate(`/feed/${tweetId}`);
     }
   };
 

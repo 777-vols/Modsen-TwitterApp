@@ -99,12 +99,12 @@ export const UserCard = styled.div`
 
 export const UserName = styled.span`
   ${textElipsis}
-  max-width: 155px;
+  max-width: 100px;
   margin-bottom: ${({ theme }) => theme.spaces.smallS}px;
   font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
   font-weight: ${({ theme }) => theme.fontWeights.l};
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
-    max-width: 100px;
+    max-width: 155px;
     font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
   }
 `;
@@ -112,7 +112,7 @@ export const UserName = styled.span`
 export const UserEmail = styled.span`
   ${userEmail}
   ${textElipsis}
-  max-width: 110px;
+  max-width: 100px;
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     max-width: 155px;
   }

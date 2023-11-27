@@ -18,6 +18,8 @@ import { searchTweetHelper } from '@/helpers/searchHelpers';
 import { useAction } from '@/hooks/useAction';
 import {
   AllTweetsWrapper,
+  BackButton,
+  BackImage,
   Header,
   LeftSideBar,
   Main,
@@ -33,7 +35,6 @@ import { userSelector } from '@/store/slices/userSlice/selectors';
 
 import { config } from './config';
 import {
-  BackButton,
   Banner,
   CreateTweetWrapper,
   Description,
@@ -41,7 +42,7 @@ import {
   Following,
   FollowingInfo,
   HeaderContent,
-  Info,
+  HeaderInfo,
   InfoEmail,
   InfoName,
   ProfileInfo,
@@ -136,15 +137,15 @@ const Profile: FC = () => {
           <HeaderContent>
             {authorizedUser.id !== user.id && (
               <BackButton onClick={handleBackToHomePage}>
-                <img src={arrowBack} alt="arrow back" />
+                <BackImage src={arrowBack} alt="arrow back" />
               </BackButton>
             )}
-            <Info>
+            <HeaderInfo>
               <UserName>{name}</UserName>
               <TweetsNumber>
                 {arrayOfTweetComponents.length} {tweets}
               </TweetsNumber>
-            </Info>
+            </HeaderInfo>
           </HeaderContent>
         </Header>
 
@@ -161,12 +162,10 @@ const Profile: FC = () => {
               </Description>
             </UserInfo>
             <FollowingInfo>
-              <Following>
-                <b>{defaultCount}</b> {following}
-              </Following>
-              <Following>
-                <b>{defaultCount}</b> {followers}
-              </Following>
+              <b>{defaultCount}</b>
+              <Following> {following}</Following>
+              <b>{defaultCount}</b>
+              <Following> {followers}</Following>
             </FollowingInfo>
             {authorizedUser.id === user.id && (
               <EditProfileButton onClick={closeOpenModal}>{editProfile}</EditProfileButton>

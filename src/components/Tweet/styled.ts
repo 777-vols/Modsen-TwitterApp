@@ -32,6 +32,7 @@ export const Content = styled.div`
 
 export const Info = styled.div`
   ${flexCenterVertical}
+  flex-wrap: wrap;
   margin-bottom: ${({ theme }) => theme.spaces.smallS}px;
 `;
 
@@ -67,7 +68,10 @@ export const TweetImage = styled.img`
 
   border-radius: 20px;
   width: 100%;
-  max-height: 450px;
+  max-height: 350px;
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    max-height: 450px;
+  }
 `;
 
 export const Likes = styled.div`

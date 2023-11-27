@@ -1,25 +1,12 @@
 import styled from 'styled-components';
 
-import {
-  flexCenter,
-  flexCenterVertical,
-  resetButton,
-  textElipsis,
-  userEmail
-} from '@/constants/theme/styles/commonStyles';
-
-export const BackButton = styled.button`
-  ${resetButton}
-  cursor: pointer;
-  margin-right: ${({ theme }) => theme.spaces.mediumS}px;
-  font-size: ${({ theme }) => theme.fontSizes.largeM}px;
-`;
+import { flexCenter, textElipsis, userEmail } from '@/constants/theme/styles/commonStyles';
 
 export const HeaderContent = styled.div`
   display: flex;
 `;
 
-export const Info = styled.div`
+export const HeaderInfo = styled.div`
   display: flex;
   flex-direction: column;
 `;
@@ -27,7 +14,7 @@ export const Info = styled.div`
 export const UserName = styled.span`
   ${textElipsis}
   max-width: 250px;
-  font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
+  font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
   font-weight: ${({ theme }) => theme.fontWeights.m};
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
@@ -35,8 +22,13 @@ export const UserName = styled.span`
 `;
 
 export const TweetsNumber = styled.span`
+  font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
   margin-top: ${({ theme }) => theme.spaces.smallS}px;
   opacity: 0.7;
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
+    margin-top: ${({ theme }) => theme.spaces.zero};
+  }
 `;
 
 export const Banner = styled.img`
@@ -46,45 +38,69 @@ export const Banner = styled.img`
 export const ProfileInfo = styled.div`
   position: relative;
   padding: ${({ theme }) => theme.spaces.mediumM}px;
-  padding-bottom: ${({ theme }) => theme.spaces.largeL}px;
+  padding-bottom: ${({ theme }) => theme.spaces.largeS}px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    padding-bottom: ${({ theme }) => theme.spaces.largeL}px;
+  }
 `;
 
 export const UserAvatar = styled.img`
   position: absolute;
   margin-left: ${({ theme }) => theme.spaces.smallL}px;
   border-radius: 100px;
-  top: -70px;
+  top: -60px;
   left: 0;
-  height: 150px;
-  width: 150px;
+  height: 110px;
+  width: 110px;
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    top: -70px;
+    height: 150px;
+    width: 150px;
+  }
 `;
 
 export const FollowingInfo = styled.div`
-  margin-top: ${({ theme }) => theme.spaces.largeXL}px;
+  margin-top: ${({ theme }) => theme.spaces.largeS}px;
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    margin-top: ${({ theme }) => theme.spaces.largeXL}px;
+  }
 `;
 
 export const Following = styled.span`
-  margin-right: ${({ theme }) => theme.spaces.mediumS}px;
-  font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
+  margin-right: ${({ theme }) => theme.spaces.smallXL}px;
+  font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
+  color: ${({ theme }) => theme.colors.darkGrey};
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    margin-right: ${({ theme }) => theme.spaces.mediumS}px;
+    font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
+  }
 `;
 
 export const UserInfo = styled.div`
-  margin-top: ${({ theme }) => theme.spaces.largeXL}px;
+  margin-top: ${({ theme }) => theme.spaces.largeL}px;
   display: flex;
   flex-direction: column;
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    margin-top: ${({ theme }) => theme.spaces.largeXL}px;
+  }
 `;
 
 export const Description = styled.span`
   margin-top: ${({ theme }) => theme.spaces.smallXL}px;
+  font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
+  }
 `;
 
 export const EditProfileButton = styled.button`
   cursor: pointer;
   color: ${({ theme }) => theme.color};
   background: transparent;
-  border: 1px solid ${({ theme }) => theme.color};
-  padding: ${({ theme }) => theme.spaces.smallM}px ${({ theme }) => theme.spaces.smallL}px;
+  border: 2px solid ${({ theme }) => theme.color};
+  height: 30px;
+  padding: ${({ theme }) => theme.spaces.zero} ${({ theme }) => theme.spaces.smallL}px;
   font-weight: ${({ theme }) => theme.fontWeights.l};
   font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
   border-radius: 50px;
@@ -95,14 +111,22 @@ export const EditProfileButton = styled.button`
   &:hover {
     transform: scale(1.1);
   }
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    height: 40px;
+    padding: ${({ theme }) => theme.spaces.smallM}px ${({ theme }) => theme.spaces.smallL}px;
+    font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
+  }
 `;
 
 export const InfoName = styled.span`
   ${textElipsis}
   max-width: 250px;
   margin-bottom: ${({ theme }) => theme.spaces.smallS}px;
-  font-size: ${({ theme }) => theme.fontSizes.largeS}px;
+  font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
   font-weight: ${({ theme }) => theme.fontWeights.l};
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    font-size: ${({ theme }) => theme.fontSizes.largeS}px;
+  }
 `;
 
 export const InfoEmail = styled.span`
@@ -111,20 +135,21 @@ export const InfoEmail = styled.span`
   ${userEmail}
 `;
 
-export const TweetsBlockHeader = styled.h1`
+export const TweetsBlockHeader = styled.h2`
   ${flexCenter}
-  font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
+  font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
   width: 241px;
-  height: 62px;
-  margin-bottom: ${({ theme }) => theme.spaces.largeL}px;
+  height: 50px;
+  margin-bottom: ${({ theme }) => theme.spaces.largeS}px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    height: 62px;
+    font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
+    margin-bottom: ${({ theme }) => theme.spaces.largeL}px;
+  }
 `;
 
 export const CreateTweetWrapper = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
   height: 150px;
-`;
-
-export const BackWrapper = styled.div`
-  ${flexCenterVertical}
 `;

@@ -10,10 +10,11 @@ export const Wrapper = styled.div`
 
 export const UserName = styled.span`
   ${textElipsis}
-  max-width: 180px;
+  max-width: 100px;
   font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
   font-weight: ${({ theme }) => theme.fontWeights.l};
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    max-width: 180px;
     font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
   }
 `;
