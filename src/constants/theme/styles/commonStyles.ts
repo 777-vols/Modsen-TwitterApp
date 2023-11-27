@@ -7,7 +7,7 @@ export const container = css`
   padding: ${({ theme }) => theme.spaces.zero} ${({ theme }) => theme.spaces.mediumM}px;
 
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
-    max-width: 1650px;
+    max-width: 1600px;
   }
 `;
 
@@ -57,12 +57,27 @@ export const blueButton = css`
   border: none;
   border-radius: 70px;
   color: ${({ theme }) => theme.colors.white};
+  height: 40px;
+  font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
+
+  &:hover {
+    font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
+  }
+
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    height: 50px;
+    font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
+
+    &:hover {
+      font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
+    }
+  }
 `;
 
 export const smallAvatar = css`
   border-radius: 100px;
-  height: 35px;
-  width: 35px;
+  height: 40px;
+  width: 40px;
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     height: 50px;
     width: 50px;
@@ -70,8 +85,8 @@ export const smallAvatar = css`
 `;
 
 export const userEmail = css`
-  font-size: ${({ theme }) => theme.fontSizes.smallXXL}px;
-  opacity: 0.8;
+  font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
+  color: ${({ theme }) => theme.colors.darkGrey};
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
   }
@@ -82,4 +97,11 @@ export const textElipsis = css`
   display: inline-block;
   text-overflow: ellipsis;
   white-space: nowrap;
+`;
+
+export const textLink = css`
+  color: ${({ theme }) => theme.colors.blue};
+  &:hover {
+    text-decoration: underline;
+  }
 `;

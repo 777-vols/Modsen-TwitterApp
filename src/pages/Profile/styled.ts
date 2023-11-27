@@ -27,8 +27,11 @@ export const Info = styled.div`
 export const UserName = styled.span`
   ${textElipsis}
   max-width: 250px;
-  font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
+  font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
   font-weight: ${({ theme }) => theme.fontWeights.m};
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
+  }
 `;
 
 export const TweetsNumber = styled.span`
@@ -36,7 +39,9 @@ export const TweetsNumber = styled.span`
   opacity: 0.7;
 `;
 
-export const Banner = styled.img``;
+export const Banner = styled.img`
+  width: 100%;
+`;
 
 export const ProfileInfo = styled.div`
   position: relative;

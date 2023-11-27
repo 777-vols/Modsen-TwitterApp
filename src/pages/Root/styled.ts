@@ -7,7 +7,8 @@ import {
   flexCenterHorizontally,
   flexCenterVertical,
   fullSreen,
-  maxSize
+  maxSize,
+  textLink
 } from '@/constants/theme/styles/commonStyles';
 
 const fullSize = 100;
@@ -174,10 +175,7 @@ export const HaveAccount = styled.p`
 `;
 
 export const TextLink = styled(NavLink)`
-  color: ${({ theme }) => theme.colors.blue};
-  &:hover {
-    text-decoration: underline;
-  }
+  ${textLink}
 `;
 
 export const Footer = styled.footer`

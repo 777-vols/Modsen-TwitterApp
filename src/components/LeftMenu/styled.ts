@@ -9,12 +9,9 @@ import {
   userEmail
 } from '@/constants/theme/styles/commonStyles';
 
-const bigButtonHeiht = 55;
-const middleButtonHeiht = 40;
-
 export const Wrapper = styled.div`
   position: sticky;
-  top: 20px;
+  top: 0px;
   padding-right: 20px;
   width: 100%;
 
@@ -24,7 +21,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Logo = styled.img`
-  margin-top: ${({ theme }) => theme.spaces.smallL}px;
+  margin-top: ${({ theme }) => theme.spaces.mediumL}px;
   margin-bottom: ${({ theme }) => theme.spaces.mediumS}px;
   width: 30px;
   height: 30px;
@@ -123,36 +120,9 @@ export const UserEmail = styled.span`
 
 export const TweetButton = styled.button`
   ${blueButton}
-  height: ${middleButtonHeiht}px;
-  font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
-  &:hover {
-    font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
-  }
-
-  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
-    height: ${bigButtonHeiht}px;
-    font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
-
-    &:hover {
-      font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
-    }
-  }
 `;
 
 export const LogOutButton = styled.button`
   ${blueButton}
-  height: ${middleButtonHeiht}px;
-  font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
   background: ${({ theme }) => theme.colors.grey};
-  &:hover {
-    font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
-  }
-
-  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
-    font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
-    height: ${bigButtonHeiht}px;
-    &:hover {
-      font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
-    }
-  }
 `;

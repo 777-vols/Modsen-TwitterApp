@@ -18,8 +18,8 @@ import {
   Email,
   Image,
   Info,
+  LikeButton,
   Likes,
-  LikesButton,
   LikesCount,
   Message,
   MessageWrapper,
@@ -85,7 +85,8 @@ const Tweet: FC<IProps> = ({ tweetData, currentUserId, isUserAuth }) => {
           <Email>{`${email} ·`}</Email>
           <DateInfo>
             {tweetDate.getDate()}.{tweetDate.getMonth()}.{tweetDate.getFullYear()}{' '}
-            {tweetDate.getHours()}:{tweetDate.getMinutes()}
+            {String(tweetDate.getHours()).padStart(2, '0')}:
+            {String(tweetDate.getMinutes()).padStart(2, '0')}
           </DateInfo>
         </Info>
         <MessageWrapper>
@@ -93,9 +94,9 @@ const Tweet: FC<IProps> = ({ tweetData, currentUserId, isUserAuth }) => {
           {image && <TweetImage src={image} alt="tweet" />}
         </MessageWrapper>
         <Likes>
-          <LikesButton onClick={likeButtonHandler}>
+          <LikeButton onClick={likeButtonHandler}>
             <Image src={isLiked ? likeFill : likeImg} alt="like" />
-          </LikesButton>
+          </LikeButton>
           <LikesCount>{likes ? likes.length : '0'}</LikesCount>
         </Likes>
       </Content>

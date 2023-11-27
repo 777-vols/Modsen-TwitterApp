@@ -10,9 +10,13 @@ import {
 export const Wrapper = styled.div`
   position: relative;
   display: flex;
-  padding: ${({ theme }) => theme.spaces.smallM}px ${({ theme }) => theme.spaces.mediumXL}px
-    ${({ theme }) => theme.spaces.mediumS}px ${({ theme }) => theme.spaces.mediumXL}px;
+  padding: ${({ theme }) => theme.spaces.smallM}px ${({ theme }) => theme.spaces.mediumM}px
+    ${({ theme }) => theme.spaces.mediumS}px ${({ theme }) => theme.spaces.mediumM}px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.lightGrey};
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    padding: ${({ theme }) => theme.spaces.smallM}px ${({ theme }) => theme.spaces.mediumXL}px
+      ${({ theme }) => theme.spaces.mediumS}px ${({ theme }) => theme.spaces.mediumXL}px;
+  }
 `;
 
 export const Avatar = styled.img`
@@ -37,8 +41,11 @@ export const Email = styled.span`
 `;
 
 export const DateInfo = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
-  opacity: 0.7;
+  font-size: ${({ theme }) => theme.fontSizes.smallXXL}px;
+  color: ${({ theme }) => theme.colors.darkGrey};
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
+  }
 `;
 
 export const MessageWrapper = styled.div`
@@ -47,20 +54,28 @@ export const MessageWrapper = styled.div`
 `;
 
 export const Message = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
+  line-height: 20px;
+  font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    line-height: 22px;
+    font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
+  }
 `;
 
 export const TweetImage = styled.img`
   margin-top: ${({ theme }) => theme.spaces.smallL}px;
 
   border-radius: 20px;
-  max-width: 680px;
+  width: 100%;
   max-height: 450px;
 `;
 
 export const Likes = styled.div`
   ${flexCenterVertical}
-  padding: ${({ theme }) => theme.spaces.mediumS}px;
+  padding: ${({ theme }) => theme.spaces.smallL}px;
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    padding: ${({ theme }) => theme.spaces.mediumS}px;
+  }
 `;
 
 const Button = css`
@@ -79,18 +94,28 @@ export const DeleteButton = styled.button`
   right: 10px;
 `;
 
-export const LikesButton = styled.button`
+export const LikeButton = styled.button`
   ${Button}
   ${flexCenterVertical}
 `;
 
 export const Image = styled.img`
-  margin-right: ${({ theme }) => theme.spaces.smallM}px;
+  margin-right: ${({ theme }) => theme.spaces.smallS}px;
   height: 23px;
   width: 23px;
   filter: invert(10%) sepia(94%) saturate(7149%) hue-rotate(3deg) brightness(97%) contrast(83%);
+  height: 18px;
+  width: 18px;
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    margin-right: ${({ theme }) => theme.spaces.smallM}px;
+    height: 24px;
+    width: 24px;
+  }
 `;
 
 export const LikesCount = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
+  font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
+  }
 `;

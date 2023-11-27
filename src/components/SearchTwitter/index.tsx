@@ -10,7 +10,6 @@ import { comparePathHelper, searchRecommemdedUsersHelper } from '@/helpers/searc
 import { useAction } from '@/hooks/useAction';
 import { IUser } from '@/pages/Profile/types';
 import { config as rootConfig } from '@/pages/Root/config';
-import { TextLink } from '@/pages/Root/styled';
 import { ITweet } from '@/store/slices/tweetsSlice/types';
 import { userSelector } from '@/store/slices/userSlice/selectors';
 
@@ -29,6 +28,7 @@ import {
   SearchResult,
   Signature,
   StyledLink,
+  TextLink,
   Title,
   Wrapper
 } from './styled';
