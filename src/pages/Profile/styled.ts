@@ -19,15 +19,8 @@ export const UserName = styled.span`
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
   }
-`;
-
-export const TweetsNumber = styled.span`
-  font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
-  margin-top: ${({ theme }) => theme.spaces.smallS}px;
-  opacity: 0.7;
-  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
-    font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
-    margin-top: ${({ theme }) => theme.spaces.zero};
+  @media (max-width: ${({ theme }) => theme.breakPoints.mobile}px) {
+    max-width: 140px;
   }
 `;
 

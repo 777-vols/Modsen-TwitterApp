@@ -18,6 +18,9 @@ export const Wrapper = styled.div`
     padding: ${({ theme }) => theme.spaces.mediumS}px ${({ theme }) => theme.spaces.zero}
       ${({ theme }) => theme.spaces.mediumS}px ${({ theme }) => theme.spaces.mediumM}px;
   }
+  @media (max-width: ${({ theme }) => theme.breakPoints.laptop}px) {
+    padding: ${({ theme }) => theme.spaces.zero} ${({ theme }) => theme.spaces.mediumM}px;
+  }
 `;
 
 export const SearchForm = styled.form`
@@ -85,6 +88,9 @@ export const NavList = styled.ul`
   margin-top: ${({ theme }) => theme.fontSizes.largeS}px;
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     margin-top: ${({ theme }) => theme.fontSizes.largeL}px;
+  }
+  @media (max-width: ${({ theme }) => theme.breakPoints.tablet}px) {
+    margin-top: ${({ theme }) => theme.spaces.largeM}px;
   }
 `;
 

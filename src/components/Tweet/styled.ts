@@ -17,6 +17,10 @@ export const Wrapper = styled.div`
     padding: ${({ theme }) => theme.spaces.smallM}px ${({ theme }) => theme.spaces.mediumXL}px
       ${({ theme }) => theme.spaces.mediumS}px ${({ theme }) => theme.spaces.mediumXL}px;
   }
+  @media (max-width: ${({ theme }) => theme.breakPoints.tablet}px) {
+    padding: ${({ theme }) => theme.spaces.smallM}px ${({ theme }) => theme.spaces.mediumM}px
+      ${({ theme }) => theme.spaces.mediumS}px ${({ theme }) => theme.spaces.smallM}px;
+  }
 `;
 
 export const Avatar = styled.img`
@@ -39,6 +43,9 @@ export const Info = styled.div`
 export const Email = styled.span`
   ${userEmail}
   margin: ${({ theme }) => theme.spaces.zero} ${({ theme }) => theme.spaces.smallM}px;
+  @media (max-width: ${({ theme }) => theme.breakPoints.mobile}px) {
+    font-size: ${({ theme }) => theme.fontSizes.smallXXL}px;
+  }
 `;
 
 export const DateInfo = styled.span`
@@ -46,6 +53,10 @@ export const DateInfo = styled.span`
   color: ${({ theme }) => theme.colors.darkGrey};
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
+  }
+  @media (max-width: ${({ theme }) => theme.breakPoints.mobile}px) {
+    font-size: ${({ theme }) => theme.fontSizes.smallXXL}px;
+    line-height: 20px;
   }
 `;
 
@@ -71,6 +82,9 @@ export const TweetImage = styled.img`
   max-height: 350px;
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     max-height: 450px;
+  }
+  @media (max-width: ${({ theme }) => theme.breakPoints.tablet}px) {
+    max-height: 300px;
   }
 `;
 

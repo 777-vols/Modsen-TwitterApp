@@ -39,16 +39,16 @@ const { passwordPattern } = formPatterns;
 const LogIn: FC = () => {
   const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false);
   const isLoading = useSelector(isLoadingSelector) as boolean;
-  const togglePasswordVisiblity = () => {
-    setIsPasswordShown((prevState) => !prevState);
-  };
-
   const { authenticateUser, setErrorNotification, setIsLoading } = useAction();
   const {
     register,
     handleSubmit,
     formState: { errors, isValid }
   } = useForm<ILoginFormData>({ mode: 'onChange' });
+
+  const togglePasswordVisiblity = () => {
+    setIsPasswordShown((prevState) => !prevState);
+  };
 
   const handleLogin = async (formData: ILoginFormData) => {
     try {

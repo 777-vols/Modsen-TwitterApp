@@ -110,7 +110,9 @@ export const userEmail = css`
   }
   @media (max-width: ${({ theme }) => theme.breakPoints.tablet}px) {
     ${textElipsis}
-    max-width: 100px;
-    font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
+    max-width: 140px;
+  }
+  @media (max-width: ${({ theme }) => theme.breakPoints.mobile}px) {
+    max-width: 105px;
   }
 `;

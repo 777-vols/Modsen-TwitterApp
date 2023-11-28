@@ -17,6 +17,9 @@ export const UserName = styled.span`
     max-width: 180px;
     font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
   }
+  @media (max-width: ${({ theme }) => theme.breakPoints.tablet}px) {
+    max-width: 130px;
+  }
 `;
 
 export const UserInfo = styled.div`

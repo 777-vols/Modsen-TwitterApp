@@ -1,7 +1,7 @@
 const enum BreakPoints {
   BIG_SCREEN = 1920,
   LAPTOP = 1280,
-  TABLET = 950,
+  TABLET = 820,
   MOBILE = 480
 }
 

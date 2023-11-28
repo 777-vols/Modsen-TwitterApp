@@ -1,17 +1,16 @@
 import { FC, memo, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { FirebaseCollections } from '@/api/firebase/constants';
 import { getAllFirebaseDocs, getFirebaseDoc } from '@/api/firebase/firebaseHelpers';
-import Checkbox from '@/components/Checkbox';
 import CreateTweet from '@/components/CreateTweet';
+import Header from '@/components/Header';
 import LeftMenu from '@/components/LeftMenu';
 import { Loader } from '@/components/Loader';
+import Notification from '@/components/Notification';
 import SearchTwitter from '@/components/SearchTwitter';
 import Tweet from '@/components/Tweet';
-import { allImages } from '@/constants/allImages';
-import { Urls } from '@/constants/urls';
 import { searchUserHelper } from '@/helpers/searchHelpers';
 import { useAction } from '@/hooks/useAction';
 import { IUser } from '@/pages/Profile/types';
@@ -23,36 +22,25 @@ import { userSelector } from '@/store/slices/userSlice/selectors';
 import { config } from './config';
 import {
   AllTweetsWrapper,
-  BackButton,
-  BackWrapper,
-  BurgerMenuButton,
   CreateTweetWrapper,
-  Header,
-  HeaderContent,
   LeftSideBar,
   Main,
   MainWrapper,
-  PageName,
   RigthSideBar,
-  StyledBar,
   Wrapper
 } from './styled';
 
-const { HOME } = Urls;
 const { TWEETS_COLLECTION } = FirebaseCollections;
-const { arrowBack } = allImages;
 
-const { header, searchPlaceholder, searchError } = config;
+const { searchPlaceholder, searchError } = config;
 
 const Home: FC = () => {
-  const [burgerMenuIsOpen, setBurgerMenuIsOpen] = useState<boolean>(false);
   const [currentTweet, setCurrentTweet] = useState<ITweet>();
   const tweetsArray = useSelector(allTweetsSelector);
   const currentUser = useSelector(userSelector) as IUser;
   const isLoading = useSelector(isLoadingSelector) as boolean;
   const { pathname } = useLocation();
   const { setErrorNotification, addAllTweets, setIsLoading } = useAction();
-  const navigate = useNavigate();
 
   const pathUserIdIndex = 2;
   const pathTweetId = pathname.split('/')[pathUserIdIndex];
@@ -99,14 +87,6 @@ const Home: FC = () => {
     });
   }, [pathTweetId]);
 
-  const handleBackToHomePage = () => {
-    navigate(HOME);
-  };
-
-  const burgerButtonHandler = () => {
-    setBurgerMenuIsOpen((prevState) => !prevState);
-  };
-
   return (
     <Wrapper>
       <LeftSideBar>
@@ -114,27 +94,7 @@ const Home: FC = () => {
       </LeftSideBar>
 
       <MainWrapper>
-        <Header>
-          <BurgerMenuButton
-            className={burgerMenuIsOpen ? 'active' : ''}
-            onClick={burgerButtonHandler}>
-            <StyledBar />
-            <StyledBar />
-            <StyledBar />
-          </BurgerMenuButton>
-
-          <HeaderContent>
-            <BackWrapper>
-              {pathTweetId && (
-                <BackButton onClick={handleBackToHomePage}>
-                  <img src={arrowBack} alt="arrow back" />
-                </BackButton>
-              )}
-              <PageName>{header}</PageName>
-            </BackWrapper>
-            <Checkbox />
-          </HeaderContent>
-        </Header>
+        <Header />
 
         <Main>
           {isLoading ? (
@@ -168,6 +128,7 @@ const Home: FC = () => {
           errorText={searchError}
         />
       </RigthSideBar>
+      <Notification />
     </Wrapper>
   );
 };

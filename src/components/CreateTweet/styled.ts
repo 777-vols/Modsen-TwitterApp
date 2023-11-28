@@ -20,8 +20,9 @@ export const Textarea = styled.textarea`
   background: transparent;
   color: ${({ theme }) => theme.color};
   width: 100%;
-  height: 50%;
-  font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
+  height: 100%;
+  font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
+  line-height: 20px;
   border: none;
   &::placeholder {
     color: ${({ theme }) => theme.color};
@@ -58,6 +59,10 @@ export const AddImageInput = styled.input``;
 
 export const NameImage = styled.span`
   color: ${({ theme }) => theme.colors.green};
+  font-size: ${({ theme }) => theme.fontSizes.smallXXL}px;
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
+  }
 `;
 
 export const Image = styled.img`
