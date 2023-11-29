@@ -20,7 +20,7 @@ export const Textarea = styled.textarea`
   background: transparent;
   color: ${({ theme }) => theme.color};
   width: 100%;
-  height: 100%;
+  height: 50%;
   font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
   line-height: 20px;
   border: none;

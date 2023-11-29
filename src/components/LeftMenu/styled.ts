@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import {
   blueButton,
@@ -9,14 +9,47 @@ import {
   userEmail
 } from '@/constants/theme/styles/commonStyles';
 
+interface IStyleProps {
+  open: boolean;
+}
+
 export const Wrapper = styled.div`
   position: sticky;
   top: 0px;
-  padding-right: 20px;
+  padding-right: ${({ theme }) => theme.spaces.mediumS}px;
   width: 100%;
 
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
-    padding-right: 50px;
+    padding-right: ${({ theme }) => theme.spaces.largeL}px;
+  }
+  @media (max-width: ${({ theme }) => theme.breakPoints.tablet}px) {
+    padding-right: ${({ theme }) => theme.spaces.zero};
+  }
+`;
+
+export const Menu = styled.nav<IStyleProps>`
+  @media (max-width: ${({ theme }) => theme.breakPoints.tablet}px) {
+    display: none;
+    padding: ${({ theme }) => theme.spaces.smallL}px;
+    width: 230px;
+    display: block;
+    position: absolute;
+    border: 2px solid ${({ theme }) => theme.color};
+    top: ${({ theme }) => theme.spaces.largeM}px;
+    left: -${({ theme }) => theme.spaces.smallXL}px;
+    z-index: 100;
+    background-color: ${({ theme }) => theme.background};
+    transform: translateX(-110%);
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    ${({ open }) =>
+      open &&
+      css`
+        transform: translateX(0);
+        display: block;
+      `}
+  }
+  @media (max-width: ${({ theme }) => theme.breakPoints.mobile}px) {
+    width: 170px;
   }
 `;
 
@@ -31,6 +64,9 @@ export const Logo = styled.img`
     margin-bottom: ${({ theme }) => theme.spaces.largeL}px;
     width: 40px;
     height: 33px;
+  }
+  @media (max-width: ${({ theme }) => theme.breakPoints.tablet}px) {
+    display: none;
   }
 `;
 
@@ -125,4 +161,48 @@ export const TweetButton = styled.button`
 export const LogOutButton = styled.button`
   ${blueButton}
   background: ${({ theme }) => theme.colors.grey};
+`;
+
+export const BurgerMenuButton = styled.button`
+  cursor: pointer;
+  width: 37px;
+  display: none;
+  float: left;
+  margin-right: ${({ theme }) => theme.spaces.mediumL}px;
+  outline: 0;
+  border: 0;
+  padding: ${({ theme }) => theme.spaces.smallS}px ${({ theme }) => theme.spaces.smallS}px
+    ${({ theme }) => theme.spaces.zero}px ${({ theme }) => theme.spaces.smallS}px;
+  background: none;
+
+  @media (max-width: ${({ theme }) => theme.breakPoints.tablet}px) {
+    display: block;
+  }
+
+  span {
+    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+
+  &.active {
+    span:nth-of-type(1) {
+      transform: rotate(45deg) translate(4px, 4px);
+    }
+
+    span:nth-of-type(2) {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    span:nth-of-type(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+  }
+`;
+
+export const StyledBar = styled.span`
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin-bottom: ${({ theme }) => theme.spaces.smallS}px;
+  background-color: ${({ theme }) => theme.color};
 `;

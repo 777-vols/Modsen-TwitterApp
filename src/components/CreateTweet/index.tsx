@@ -86,10 +86,10 @@ const CreateTweet: FC = () => {
         addTweet(newTweet);
         setInputValue('');
         setImage(undefined);
+        setSuccessNotification({
+          message: successMessage
+        });
       }
-      setSuccessNotification({
-        message: successMessage
-      });
     } catch (error) {
       setErrorNotification({
         message: addTweetError

@@ -22,6 +22,7 @@ export const Window = styled.div`
   height: fit-content;
   border-radius: 20px;
   padding: ${({ theme }) => theme.spaces.smallXL}px;
+  margin: ${({ theme }) => theme.spaces.smallM}px;
 `;
 
 export const GenderSelectWrapper = styled.div`

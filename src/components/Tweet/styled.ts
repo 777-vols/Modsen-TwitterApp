@@ -38,6 +38,12 @@ export const Info = styled.div`
   ${flexCenterVertical}
   flex-wrap: wrap;
   margin-bottom: ${({ theme }) => theme.spaces.smallS}px;
+  @media (max-width: ${({ theme }) => theme.breakPoints.tablet}px) {
+    max-width: 320px;
+  }
+  @media (max-width: ${({ theme }) => theme.breakPoints.mobile}px) {
+    max-width: 220px;
+  }
 `;
 
 export const Email = styled.span`

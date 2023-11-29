@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import Checkbox from '@/components/Checkbox';
@@ -6,17 +6,17 @@ import { allImages } from '@/constants/allImages';
 import { Urls } from '@/constants/urls';
 import { UserName } from '@/pages/Profile/styled';
 
+import LeftMenu from '../LeftMenu';
 import { config } from './config';
 import {
   BackButton,
   BackImage,
   BackWrapper,
-  BurgerMenuButton,
   HeaderInfo,
   HomeHeader,
+  MenuWrapper,
   PageName,
   ProfileHeader,
-  StyledBar,
   TweetsNumber,
   Wrapper
 } from './styled';
@@ -27,7 +27,6 @@ const { arrowBack } = allImages;
 const { homePageName, tweets } = config;
 
 const Header: FC<IProps> = ({ userName, tweetsCount, isAuthorizedUser }) => {
-  const [burgerMenuIsOpen, setBurgerMenuIsOpen] = useState<boolean>(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -39,17 +38,11 @@ const Header: FC<IProps> = ({ userName, tweetsCount, isAuthorizedUser }) => {
     navigate(HOME);
   };
 
-  const burgerButtonHandler = () => {
-    setBurgerMenuIsOpen((prevState) => !prevState);
-  };
-
   return (
     <Wrapper>
-      <BurgerMenuButton className={burgerMenuIsOpen ? 'active' : ''} onClick={burgerButtonHandler}>
-        <StyledBar />
-        <StyledBar />
-        <StyledBar />
-      </BurgerMenuButton>
+      <MenuWrapper>
+        <LeftMenu />
+      </MenuWrapper>
 
       {isHomePage ? (
         <HomeHeader>

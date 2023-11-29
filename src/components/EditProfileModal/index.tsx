@@ -1,4 +1,4 @@
-import { FC, memo, useState } from 'react';
+import { FC, memo, useRef, useState } from 'react';
 import { useController, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import Select from 'react-select';
@@ -9,6 +9,7 @@ import { allImages } from '@/constants/allImages';
 import { formPatterns, minMaxLineLength } from '@/constants/formConstants';
 import { updateUserDataHelper } from '@/helpers/userHelper';
 import { useAction } from '@/hooks/useAction';
+import useOnClickOutside from '@/hooks/useOnClickOutside';
 import { IUser } from '@/pages/Profile/types';
 import { customStyles } from '@/pages/SignUp/config';
 import {
@@ -53,6 +54,11 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
   const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false);
   const { setSuccessNotification, setErrorNotification, updateUserData, setIsLoading } =
     useAction();
+  const modalRef = useRef(null);
+
+  useOnClickOutside(modalRef, () => {
+    handleCloseModal();
+  });
 
   const {
     register,
@@ -101,7 +107,7 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
 
   return (
     <Background>
-      <Window>
+      <Window ref={modalRef}>
         <CloseButton onClick={handleCloseModal}>X</CloseButton>
         <Form onSubmit={handleSubmit(handleEditProfile)}>
           <Title>{header}</Title>
