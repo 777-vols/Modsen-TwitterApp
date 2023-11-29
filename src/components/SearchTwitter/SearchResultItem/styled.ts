@@ -10,9 +10,16 @@ export const Wrapper = styled.div`
 
 export const UserName = styled.span`
   ${textElipsis}
-  max-width: 180px;
-  font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
+  max-width: 100px;
+  font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
   font-weight: ${({ theme }) => theme.fontWeights.l};
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    max-width: 180px;
+    font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
+  }
+  @media (max-width: ${({ theme }) => theme.breakPoints.tablet}px) {
+    max-width: 130px;
+  }
 `;
 
 export const UserInfo = styled.div`
@@ -25,12 +32,17 @@ export const UserData = styled.div`
 `;
 
 export const Button = styled.button`
+  ${flexCenterVertical}
   cursor: pointer;
   border: none;
   border-radius: 50px;
   background: ${({ theme }) => theme.colors.black};
   color: ${({ theme }) => theme.colors.white};
-  font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
-  padding: ${({ theme }) => theme.spaces.smallM}px ${({ theme }) => theme.spaces.smallXL}px;
-  max-height: 38px;
+  padding: ${({ theme }) => theme.spaces.zero} ${({ theme }) => theme.spaces.smallM}px;
+  height: 28px;
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+    padding: ${({ theme }) => theme.spaces.zero} ${({ theme }) => theme.spaces.smallXL}px;
+    height: 38px;
+    font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
+  }
 `;

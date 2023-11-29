@@ -7,6 +7,7 @@ export const Window = styled.div`
   background: ${({ theme }) => theme.background};
   max-width: 600px;
   border-radius: 20px;
+  margin: ${({ theme }) => theme.spaces.smallM}px;
 `;
 
 export const CreateTweetWrapper = styled.div`

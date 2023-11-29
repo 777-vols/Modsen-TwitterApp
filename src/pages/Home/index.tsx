@@ -1,27 +1,18 @@
 import { FC, memo, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { FirebaseCollections } from '@/api/firebase/constants';
 import { getAllFirebaseDocs, getFirebaseDoc } from '@/api/firebase/firebaseHelpers';
-import Checkbox from '@/components/Checkbox';
 import CreateTweet from '@/components/CreateTweet';
+import Header from '@/components/Header';
 import LeftMenu from '@/components/LeftMenu';
 import { Loader } from '@/components/Loader';
+import Notification from '@/components/Notification';
 import SearchTwitter from '@/components/SearchTwitter';
 import Tweet from '@/components/Tweet';
-import { allImages } from '@/constants/allImages';
-import { Urls } from '@/constants/urls';
 import { searchUserHelper } from '@/helpers/searchHelpers';
 import { useAction } from '@/hooks/useAction';
-import {
-  BackButton,
-  BackWrapper,
-  Header,
-  RightPart,
-  SideBar,
-  Wrapper
-} from '@/pages/Profile/styled';
 import { IUser } from '@/pages/Profile/types';
 import { isLoadingSelector } from '@/store/slices/notificationSlice/selectors';
 import { allTweetsSelector } from '@/store/slices/tweetsSlice/selectors';
@@ -32,17 +23,16 @@ import { config } from './config';
 import {
   AllTweetsWrapper,
   CreateTweetWrapper,
-  HeaderContent,
+  LeftSideBar,
   Main,
   MainWrapper,
-  PageName
+  RigthSideBar,
+  Wrapper
 } from './styled';
 
-const { HOME } = Urls;
 const { TWEETS_COLLECTION } = FirebaseCollections;
-const { arrowBack } = allImages;
 
-const { header, searchPlaceholder, searchError } = config;
+const { searchPlaceholder, searchError } = config;
 
 const Home: FC = () => {
   const [currentTweet, setCurrentTweet] = useState<ITweet>();
@@ -51,7 +41,6 @@ const Home: FC = () => {
   const isLoading = useSelector(isLoadingSelector) as boolean;
   const { pathname } = useLocation();
   const { setErrorNotification, addAllTweets, setIsLoading } = useAction();
-  const navigate = useNavigate();
 
   const pathUserIdIndex = 2;
   const pathTweetId = pathname.split('/')[pathUserIdIndex];
@@ -85,9 +74,9 @@ const Home: FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (pathTweetId) {
-        const newTweet = (await getFirebaseDoc(TWEETS_COLLECTION, pathTweetId)) as ITweet;
-        if (newTweet) {
-          setCurrentTweet(newTweet);
+        const tweet = (await getFirebaseDoc(TWEETS_COLLECTION, pathTweetId)) as ITweet;
+        if (tweet) {
+          setCurrentTweet(tweet);
         }
       }
     };
@@ -98,30 +87,14 @@ const Home: FC = () => {
     });
   }, [pathTweetId]);
 
-  const handleBackToHomePage = () => {
-    navigate(HOME);
-  };
-
   return (
     <Wrapper>
-      <SideBar>
+      <LeftSideBar>
         <LeftMenu />
-      </SideBar>
+      </LeftSideBar>
 
       <MainWrapper>
-        <Header>
-          <HeaderContent>
-            <BackWrapper>
-              {pathTweetId && (
-                <BackButton onClick={handleBackToHomePage}>
-                  <img src={arrowBack} alt="arrow back" />
-                </BackButton>
-              )}
-              <PageName>{header}</PageName>
-            </BackWrapper>
-            <Checkbox />
-          </HeaderContent>
-        </Header>
+        <Header />
 
         <Main>
           {isLoading ? (
@@ -147,13 +120,15 @@ const Home: FC = () => {
           )}
         </Main>
       </MainWrapper>
-      <RightPart>
+
+      <RigthSideBar>
         <SearchTwitter
           placeholder={searchPlaceholder}
           searchData={searchUserHelper}
           errorText={searchError}
         />
-      </RightPart>
+      </RigthSideBar>
+      <Notification />
     </Wrapper>
   );
 };

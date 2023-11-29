@@ -5,6 +5,7 @@ import { flexCenter, maxSize } from '@/constants/theme/styles/commonStyles';
 export const Background = styled.div`
   ${flexCenter}
   position: fixed;
+  z-index: 10;
   top: 0;
   right: 0;
   bottom: 0;
@@ -21,6 +22,7 @@ export const Window = styled.div`
   height: fit-content;
   border-radius: 20px;
   padding: ${({ theme }) => theme.spaces.smallXL}px;
+  margin: ${({ theme }) => theme.spaces.smallM}px;
 `;
 
 export const GenderSelectWrapper = styled.div`

@@ -17,7 +17,7 @@ export const config = {
     telegramError: 'Telegram is invalid!'
   },
   errorNotificationText: 'User data update error, check that the entered data is correct!',
-  successNotificationText: 'your data has been changed successfully',
+  successNotificationText: 'Your data has been changed successfully',
   buttonText: 'Save changes',
   genderOptionsArray: [
     { value: 'Male', label: 'Male' },

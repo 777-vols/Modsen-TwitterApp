@@ -1,22 +1,30 @@
 import { FC, memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { Portal } from 'react-portal';
 import { useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { FirebaseCollections } from '@/api/firebase/constants';
 import { getFirebaseDoc } from '@/api/firebase/firebaseHelpers';
 import CreateTweet from '@/components/CreateTweet';
 import EditProfileModal from '@/components/EditProfileModal';
+import Header from '@/components/Header';
 import LeftMenu from '@/components/LeftMenu';
 import { Loader } from '@/components/Loader';
+import Notification from '@/components/Notification';
 import NoTweets from '@/components/NoTweets';
 import SearchTwitter from '@/components/SearchTwitter';
 import Tweet from '@/components/Tweet';
 import { allImages } from '@/constants/allImages';
-import { Urls } from '@/constants/urls';
 import { searchTweetHelper } from '@/helpers/searchHelpers';
 import { useAction } from '@/hooks/useAction';
-import { AllTweetsWrapper, Main, MainWrapper } from '@/pages/Home/styled';
+import {
+  AllTweetsWrapper,
+  LeftSideBar,
+  Main,
+  MainWrapper,
+  RigthSideBar,
+  Wrapper
+} from '@/pages/Home/styled';
 import { TextLink } from '@/pages/Root/styled';
 import { isLoadingSelector } from '@/store/slices/notificationSlice/selectors';
 import { allTweetsSelector } from '@/store/slices/tweetsSlice/selectors';
@@ -25,33 +33,22 @@ import { userSelector } from '@/store/slices/userSlice/selectors';
 
 import { config } from './config';
 import {
-  BackButton,
   Banner,
   CreateTweetWrapper,
   Description,
   EditProfileButton,
   Following,
   FollowingInfo,
-  Header,
-  HeaderContent,
-  Info,
   InfoEmail,
   InfoName,
   ProfileInfo,
-  RightPart,
-  SideBar,
   TweetsBlockHeader,
-  TweetsNumber,
   UserAvatar,
-  UserInfo,
-  UserName,
-  Wrapper
+  UserInfo
 } from './styled';
 import { IUser } from './types';
 
-const { HOME } = Urls;
-
-const { profileBackground, arrowBack, defaultUserPhoto } = allImages;
+const { profileBackground, defaultUserPhoto } = allImages;
 
 const { USERS_COLLECTION } = FirebaseCollections;
 
@@ -69,11 +66,10 @@ const {
 
 const Profile: FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [user, setUser] = useState(useSelector(userSelector) as IUser);
   const authorizedUser = useSelector(userSelector) as IUser;
+  const [user, setUser] = useState(useSelector(userSelector) as IUser);
   const isLoading = useSelector(isLoadingSelector) as boolean;
   const tweetsArray = useSelector(allTweetsSelector);
-  const navigate = useNavigate();
   const { setErrorNotification } = useAction();
 
   const { id: currentUserId, photo, name, email } = user;
@@ -113,36 +109,22 @@ const Profile: FC = () => {
     [authorizedUser.id, currentUserId, tweetsArray, user.id]
   );
 
-  const handleBackToHomePage = () => {
-    navigate(HOME);
-  };
-
   const closeOpenModal = useCallback(() => {
     setIsModalOpen((prevState) => !prevState);
   }, []);
 
   return (
     <Wrapper>
-      <SideBar>
+      <LeftSideBar>
         <LeftMenu />
-      </SideBar>
+      </LeftSideBar>
 
       <MainWrapper>
-        <Header>
-          <HeaderContent>
-            {authorizedUser.id !== user.id && (
-              <BackButton onClick={handleBackToHomePage}>
-                <img src={arrowBack} alt="arrow back" />
-              </BackButton>
-            )}
-            <Info>
-              <UserName>{name}</UserName>
-              <TweetsNumber>
-                {arrayOfTweetComponents.length} {tweets}
-              </TweetsNumber>
-            </Info>
-          </HeaderContent>
-        </Header>
+        <Header
+          userName={name}
+          tweetsCount={arrayOfTweetComponents.length}
+          isAuthorizedUser={authorizedUser.id !== user.id}
+        />
 
         <Main>
           <Banner src={profileBackground} alt="profile banner" />
@@ -157,12 +139,10 @@ const Profile: FC = () => {
               </Description>
             </UserInfo>
             <FollowingInfo>
-              <Following>
-                <b>{defaultCount}</b> {following}
-              </Following>
-              <Following>
-                <b>{defaultCount}</b> {followers}
-              </Following>
+              <b>{defaultCount}</b>
+              <Following> {following}</Following>
+              <b>{defaultCount}</b>
+              <Following> {followers}</Following>
             </FollowingInfo>
             {authorizedUser.id === user.id && (
               <EditProfileButton onClick={closeOpenModal}>{editProfile}</EditProfileButton>
@@ -187,19 +167,20 @@ const Profile: FC = () => {
         </Main>
       </MainWrapper>
 
-      <RightPart>
+      <RigthSideBar>
         <SearchTwitter
           placeholder={searchPlaceholder}
           searchData={searchTweetHelper}
           errorText={searchError}
         />
-      </RightPart>
+      </RigthSideBar>
 
       {isModalOpen && (
         <Portal>
           <EditProfileModal handleCloseModal={closeOpenModal} />
         </Portal>
       )}
+      <Notification />
     </Wrapper>
   );
 };

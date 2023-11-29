@@ -3,18 +3,17 @@ import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { v4 } from 'uuid';
 
+import { Loader } from '@/components/Loader';
 import Notification from '@/components/Notification';
 import { allImages } from '@/constants/allImages';
 import { Urls } from '@/constants/urls';
-import { comparePathHelper, searchRecommemdedUsersHelper } from '@/helpers/searchHelpers';
+import { searchRecommemdedUsersHelper } from '@/helpers/searchHelpers';
 import { useAction } from '@/hooks/useAction';
 import { IUser } from '@/pages/Profile/types';
 import { config as rootConfig } from '@/pages/Root/config';
-import { TextLink } from '@/pages/Root/styled';
 import { ITweet } from '@/store/slices/tweetsSlice/types';
 import { userSelector } from '@/store/slices/userSlice/selectors';
 
-import { Loader } from '../Loader';
 import { config } from './config';
 import SearchResultItem from './SearchResultItem';
 import {
@@ -29,16 +28,17 @@ import {
   SearchResult,
   Signature,
   StyledLink,
+  TextLink,
   Title,
   Wrapper
 } from './styled';
 import { IProps, SetState } from './types';
 
-const { HOME } = Urls;
+const { HOME, PROFILE } = Urls;
 
 const { searchIcon } = allImages;
 
-const { mainTitle, showMore } = config;
+const { mainTitle, showMore, errorNotificationText } = config;
 const { footerLinks, company } = rootConfig;
 
 const SearchTwitter: FC<IProps> = ({ placeholder, searchData, errorText }) => {
@@ -50,11 +50,14 @@ const SearchTwitter: FC<IProps> = ({ placeholder, searchData, errorText }) => {
   const authorizedUser = useSelector(userSelector) as IUser;
   const { pathname } = useLocation();
 
-  const isHomePage = comparePathHelper(HOME, pathname);
+  const isHomePage = pathname.split('/').includes(HOME.split('/')[1]);
+  const isProfilePage = pathname.split('/').includes(PROFILE.split('/')[1]);
 
   const searchResultArray = useMemo(() => {
-    if (inputValue !== '' && !isHomePage) {
-      return tweetsArray.map(({ id, author }) => <SearchResultItem key={id} author={author} />);
+    if (inputValue !== '' && isProfilePage) {
+      return tweetsArray.map(({ id, author }) => (
+        <SearchResultItem key={id} tweetId={id} author={author} />
+      ));
     }
     return usersArray.map((author) => <SearchResultItem key={v4()} author={author} isUserSearch />);
   }, [isHomePage, tweetsArray, usersArray]);
@@ -97,10 +100,16 @@ const SearchTwitter: FC<IProps> = ({ placeholder, searchData, errorText }) => {
   };
 
   const handleSubmitForm = async () => {
-    if (isHomePage) {
-      await setResultItemsArray(setUsersArray);
-    } else {
-      await setResultItemsArray(setTweetsArray);
+    try {
+      if (isHomePage) {
+        await setResultItemsArray(setUsersArray);
+      } else {
+        await setResultItemsArray(setTweetsArray);
+      }
+    } catch (error) {
+      setErrorNotification({
+        message: errorNotificationText
+      });
     }
   };
 

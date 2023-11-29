@@ -20,24 +20,24 @@ export const Form = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
-  @media ((min-width: ${({ theme }) => theme.breakPoints.bigScreen}px)) {
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     max-width: 450px;
   }
 `;
 
-export const Header = styled.h1`
+export const Title = styled.h1`
   font-size: ${({ theme }) => theme.fontSizes.largeS}px;
   font-weight: ${({ theme }) => theme.fontWeights.l};
   margin: ${({ theme }) => theme.spaces.mediumM}px ${({ theme }) => theme.spaces.zero}
     ${({ theme }) => theme.spaces.mediumM}px ${({ theme }) => theme.spaces.smallM}px;
-  @media ((min-width: ${({ theme }) => theme.breakPoints.bigScreen}px)) {
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     font-size: ${({ theme }) => theme.fontSizes.largeL}px;
     margin: ${({ theme }) => theme.spaces.mediumXL}px ${({ theme }) => theme.spaces.zero};
   }
-  @media ((max-width: ${({ theme }) => theme.breakPoints.laptop}px)) {
+  @media (max-width: ${({ theme }) => theme.breakPoints.laptop}px) {
     ${flexCenterHorizontally}
   }
-  @media ((max-width: ${({ theme }) => theme.breakPoints.mobile}px)) {
+  @media (max-width: ${({ theme }) => theme.breakPoints.mobile}px) {
     font-size: ${({ theme }) => theme.fontSizes.largeM}px;
   }
 `;
@@ -47,11 +47,11 @@ export const LinkWrapper = styled.div`
   justify-content: end;
   margin-top: ${({ theme }) => theme.spaces.mediumM}px;
   font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
-  @media ((min-width: ${({ theme }) => theme.breakPoints.bigScreen}px)) {
+  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     margin-top: ${({ theme }) => theme.spaces.largeS}px;
     font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
   }
-  @media ((max-width: ${({ theme }) => theme.breakPoints.mobile}px)) {
+  @media (max-width: ${({ theme }) => theme.breakPoints.mobile}px) {
     margin-top: ${({ theme }) => theme.spaces.mediumL}px;
   }
 `;

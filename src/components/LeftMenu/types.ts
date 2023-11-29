@@ -1,0 +1,3 @@
+interface IStyleProps {
+  open: boolean;
+}

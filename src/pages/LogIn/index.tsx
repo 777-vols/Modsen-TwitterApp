@@ -23,7 +23,7 @@ import {
 import { isLoadingSelector } from '@/store/slices/notificationSlice/selectors';
 
 import { config } from './config';
-import { Form, Header, LinkWrapper, Wrapper } from './styled';
+import { Form, LinkWrapper, Title, Wrapper } from './styled';
 import { ILoginFormData } from './types';
 
 const { header, emailPlaceholder, passwordPlaceholder, signUp, logIn, errorMessage } = config;
@@ -39,16 +39,16 @@ const { passwordPattern } = formPatterns;
 const LogIn: FC = () => {
   const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false);
   const isLoading = useSelector(isLoadingSelector) as boolean;
-  const togglePasswordVisiblity = () => {
-    setIsPasswordShown((prevState) => !prevState);
-  };
-
   const { authenticateUser, setErrorNotification, setIsLoading } = useAction();
   const {
     register,
     handleSubmit,
     formState: { errors, isValid }
   } = useForm<ILoginFormData>({ mode: 'onChange' });
+
+  const togglePasswordVisiblity = () => {
+    setIsPasswordShown((prevState) => !prevState);
+  };
 
   const handleLogin = async (formData: ILoginFormData) => {
     try {
@@ -74,7 +74,7 @@ const LogIn: FC = () => {
         <LogoWrapper>
           <Logo alt="logo" src={logoImg} />
         </LogoWrapper>
-        <Header>{header}</Header>
+        <Title>{header}</Title>
         <InputWrapper>
           {errors?.email && <Error>{errors?.email?.message || emailError}</Error>}
           <Input
