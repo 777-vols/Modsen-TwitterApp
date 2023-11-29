@@ -28,9 +28,13 @@ const uploadImage = (options: UploadFileOptions) => {
 
 export const createNewTweetHelper = async (options: IOptions): Promise<ITweet> => {
   const { tweetText, userId, userPhoto, userName, userEmail, image } = options;
+  const authorData = userPhoto
+    ? { id: userId, name: userName, email: userEmail, photo: userPhoto }
+    : { id: userId, name: userName, email: userEmail };
+
   const newTweet = {
     id: v4(),
-    author: { id: userId, name: userName, email: userEmail, photo: userPhoto },
+    author: authorData,
     text: tweetText,
     date: Date.now(),
     image: '',

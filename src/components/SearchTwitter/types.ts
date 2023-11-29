@@ -7,6 +7,7 @@ export interface IProps {
   placeholder: string;
   searchData: (searchValue: string) => Promise<ITweet[] | IUser[]>;
   errorText: string;
+  currentUserId?: string;
 }
 
 export type SetState<T> = Dispatch<SetStateAction<T>>;

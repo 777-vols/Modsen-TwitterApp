@@ -8,7 +8,6 @@ import CreateTweet from '@/components/CreateTweet';
 import Header from '@/components/Header';
 import LeftMenu from '@/components/LeftMenu';
 import { Loader } from '@/components/Loader';
-import Notification from '@/components/Notification';
 import SearchTwitter from '@/components/SearchTwitter';
 import Tweet from '@/components/Tweet';
 import { searchUserHelper } from '@/helpers/searchHelpers';
@@ -32,12 +31,12 @@ import {
 
 const { TWEETS_COLLECTION } = FirebaseCollections;
 
-const { searchPlaceholder, searchError } = config;
+const { searchPlaceholder, searchError, pageName } = config;
 
 const Home: FC = () => {
   const [currentTweet, setCurrentTweet] = useState<ITweet>();
   const tweetsArray = useSelector(allTweetsSelector);
-  const currentUser = useSelector(userSelector) as IUser;
+  const authorizedUser = useSelector(userSelector) as IUser;
   const isLoading = useSelector(isLoadingSelector) as boolean;
   const { pathname } = useLocation();
   const { setErrorNotification, addAllTweets, setIsLoading } = useAction();
@@ -45,7 +44,7 @@ const Home: FC = () => {
   const pathUserIdIndex = 2;
   const pathTweetId = pathname.split('/')[pathUserIdIndex];
 
-  const { id: currentUserId } = currentUser;
+  const { id: authorizedUserId } = authorizedUser;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -66,9 +65,9 @@ const Home: FC = () => {
       [...tweetsArray]
         .sort((tweet1, tweet2) => tweet2.date - tweet1.date)
         .map((tweet: ITweet) => (
-          <Tweet key={tweet.id} tweetData={tweet} currentUserId={currentUserId} />
+          <Tweet key={tweet.id} tweetData={tweet} currentUserId={authorizedUserId} />
         )),
-    [currentUserId, tweetsArray]
+    [authorizedUserId, tweetsArray]
   );
 
   useEffect(() => {
@@ -94,7 +93,7 @@ const Home: FC = () => {
       </LeftSideBar>
 
       <MainWrapper>
-        <Header />
+        <Header pageName={pageName} />
 
         <Main>
           {isLoading ? (
@@ -111,7 +110,7 @@ const Home: FC = () => {
                 <Tweet
                   key={currentTweet.id}
                   tweetData={currentTweet}
-                  currentUserId={currentUserId}
+                  currentUserId={authorizedUserId}
                 />
               ) : (
                 arrayOfTweetComponents
@@ -128,7 +127,6 @@ const Home: FC = () => {
           errorText={searchError}
         />
       </RigthSideBar>
-      <Notification />
     </Wrapper>
   );
 };

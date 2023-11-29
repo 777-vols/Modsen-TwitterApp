@@ -102,7 +102,7 @@ const Profile: FC = () => {
           <Tweet
             key={tweet.id}
             tweetData={tweet}
-            currentUserId={currentUserId}
+            currentUserId={authorizedUser.id}
             isUserAuth={authorizedUser.id === user.id}
           />
         )),
@@ -172,6 +172,7 @@ const Profile: FC = () => {
           placeholder={searchPlaceholder}
           searchData={searchTweetHelper}
           errorText={searchError}
+          currentUserId={currentUserId}
         />
       </RigthSideBar>
 

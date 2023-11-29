@@ -22,17 +22,19 @@ import {
 } from './styled';
 import { IProps } from './types';
 
-const { HOME } = Urls;
+const { HOME, PROFILE } = Urls;
 const { arrowBack } = allImages;
-const { homePageName, tweets } = config;
+const { tweets } = config;
 
-const Header: FC<IProps> = ({ userName, tweetsCount, isAuthorizedUser }) => {
+const Header: FC<IProps> = (props) => {
+  const { userName, tweetsCount, isAuthorizedUser, pageName } = props;
+
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
   const pathUserIdIndex = 2;
   const pathTweetId = pathname.split('/')[pathUserIdIndex];
-  const isHomePage = pathname.split('/').includes(HOME.split('/')[1]);
+  const isProfilePage = pathname.split('/').includes(PROFILE.split('/')[1]);
 
   const handleBackToHomePage = () => {
     navigate(HOME);
@@ -44,19 +46,7 @@ const Header: FC<IProps> = ({ userName, tweetsCount, isAuthorizedUser }) => {
         <LeftMenu />
       </MenuWrapper>
 
-      {isHomePage ? (
-        <HomeHeader>
-          <BackWrapper>
-            {pathTweetId && (
-              <BackButton onClick={handleBackToHomePage}>
-                <img src={arrowBack} alt="arrow back" />
-              </BackButton>
-            )}
-            <PageName>{homePageName}</PageName>
-          </BackWrapper>
-          <Checkbox />
-        </HomeHeader>
-      ) : (
+      {isProfilePage ? (
         <ProfileHeader>
           {isAuthorizedUser && (
             <BackButton onClick={handleBackToHomePage}>
@@ -70,6 +60,18 @@ const Header: FC<IProps> = ({ userName, tweetsCount, isAuthorizedUser }) => {
             </TweetsNumber>
           </HeaderInfo>
         </ProfileHeader>
+      ) : (
+        <HomeHeader>
+          <BackWrapper>
+            {pathTweetId && (
+              <BackButton onClick={handleBackToHomePage}>
+                <img src={arrowBack} alt="arrow back" />
+              </BackButton>
+            )}
+            <PageName>{pageName}</PageName>
+          </BackWrapper>
+          <Checkbox />
+        </HomeHeader>
       )}
     </Wrapper>
   );

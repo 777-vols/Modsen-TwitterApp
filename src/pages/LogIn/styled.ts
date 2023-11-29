@@ -1,18 +1,19 @@
 import styled from 'styled-components';
 
 import {
-  container,
   flexCenter,
   flexCenterHorizontally,
   fullSreen
 } from '@/constants/theme/styles/commonStyles';
 
 export const Wrapper = styled.div`
-  background: ${({ theme }) => theme.colors.white};
-  color: ${({ theme }) => theme.colors.black};
-  ${container}
   ${fullSreen}
   ${flexCenter}
+  padding: ${({ theme }) => theme.spaces.smallL}px;
+  background: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.black};
+  height: max-content;
+  min-height: 100%;
 `;
 
 export const Form = styled.form`

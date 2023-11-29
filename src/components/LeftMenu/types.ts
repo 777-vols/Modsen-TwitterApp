@@ -1,3 +1,3 @@
-interface IStyleProps {
+export interface IStyleProps {
   open: boolean;
 }

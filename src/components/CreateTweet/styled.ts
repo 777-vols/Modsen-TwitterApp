@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 
-import { blueButton, flexCenterVertical, maxSize } from '@/constants/theme/styles/commonStyles';
+import {
+  blueButton,
+  flexCenterVertical,
+  maxSize,
+  textElipsis
+} from '@/constants/theme/styles/commonStyles';
 
 export const Wrapper = styled.div`
   ${maxSize}
@@ -58,10 +63,15 @@ export const AddImageLabel = styled.label`
 export const AddImageInput = styled.input``;
 
 export const NameImage = styled.span`
+  ${textElipsis}
+  max-width: 170px;
   color: ${({ theme }) => theme.colors.green};
   font-size: ${({ theme }) => theme.fontSizes.smallXXL}px;
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
+  }
+  @media (max-width: ${({ theme }) => theme.breakPoints.mobile}px) {
+    max-width: 80px;
   }
 `;
 
