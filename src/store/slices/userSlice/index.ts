@@ -1,11 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { IEditUserFormData } from '@/components/EditProfileModal/types';
-import { allImages } from '@/constants/allImages';
 import { ISighUpWithGoogleUser } from '@/pages/Root/types';
 import { ISighUpWithEmailUser } from '@/pages/SignUp/types';
-
-const { defaultUserPhoto } = allImages;
 
 const userSlice = createSlice({
   name: 'user',
@@ -19,7 +16,7 @@ const userSlice = createSlice({
       { payload }: PayloadAction<ISighUpWithEmailUser | ISighUpWithGoogleUser>
     ) {
       state.isAuth = true;
-      state.currentUser = { ...payload, photo: payload.photo || defaultUserPhoto };
+      state.currentUser = { ...payload };
     },
     updateUserData(state, { payload }: PayloadAction<IEditUserFormData>) {
       state.currentUser = { ...state.currentUser, ...payload };

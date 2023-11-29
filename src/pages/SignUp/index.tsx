@@ -189,7 +189,7 @@ const SignUp: FC = () => {
             {...register('email', {
               required: true,
               minLength: minLineLength,
-              maxLength: maxLineLength,
+              maxLength: 40,
               pattern: emailPattern
             })}
           />

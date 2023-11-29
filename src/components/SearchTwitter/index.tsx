@@ -34,14 +34,16 @@ import {
 } from './styled';
 import { IProps, SetState } from './types';
 
-const { HOME, PROFILE } = Urls;
+const { PROFILE } = Urls;
 
 const { searchIcon } = allImages;
 
 const { mainTitle, showMore, errorNotificationText } = config;
 const { footerLinks, company } = rootConfig;
 
-const SearchTwitter: FC<IProps> = ({ placeholder, searchData, errorText }) => {
+const SearchTwitter: FC<IProps> = (props) => {
+  const { placeholder, searchData, errorText, currentUserId } = props;
+
   const [inputValue, setInputValue] = useState<string>('');
   const [usersArray, setUsersArray] = useState<IUser[]>([]);
   const [tweetsArray, setTweetsArray] = useState<ITweet[]>([]);
@@ -50,17 +52,16 @@ const SearchTwitter: FC<IProps> = ({ placeholder, searchData, errorText }) => {
   const authorizedUser = useSelector(userSelector) as IUser;
   const { pathname } = useLocation();
 
-  const isHomePage = pathname.split('/').includes(HOME.split('/')[1]);
   const isProfilePage = pathname.split('/').includes(PROFILE.split('/')[1]);
 
   const searchResultArray = useMemo(() => {
     if (inputValue !== '' && isProfilePage) {
-      return tweetsArray.map(({ id, author }) => (
-        <SearchResultItem key={id} tweetId={id} author={author} />
-      ));
+      return tweetsArray
+        .filter((tweet) => tweet.author.id === currentUserId)
+        .map(({ id, author }) => <SearchResultItem key={id} tweetId={id} author={author} />);
     }
     return usersArray.map((author) => <SearchResultItem key={v4()} author={author} isUserSearch />);
-  }, [isHomePage, tweetsArray, usersArray]);
+  }, [currentUserId, inputValue, isProfilePage, tweetsArray, usersArray]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -101,10 +102,10 @@ const SearchTwitter: FC<IProps> = ({ placeholder, searchData, errorText }) => {
 
   const handleSubmitForm = async () => {
     try {
-      if (isHomePage) {
-        await setResultItemsArray(setUsersArray);
-      } else {
+      if (isProfilePage) {
         await setResultItemsArray(setTweetsArray);
+      } else {
+        await setResultItemsArray(setUsersArray);
       }
     } catch (error) {
       setErrorNotification({

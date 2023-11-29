@@ -9,6 +9,8 @@ import {
   userEmail
 } from '@/constants/theme/styles/commonStyles';
 
+import { IStyleProps } from './types';
+
 export const Wrapper = styled.div`
   position: sticky;
   top: 0px;
@@ -45,7 +47,7 @@ export const Menu = styled.nav<IStyleProps>`
       `}
   }
   @media (max-width: ${({ theme }) => theme.breakPoints.mobile}px) {
-    width: 170px;
+    width: 180px;
   }
 `;
 

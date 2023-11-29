@@ -3,7 +3,7 @@ import { useController, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import Select from 'react-select';
 
-import { CloseButton } from '@/components/AddTweetModal/styled';
+import { CloseButton } from '@/components/DeleteTweetModal/styled';
 import Notification from '@/components/Notification';
 import { allImages } from '@/constants/allImages';
 import { formPatterns, minMaxLineLength } from '@/constants/formConstants';

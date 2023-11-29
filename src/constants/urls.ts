@@ -3,13 +3,13 @@ export enum Urls {
   NOT_FOUND = '*',
   LOG_IN = '/logIn',
   SIGN_UP = '/signUp',
-  HOME = '/feed',
   HOME_TWEET = '/feed/:id',
-  EXPLORE = '/explore',
+  HOME = '/feed',
+  PROFILE = '/profile/:id',
+  MORE = '/more',
   NOTIFICATIONS = '/notifications',
   MESSAGES = '/messages',
-  BOOKMARKS = '/bookmarks',
   LISTS = '/lists',
-  PROFILE = '/profile/:id',
-  MORE = '/more'
+  EXPLORE = '/explore',
+  BOOKMARKS = '/bookmarks'
 }

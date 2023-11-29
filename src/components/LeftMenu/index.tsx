@@ -31,7 +31,7 @@ import {
   Wrapper
 } from './styled';
 
-const { logoImg } = allImages;
+const { logoImg, defaultUserPhoto } = allImages;
 
 const { tweetButton, logOutButton, menuItems } = config;
 const { PROFILE } = Urls;
@@ -45,6 +45,7 @@ const LeftMenu: FC = () => {
   const menuRef = useRef(null);
 
   const { id, photo, name, email } = currentUser;
+
   const itemsArray = useMemo(
     () =>
       menuItems.map(({ name: itemName, image, path }) => {
@@ -101,7 +102,7 @@ const LeftMenu: FC = () => {
         <TweetButton onClick={closeOpenModal}>{tweetButton}</TweetButton>
 
         <UserCard>
-          <SmallAvatarImg src={photo} alt="menu avatar" />
+          <SmallAvatarImg src={photo || defaultUserPhoto} alt="menu avatar" />
           <CardInfo>
             <UserName>{name}</UserName>
             <UserEmail>{email}</UserEmail>

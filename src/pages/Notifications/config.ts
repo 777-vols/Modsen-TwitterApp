@@ -1,5 +1,5 @@
 export const config = {
-  pageName: 'Home',
+  pageName: 'Notifications',
   searchPlaceholder: 'User search',
   searchError: 'There are no such users'
 };
