@@ -1,4 +1,4 @@
-const enum Spaces {
+export const enum Spaces {
   LARGE_XXL = 96,
   LARGE_XL = 57,
   LARGE_L = 50,
@@ -14,5 +14,3 @@ const enum Spaces {
   SMALL_S = 5,
   ZERO = 0
 }
-
-export default Spaces;

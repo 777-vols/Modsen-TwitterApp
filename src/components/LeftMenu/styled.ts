@@ -9,10 +9,6 @@ import {
   userEmail
 } from '@/constants/theme/styles/commonStyles';
 
-interface IStyleProps {
-  open: boolean;
-}
-
 export const Wrapper = styled.div`
   position: sticky;
   top: 0px;
@@ -74,6 +70,11 @@ export const Image = styled.img`
   margin-right: ${({ theme }) => theme.spaces.smallL}px;
   height: 20px;
   width: 20px;
+  filter: ${({ theme }) =>
+    theme.colors.white === theme.color
+      ? 'invert(100%) sepia(8%) saturate(6530%) hue-rotate(77deg) brightness(128%) contrast(120%)'
+      : 'invert(0%) sepia(100%) saturate(7431%) hue-rotate(23deg) brightness(116%) contrast(86%)'};
+
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     margin-right: ${({ theme }) => theme.spaces.mediumS}px;
     height: 28px;
@@ -161,6 +162,7 @@ export const TweetButton = styled.button`
 export const LogOutButton = styled.button`
   ${blueButton}
   background: ${({ theme }) => theme.colors.grey};
+  color: ${({ theme }) => theme.background};
 `;
 
 export const BurgerMenuButton = styled.button`

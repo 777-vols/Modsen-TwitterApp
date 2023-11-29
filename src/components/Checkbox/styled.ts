@@ -16,10 +16,10 @@ export const StyledLabel = styled.label<IArguments>`
   &:after {
     content: '';
     position: absolute;
-    left: ${({ $currentTheme }) => ($currentTheme ? '20px' : '-1px')};
+    left: ${({ $currentTheme }) => ($currentTheme ? '19px' : '-1px')};
     top: -1px;
-    width: 17px;
-    height: 17px;
+    width: 18px;
+    height: 18px;
     background: transparent;
     border: 2px solid ${({ theme }) => theme.colors.grey};
     border-radius: 50px;

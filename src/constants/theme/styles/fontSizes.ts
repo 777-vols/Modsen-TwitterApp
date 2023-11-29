@@ -1,4 +1,4 @@
-const enum FontSizes {
+export const enum FontSizes {
   LARGE_XL = 84,
   LARGE_L = 42,
   LARGE_M = 30,
@@ -13,5 +13,3 @@ const enum FontSizes {
   SMALL_M = 7,
   SMALL_S = 5
 }
-
-export default FontSizes;

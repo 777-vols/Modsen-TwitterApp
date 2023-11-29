@@ -1,7 +1,7 @@
-import BreakPoints from './styles/breakPoints';
-import Colors from './styles/colors';
-import FontSize from './styles/fontSizes';
-import Spaces from './styles/spaces';
+import { BreakPoints } from './styles/breakPoints';
+import { Colors } from './styles/colors';
+import { FontSizes } from './styles/fontSizes';
+import { Spaces } from './styles/spaces';
 import { IDefaultTheme } from './types';
 
 export const defaultTheme: IDefaultTheme = {
@@ -24,19 +24,19 @@ export const defaultTheme: IDefaultTheme = {
     s: 400
   },
   fontSizes: {
-    largeXL: FontSize.LARGE_XL,
-    largeL: FontSize.LARGE_L,
-    largeM: FontSize.LARGE_M,
-    largeS: FontSize.LARGE_S,
-    mediumXL: FontSize.MEDIUM_XL,
-    mediumL: FontSize.MEDIUM_L,
-    mediumM: FontSize.MEDIUM_M,
-    mediumS: FontSize.MEDIUM_S,
-    smallXXL: FontSize.SMALL_XXL,
-    smallXL: FontSize.SMALL_XL,
-    smallL: FontSize.SMALL_L,
-    smallM: FontSize.SMALL_M,
-    smallS: FontSize.SMALL_S
+    largeXL: FontSizes.LARGE_XL,
+    largeL: FontSizes.LARGE_L,
+    largeM: FontSizes.LARGE_M,
+    largeS: FontSizes.LARGE_S,
+    mediumXL: FontSizes.MEDIUM_XL,
+    mediumL: FontSizes.MEDIUM_L,
+    mediumM: FontSizes.MEDIUM_M,
+    mediumS: FontSizes.MEDIUM_S,
+    smallXXL: FontSizes.SMALL_XXL,
+    smallXL: FontSizes.SMALL_XL,
+    smallL: FontSizes.SMALL_L,
+    smallM: FontSizes.SMALL_M,
+    smallS: FontSizes.SMALL_S
   },
   spaces: {
     largeXXL: Spaces.LARGE_XXL,

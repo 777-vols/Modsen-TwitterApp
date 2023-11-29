@@ -1,5 +1,13 @@
 import { css } from 'styled-components';
 
+export const fullSreen = css`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+`;
+
 export const container = css`
   margin: ${({ theme }) => theme.spaces.zero} auto;
   width: 100%;
@@ -13,14 +21,6 @@ export const container = css`
     display: block;
     padding: ${({ theme }) => theme.spaces.zero} ${({ theme }) => theme.spaces.smallL}px;
   }
-`;
-
-export const fullSreen = css`
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
 `;
 
 export const maxSize = css`

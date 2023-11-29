@@ -1,4 +1,4 @@
-const enum Colors {
+export const enum Colors {
   WHITE = 'rgb(255, 255, 255)',
   BLACK = 'rgb(0, 0, 0)',
   LIGHT_RED = 'rgb(255, 221, 221)',
@@ -10,5 +10,3 @@ const enum Colors {
   GREEN = 'rgb(0, 201, 57)',
   MODAL_BG = 'rgba(85, 85, 85, 0.8)'
 }
-
-export default Colors;

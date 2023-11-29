@@ -4,7 +4,7 @@ import { HashRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import App from './App.tsx';
-import GlobalStyle from './constants/theme/styles/globalStyle.ts';
+import { GlobalStyle } from './constants/theme/styles/globalStyle.ts';
 import { persistor, store } from './store/index.ts';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

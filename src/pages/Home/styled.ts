@@ -6,6 +6,7 @@ export const PageWrapper = styled.div``;
 
 export const Wrapper = styled.div`
   ${container}
+  min-height: 100vh;
   display: flex;
   position: relative;
   padding-bottom: ${({ theme }) => theme.spaces.largeXXL}px;
@@ -33,9 +34,6 @@ export const MainWrapper = styled.div`
 
 export const RigthSideBar = styled.aside`
   flex: 12 1 300px;
-  @media (max-width: ${({ theme }) => theme.breakPoints.laptop}px) {
-    margin-top: ${({ theme }) => theme.spaces.mediumL}px;
-  }
 `;
 
 export const CreateTweetWrapper = styled.div`

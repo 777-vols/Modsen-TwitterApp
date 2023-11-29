@@ -4,6 +4,12 @@ import { flexCenter, maxSize } from '@/constants/theme/styles/commonStyles';
 
 import { IStyleProps } from './types';
 
+export const SpinnerWrapper = styled.div`
+  ${maxSize};
+  ${flexCenter};
+  padding: ${({ theme }) => theme.spaces.mediumM}px;
+`;
+
 export const Spinner = styled.span<IStyleProps>`
   @keyframes rotate {
     0% {
@@ -27,15 +33,18 @@ export const Spinner = styled.span<IStyleProps>`
     }
   }
   ${maxSize}
+  max-width: 100px;
+  max-height: 100px;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  position: relative;
+  animation: rotate 1s linear infinite;
+
   ${({ $size }) => css`
     width: ${$size}px;
     height: ${$size}px;
   `}
-  max-width: 100px;
-  max-height: 100px;
-  border-radius: 50%;
-  position: relative;
-  animation: rotate 1s linear infinite;
 
   &:before,
   &:after {
@@ -52,9 +61,4 @@ export const Spinner = styled.span<IStyleProps>`
     transform: rotate3d(90, 90, 0, 180deg);
     border-color: ${({ theme }) => theme.colors.white};
   }
-`;
-
-export const SpinnerWrapper = styled.div`
-  ${maxSize};
-  ${flexCenter}
 `;

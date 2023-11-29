@@ -1,5 +1,5 @@
 import { defaultTheme } from './defaultTheme';
-import ThemeColors from './styles/themeColors';
+import { ThemeColors } from './styles/themeColors';
 import { ITheme } from './types';
 
 export const lightTheme: ITheme = {

@@ -10,15 +10,19 @@ import {
 
 export const Wrapper = styled.div`
   position: sticky;
-  top: 0px;
-  padding: ${({ theme }) => theme.spaces.smallXL}px ${({ theme }) => theme.spaces.zero}
-    ${({ theme }) => theme.spaces.smallXL}px ${({ theme }) => theme.spaces.smallXL}px;
+  top: ${({ theme }) => theme.spaces.mediumM}px;
+  color: ${({ theme }) => theme.colors.black};
+  padding-bottom: ${({ theme }) => theme.spaces.smallXL}px;
+  padding-left: ${({ theme }) => theme.spaces.smallXL}px;
   width: 100%;
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
-    padding: ${({ theme }) => theme.spaces.mediumS}px ${({ theme }) => theme.spaces.zero}
-      ${({ theme }) => theme.spaces.mediumS}px ${({ theme }) => theme.spaces.mediumM}px;
+    padding-bottom: ${({ theme }) => theme.spaces.mediumS}px;
+    padding-left: ${({ theme }) => theme.spaces.mediumM}px;
   }
   @media (max-width: ${({ theme }) => theme.breakPoints.laptop}px) {
+    margin-top: ${({ theme }) => theme.spaces.largeS}px;
+  }
+  @media (max-width: ${({ theme }) => theme.breakPoints.tablet}px) {
     padding: ${({ theme }) => theme.spaces.zero} ${({ theme }) => theme.spaces.mediumM}px;
   }
 `;
@@ -78,6 +82,7 @@ export const Title = styled.h3`
     font-size: ${({ theme }) => theme.fontSizes.largeS}px;
   }
 `;
+
 export const SearchResult = styled.div`
   min-height: 40px;
 `;
