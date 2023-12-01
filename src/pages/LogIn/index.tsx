@@ -78,6 +78,7 @@ const LogIn: FC = () => {
         <InputWrapper>
           {errors?.email && <Error>{errors?.email?.message || emailError}</Error>}
           <Input
+            data-cy="emailInput"
             type="email"
             autoComplete="off"
             placeholder={emailPlaceholder}
@@ -91,6 +92,7 @@ const LogIn: FC = () => {
         <InputWrapper>
           {errors?.password && <Error>{errors?.password?.message || passwordError}</Error>}
           <Input
+            data-cy="passwordInput"
             type={isPasswordShown ? 'text' : 'password'}
             autoComplete="current-password"
             placeholder={passwordPlaceholder}
@@ -106,7 +108,9 @@ const LogIn: FC = () => {
             />
           </ShowHidePassowrd>
         </InputWrapper>
-        <Button type="submit">{logIn}</Button>
+        <Button data-cy="logInButton" type="submit">
+          {logIn}
+        </Button>
         <LinkWrapper>
           <TextLink to={SIGN_UP}>{signUp}</TextLink>
         </LinkWrapper>

@@ -1,31 +1,29 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
+    "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-
-    /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "paths": {
-      "@/*": ["./src/*"]
-    },
-
-    /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "allowSyntheticDefaultImports": true
+    "esModuleInterop": true,
+    "types": ["@testing-library/jest-dom", "jest-styled-components", "cypress"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "~/*": ["jest/*"]
+    }
   },
-  "types": ["node", "jest", "@testing-library/jest-dom"],
-  "include": ["src", ".eslintrc.js", "vite.config.ts", "cypress.config.ts", "cypress"],
-  "exclude": ["__mocks__"],
+  "include": ["src", "types", "jest"],
+  "exclude": ["node_modules", "dist", "./cypress.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

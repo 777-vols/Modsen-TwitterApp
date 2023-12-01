@@ -15,7 +15,11 @@ const Checkbox: FC = () => {
   };
 
   return (
-    <StyledLabel onChange={handlerChangeTheme} htmlFor="themeCheckbox" $currentTheme={isDarkTheme}>
+    <StyledLabel
+      data-cy="toggleTheme"
+      onChange={handlerChangeTheme}
+      htmlFor="themeCheckbox"
+      $currentTheme={isDarkTheme}>
       <SwichToggle id="themeCheckbox" />
     </StyledLabel>
   );

@@ -110,6 +110,7 @@ const CreateTweet: FC = () => {
       ) : (
         <Form onSubmit={handleSubmit}>
           <Textarea
+            data-cy="tweetInput"
             placeholder={inputPlaceholder}
             value={inputValue}
             onChange={handleInputChange}
@@ -126,7 +127,9 @@ const CreateTweet: FC = () => {
               />
               {image && <NameImage>{image.name}</NameImage>}
             </AddImageLabel>
-            <TweetButton type="submit">{tweetButtonText}</TweetButton>
+            <TweetButton data-cy="addTweetButton" type="submit">
+              {tweetButtonText}
+            </TweetButton>
           </ButtonsWrapper>
         </Form>
       )}

@@ -1,4 +1,7 @@
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 import { FC, memo, useEffect, useState } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useSelector } from 'react-redux';
 
 import { FirebaseCollections } from '@/api/firebase/constants';
@@ -26,7 +29,7 @@ import {
   LikesCount,
   Message,
   MessageWrapper,
-  TweetImage,
+  TweetImageWrapper,
   UserAvatarWrapper,
   Wrapper
 } from './styled';
@@ -108,8 +111,18 @@ const Tweet: FC<IProps> = ({ tweetData, currentUserId, isUserAuth }) => {
           </DateInfo>
         </Info>
         <MessageWrapper>
-          <Message>{text}</Message>
-          {image && <TweetImage src={image} alt="tweet" />}
+          <Message data-cy="tweetText">{text}</Message>
+          {image && (
+            <TweetImageWrapper>
+              <LazyLoadImage
+                src={image}
+                effect="blur"
+                alt="tweet image"
+                width="100%"
+                style={{ borderRadius: '15px', maxHeight: 'inherit' }}
+              />
+            </TweetImageWrapper>
+          )}
         </MessageWrapper>
         <Likes>
           <LikeButton onClick={likeButtonHandler}>

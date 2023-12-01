@@ -95,7 +95,9 @@ const Root: FC = () => {
             </AgreeRule>
             <HaveAccount>
               {haveAccountText}
-              <TextLink to={LOG_IN}>{haveAccountLink}</TextLink>
+              <TextLink data-cy="logInLink" to={LOG_IN}>
+                {haveAccountLink}
+              </TextLink>
             </HaveAccount>
           </Content>
         </Panel>

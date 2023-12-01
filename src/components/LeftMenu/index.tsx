@@ -109,7 +109,9 @@ const LeftMenu: FC = () => {
           </CardInfo>
         </UserCard>
 
-        <LogOutButton onClick={handleLogOut}>{logOutButton}</LogOutButton>
+        <LogOutButton data-cy="logOutButton" onClick={handleLogOut}>
+          {logOutButton}
+        </LogOutButton>
       </Menu>
 
       {isModalOpen && (
