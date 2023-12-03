@@ -10,7 +10,7 @@ import userSlice from './slices/userSlice';
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['notification']
+  blacklist: ['notification', 'tweets']
 };
 
 const rootReducer = combineReducers({

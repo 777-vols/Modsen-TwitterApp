@@ -5,7 +5,14 @@ import {
   setSuccessNotification
 } from '@/store/slices/notificationSlice';
 import { changeTheme } from '@/store/slices/themeSlice';
-import { addAllTweets, addTweet, deleteTweet, likeTweet } from '@/store/slices/tweetsSlice';
+import {
+  addAllTweets,
+  addChunkTweets,
+  addLastDocumentInChunk,
+  addTweet,
+  deleteTweet,
+  likeTweet
+} from '@/store/slices/tweetsSlice';
 import { authenticateUser, deauthenticateUser, updateUserData } from '@/store/slices/userSlice';
 
 export const actionCreators = {
@@ -15,10 +22,12 @@ export const actionCreators = {
   changeTheme,
   addAllTweets,
   setIsLoading,
+  addChunkTweets,
   updateUserData,
   authenticateUser,
   deauthenticateUser,
   setErrorNotification,
   setSuccessNotification,
+  addLastDocumentInChunk,
   setNotificationInactive
 };
