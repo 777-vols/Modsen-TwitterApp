@@ -98,6 +98,11 @@ const Profile: FC = () => {
   const { setErrorNotification, addChunkTweets, addLastDocumentInChunk } = useAction();
 
   const { id: currentUserId, photo, name, email } = user;
+  const {
+    id: authorizedUserId,
+    name: authorizedUserName,
+    email: authorizedUserEmail
+  } = authorizedUser;
 
   const { pathname } = useLocation();
   const pathUserIdIndex = 2;
@@ -172,10 +177,10 @@ const Profile: FC = () => {
           key={tweet.id}
           tweetData={tweet}
           currentUserId={authorizedUser.id}
-          isUserAuth={authorizedUser.id === user.id}
+          isUserAuth={authorizedUserId === currentUserId}
         />
       )),
-    [authorizedUser.id, currentUserId, tweetsArray, user.id]
+    [authorizedUserId, currentUserId, tweetsArray, currentUserId]
   );
 
   useGetUserTweets(currentUserId, changeNoMoreTweets, changeNumberOfUserTweets);
@@ -192,7 +197,7 @@ const Profile: FC = () => {
 
       <MainWrapper>
         <Header
-          userName={name}
+          userName={currentUserId === authorizedUserId ? authorizedUserName : name}
           tweetsCount={numberOfUserTweets}
           isAuthorizedUser={authorizedUser.id !== user.id}
         />
@@ -203,8 +208,10 @@ const Profile: FC = () => {
           <ProfileInfo>
             <UserAvatar src={photo || defaultUserPhoto} alt="profile avatar" />
             <UserInfo>
-              <InfoName>{name}</InfoName>
-              <InfoEmail>{email}</InfoEmail>
+              <InfoName>{currentUserId === authorizedUserId ? authorizedUserName : name}</InfoName>
+              <InfoEmail>
+                {currentUserId === authorizedUserId ? authorizedUserEmail : email}
+              </InfoEmail>
               <Description>
                 {defaultDescriptionText} <TextLink to="#">{defaultDescriptionLink}</TextLink>
               </Description>
@@ -216,7 +223,9 @@ const Profile: FC = () => {
               <Following> {followers}</Following>
             </FollowingInfo>
             {authorizedUser.id === user.id && (
-              <EditProfileButton onClick={closeOpenModal}>{editProfile}</EditProfileButton>
+              <EditProfileButton data-cy="editProfile" onClick={closeOpenModal}>
+                {editProfile}
+              </EditProfileButton>
             )}
           </ProfileInfo>
 

@@ -99,7 +99,9 @@ const LeftMenu: FC = () => {
 
         <nav>{itemsArray}</nav>
 
-        <TweetButton onClick={closeOpenModal}>{tweetButton}</TweetButton>
+        <TweetButton data-cy="leftMenuAddTweet" onClick={closeOpenModal}>
+          {tweetButton}
+        </TweetButton>
 
         <UserCard>
           <SmallAvatarImg src={photo || defaultUserPhoto} alt="menu avatar" />

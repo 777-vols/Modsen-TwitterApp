@@ -25,7 +25,7 @@ const tweetsSlice = createSlice({
       state.tweetsArray = [...state.tweetsArray, ...payload];
     },
     addTweet(state, { payload }: PayloadAction<ITweet>) {
-      state.tweetsArray.push(payload);
+      state.tweetsArray.unshift(payload);
     },
     deleteTweet(state, { payload }: PayloadAction<ITweet>) {
       state.tweetsArray = state.tweetsArray.filter((tweet) => tweet.id !== payload.id);

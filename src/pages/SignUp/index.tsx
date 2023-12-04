@@ -157,6 +157,7 @@ const SignUp: FC = () => {
         <InputWrapper>
           {errors?.name && <Error>{errors?.name?.message || nameError}</Error>}
           <Input
+            data-cy="nameInput"
             type="text"
             placeholder={namePlaceholder}
             {...register('name', {
@@ -170,6 +171,7 @@ const SignUp: FC = () => {
         <InputWrapper>
           {errors?.phoneNumber && <Error>{errors?.phoneNumber?.message || phoneNumberError}</Error>}
           <Input
+            data-cy="phoneInput"
             type="text"
             placeholder={phonePlaceholder}
             {...register('phoneNumber', {
@@ -183,6 +185,7 @@ const SignUp: FC = () => {
         <InputWrapper>
           {errors?.email && <Error>{errors?.email?.message || emailError}</Error>}
           <Input
+            data-cy="emailInput"
             type="email"
             autoComplete="current-password"
             placeholder={emailPlaceholder}
@@ -199,6 +202,7 @@ const SignUp: FC = () => {
             <PasswordError>{errors?.password?.message || passwordError}</PasswordError>
           )}
           <Input
+            data-cy="passwordInput"
             type={isPasswordShown ? 'text' : 'password'}
             autoComplete="current-password"
             placeholder={passwordPlaceholder}
@@ -221,6 +225,7 @@ const SignUp: FC = () => {
         <SelectBlock>
           <MonthSelect>
             <Select
+              data-cy="monthSelect"
               styles={customStyles}
               options={monthsOptionsArray}
               maxMenuHeight={300}
@@ -258,7 +263,9 @@ const SignUp: FC = () => {
             </YearSelect>
           </SelectWrapper>
         </SelectBlock>
-        <Button type="submit">{buttonText}</Button>
+        <Button data-cy="sigUp" type="submit">
+          {buttonText}
+        </Button>
       </Form>
       <Notification />
     </Wrapper>

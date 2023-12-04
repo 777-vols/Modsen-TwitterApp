@@ -54,7 +54,7 @@ const Header: FC<IProps> = (props) => {
             </BackButton>
           )}
           <HeaderInfo>
-            <UserName>{userName}</UserName>
+            <UserName data-cy="headerUserName">{userName}</UserName>
             <TweetsNumber>
               {tweetsCount} {tweets}
             </TweetsNumber>
