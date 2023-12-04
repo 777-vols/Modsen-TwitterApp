@@ -10,31 +10,9 @@ import { store } from '@/store';
 
 import LeftMenu from '.';
 
-jest.mock('firebase/app', () => {
-  const userCredentialMock = {
-    user: {
-      sendEmailVerification: jest.fn()
-    }
-  };
-  return {
-    auth: jest.fn().mockReturnThis(),
-    currentUser: {
-      email: 'test',
-      uid: '123',
-      emailVerified: true
-    },
-    signInWithEmailAndPassword: jest.fn(),
-    createUserWithEmailAndPassword: jest.fn(() => userCredentialMock),
-    sendPasswordResetEmail: jest.fn(),
-    signOut: jest.fn(),
-    onAuthStateChanged: jest.fn(),
-    initializeApp: jest.fn()
-  };
-});
-
-describe('Renders Home page', () => {
-  it('Should check for the presence of basic blocks', () => {
-    const { getByText } = render(
+describe('Renders Left menu', () => {
+  it('Should test for the presence of all buttons', () => {
+    const { getByText, getAllByTestId } = render(
       <ThemeProvider theme={lightTheme}>
         <Provider store={store}>
           <BrowserRouter>
@@ -43,7 +21,30 @@ describe('Renders Home page', () => {
         </Provider>
       </ThemeProvider>
     );
-    const headerTitle = getByText('Log out');
-    expect(headerTitle).toBeTruthy();
+
+    const allMenuItems = getAllByTestId('menuItem');
+    expect(allMenuItems).toHaveLength(8);
+
+    const homeLink = getByText('Home');
+    expect(homeLink).toBeInTheDocument();
+    const exploreLink = getByText('Explore');
+    expect(exploreLink).toBeInTheDocument();
+    const notificationsLink = getByText('Notifications');
+    expect(notificationsLink).toBeInTheDocument();
+    const messagesLink = getByText('Messages');
+    expect(messagesLink).toBeInTheDocument();
+    const bookmarksLink = getByText('Bookmarks');
+    expect(bookmarksLink).toBeInTheDocument();
+    const listsLink = getByText('Lists');
+    expect(listsLink).toBeInTheDocument();
+    const profileLink = getByText('Log out');
+    expect(profileLink).toBeInTheDocument();
+    const moreLink = getByText('More');
+    expect(moreLink).toBeInTheDocument();
+
+    const logOutButton = getByText('Log out');
+    expect(logOutButton).toBeInTheDocument();
+    const tweetButton = getByText('Tweet');
+    expect(tweetButton).toBeInTheDocument();
   });
 });

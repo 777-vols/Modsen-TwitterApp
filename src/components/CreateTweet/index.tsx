@@ -119,13 +119,14 @@ const CreateTweet: FC = () => {
             <AddImageLabel htmlFor={addImageInputId}>
               <Image src={addImg} alt="upload image" />
               <AddImageInput
+                data-testid="addFile"
                 type="file"
                 id={addImageInputId}
                 accept="image/*"
                 hidden
                 onChange={handleUploadImage}
               />
-              {image && <NameImage>{image.name}</NameImage>}
+              {image && <NameImage data-testid="imageName">{image.name}</NameImage>}
             </AddImageLabel>
             <TweetButton data-cy="addTweetButton" type="submit">
               {tweetButtonText}

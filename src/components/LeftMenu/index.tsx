@@ -51,15 +51,15 @@ const LeftMenu: FC = () => {
       menuItems.map(({ name: itemName, image, path }) => {
         if (path === PROFILE) {
           return (
-            <NavItem key={path}>
+            <NavItem data-testid="menuItem" key={path}>
               <Image src={image} alt={itemName.toLowerCase()} />
               <StyledLink to={`/profile/${id}`}>{itemName}</StyledLink>
             </NavItem>
           );
         }
         return (
-          <NavItem key={path}>
-            <Image src={image} alt={itemName} />
+          <NavItem data-testid="menuItem" key={path}>
+            <Image src={image} alt={itemName.toLowerCase()} />
             <StyledLink to={path}>{itemName}</StyledLink>
           </NavItem>
         );
