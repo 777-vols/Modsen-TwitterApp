@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, memo, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, FC, memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { v4 } from 'uuid';
@@ -9,6 +9,7 @@ import { allImages } from '@/constants/allImages';
 import { Urls } from '@/constants/urls';
 import { searchRecommemdedUsersHelper } from '@/helpers/searchHelpers';
 import { useAction } from '@/hooks/useAction';
+import { useDebounce } from '@/hooks/useDebounce';
 import { IUser } from '@/pages/Profile/types';
 import { config as rootConfig } from '@/pages/Root/config';
 import { ITweet } from '@/store/slices/tweetsSlice/types';
@@ -84,40 +85,41 @@ const SearchTwitter: FC<IProps> = (props) => {
     setInputValue(target.value);
   };
 
-  const setResultItemsArray = async <T,>(stateSetter: SetState<T[]>) => {
-    if (inputValue) {
-      setIsLoading(true);
-      const data = (await searchData(inputValue)) as T[];
-      setIsLoading(false);
+  const setResultItemsArray = useCallback(
+    async <T,>(stateSetter: SetState<T[]>) => {
+      if (inputValue) {
+        setIsLoading(true);
+        const data = (await searchData(inputValue)) as T[];
+        setIsLoading(false);
 
-      if (data.length === 0) {
-        setErrorNotification({
-          message: errorText
-        });
+        if (data.length === 0) {
+          setErrorNotification({
+            message: errorText
+          });
+        }
+
+        stateSetter(data);
       }
+    },
+    [errorText, inputValue, searchData]
+  );
 
-      stateSetter(data);
-    }
-  };
-
-  const handleSubmitForm = async () => {
-    try {
+  const handleSubmitForm = useCallback(() => {
+    const handleSubmit = async () => {
       if (isProfilePage) {
         await setResultItemsArray(setTweetsArray);
       } else {
         await setResultItemsArray(setUsersArray);
       }
-    } catch (error) {
+    };
+    handleSubmit().catch((error: Error) => {
       setErrorNotification({
-        message: errorNotificationText
+        message: error.message
       });
-    }
-  };
+    });
+  }, [isProfilePage, setResultItemsArray]);
 
-  useEffect(() => {
-    const timerId = setTimeout(handleSubmitForm, 700);
-    return () => clearTimeout(timerId);
-  }, [inputValue]);
+  useDebounce(inputValue, handleSubmitForm);
 
   return (
     <Wrapper>
