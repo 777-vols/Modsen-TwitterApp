@@ -41,7 +41,7 @@ const Header: FC<IProps> = (props) => {
   };
 
   return (
-    <Wrapper>
+    <Wrapper data-cy="header">
       <MenuWrapper>
         <LeftMenu />
       </MenuWrapper>
@@ -54,7 +54,7 @@ const Header: FC<IProps> = (props) => {
             </BackButton>
           )}
           <HeaderInfo>
-            <UserName>{userName}</UserName>
+            <UserName data-cy="headerUserName">{userName}</UserName>
             <TweetsNumber>
               {tweetsCount} {tweets}
             </TweetsNumber>
@@ -68,7 +68,7 @@ const Header: FC<IProps> = (props) => {
                 <img src={arrowBack} alt="arrow back" />
               </BackButton>
             )}
-            <PageName>{pageName}</PageName>
+            <PageName data-cy="headerTitle">{pageName}</PageName>
           </BackWrapper>
           <Checkbox />
         </HomeHeader>

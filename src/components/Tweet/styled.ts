@@ -80,17 +80,18 @@ export const Message = styled.span`
   }
 `;
 
-export const TweetImage = styled.img`
+export const TweetImageWrapper = styled.div`
   margin-top: ${({ theme }) => theme.spaces.smallL}px;
 
-  border-radius: 20px;
   width: 100%;
-  max-height: 350px;
-  @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
-    max-height: 450px;
-  }
-  @media (max-width: ${({ theme }) => theme.breakPoints.tablet}px) {
-    max-height: 300px;
+  span {
+    max-height: 350px;
+    @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
+      max-height: 450px;
+    }
+    @media (max-width: ${({ theme }) => theme.breakPoints.tablet}px) {
+      max-height: 300px;
+    }
   }
 `;
 

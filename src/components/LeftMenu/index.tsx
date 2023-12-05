@@ -51,15 +51,15 @@ const LeftMenu: FC = () => {
       menuItems.map(({ name: itemName, image, path }) => {
         if (path === PROFILE) {
           return (
-            <NavItem key={path}>
+            <NavItem data-testid="menuItem" key={path}>
               <Image src={image} alt={itemName.toLowerCase()} />
               <StyledLink to={`/profile/${id}`}>{itemName}</StyledLink>
             </NavItem>
           );
         }
         return (
-          <NavItem key={path}>
-            <Image src={image} alt={itemName} />
+          <NavItem data-testid="menuItem" key={path}>
+            <Image src={image} alt={itemName.toLowerCase()} />
             <StyledLink to={path}>{itemName}</StyledLink>
           </NavItem>
         );
@@ -99,7 +99,9 @@ const LeftMenu: FC = () => {
 
         <nav>{itemsArray}</nav>
 
-        <TweetButton onClick={closeOpenModal}>{tweetButton}</TweetButton>
+        <TweetButton data-cy="leftMenuAddTweet" onClick={closeOpenModal}>
+          {tweetButton}
+        </TweetButton>
 
         <UserCard>
           <SmallAvatarImg src={photo || defaultUserPhoto} alt="menu avatar" />
@@ -109,7 +111,9 @@ const LeftMenu: FC = () => {
           </CardInfo>
         </UserCard>
 
-        <LogOutButton onClick={handleLogOut}>{logOutButton}</LogOutButton>
+        <LogOutButton data-cy="logOutButton" onClick={handleLogOut}>
+          {logOutButton}
+        </LogOutButton>
       </Menu>
 
       {isModalOpen && (

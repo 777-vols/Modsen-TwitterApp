@@ -1,6 +1,13 @@
 import styled from 'styled-components';
 
-import { container, maxSize } from '@/constants/theme/styles/commonStyles';
+import {
+  blueButton,
+  container,
+  flexCenter,
+  flexCenterHorizontally,
+  flexCenterVertical,
+  maxSize
+} from '@/constants/theme/styles/commonStyles';
 
 export const PageWrapper = styled.div``;
 
@@ -46,6 +53,8 @@ export const Main = styled.main`
 `;
 
 export const AllTweetsWrapper = styled.div`
+  ${flexCenterHorizontally}
+  flex-direction: column;
   width: 100%;
 `;
 
@@ -54,7 +63,17 @@ export const RightPart = styled.aside`
 `;
 
 export const ButtonsWrapper = styled.div`
-  display: flex;
-  align-items: center;
+  ${flexCenterVertical}
   position: relative;
+`;
+
+export const GetMoreTweets = styled.div`
+  ${flexCenter}
+  flex-direction: column;
+`;
+
+export const MoreTweetsButton = styled.button`
+  ${blueButton}
+  margin: ${({ theme }) => theme.spaces.smallXL}px 0;
+  max-width: 300px;
 `;

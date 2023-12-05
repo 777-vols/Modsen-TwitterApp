@@ -125,7 +125,12 @@ const SearchTwitter: FC<IProps> = (props) => {
         <Button type="submit">
           <Image src={searchIcon} alt="search" />
         </Button>
-        <Input placeholder={placeholder} value={inputValue} onChange={handleInputChange} />
+        <Input
+          data-testid="searchDataInput"
+          placeholder={placeholder}
+          value={inputValue}
+          onChange={handleInputChange}
+        />
       </SearchForm>
       <Content>
         <Title>{mainTitle}</Title>

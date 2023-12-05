@@ -96,6 +96,7 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
         await updateUserDataHelper(userData, userId);
         updateUserData(userData);
         setSuccessNotification({ message: `${successNotificationText}` });
+        handleCloseModal();
       } catch (error) {
         setErrorNotification({
           message: errorNotificationText
@@ -114,6 +115,7 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
           <InputWrapper>
             {errors?.name && <Error>{errors?.name?.message || nameError}</Error>}
             <Input
+              data-cy="editName"
               type="text"
               autoComplete="off"
               defaultValue={name || ''}
@@ -183,7 +185,9 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
               {...restGenderField}
             />
           </GenderSelectWrapper>
-          <Button type="submit">{buttonText}</Button>
+          <Button data-cy="saveProfileChanges" type="submit">
+            {buttonText}
+          </Button>
         </Form>
       </Window>
       <Notification />

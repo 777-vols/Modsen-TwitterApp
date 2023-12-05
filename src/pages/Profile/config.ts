@@ -7,5 +7,7 @@ export const config = {
   defaultDescriptionText: 'UX&UI designer at',
   defaultDescriptionLink: '@abutechuz',
   searchPlaceholder: 'Tweet search',
-  searchError: 'There are no such tweets'
+  searchError: 'There are no such tweets',
+  moreTweetsButton: 'More',
+  noMoreTweetsText: 'No more tweets yet'
 };

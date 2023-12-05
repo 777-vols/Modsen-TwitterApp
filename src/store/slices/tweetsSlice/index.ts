@@ -1,14 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { DocumentData, QueryDocumentSnapshot } from 'firebase/firestore';
 
-import { IinitialState, ITweet } from './types';
-
-interface LikeActionProps {
-  userId: string;
-  tweetData: ITweet;
-}
+import { IinitialState, ITweet, LikeActionProps } from './types';
 
 const initialState: IinitialState = {
-  tweetsArray: []
+  tweetsArray: [],
+  lastDocument: undefined
 };
 
 const tweetsSlice = createSlice({
@@ -18,8 +15,17 @@ const tweetsSlice = createSlice({
     addAllTweets(state, { payload }: PayloadAction<ITweet[]>) {
       state.tweetsArray = payload;
     },
+    addLastDocumentInChunk(
+      state,
+      { payload }: PayloadAction<QueryDocumentSnapshot<DocumentData> | undefined>
+    ) {
+      state.lastDocument = payload;
+    },
+    addChunkTweets(state, { payload }: PayloadAction<ITweet[]>) {
+      state.tweetsArray = [...state.tweetsArray, ...payload];
+    },
     addTweet(state, { payload }: PayloadAction<ITweet>) {
-      state.tweetsArray.push(payload);
+      state.tweetsArray.unshift(payload);
     },
     deleteTweet(state, { payload }: PayloadAction<ITweet>) {
       state.tweetsArray = state.tweetsArray.filter((tweet) => tweet.id !== payload.id);
@@ -38,6 +44,13 @@ const tweetsSlice = createSlice({
   }
 });
 
-export const { addTweet, addAllTweets, deleteTweet, likeTweet } = tweetsSlice.actions;
+export const {
+  addTweet,
+  addAllTweets,
+  addChunkTweets,
+  addLastDocumentInChunk,
+  deleteTweet,
+  likeTweet
+} = tweetsSlice.actions;
 
 export default tweetsSlice.reducer;

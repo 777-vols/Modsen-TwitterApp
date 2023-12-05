@@ -1,4 +1,7 @@
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 import { FC, memo, useEffect, useState } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useSelector } from 'react-redux';
 
 import { FirebaseCollections } from '@/api/firebase/constants';
@@ -6,13 +9,11 @@ import { updateLikesInFirebaseDoc } from '@/api/firebase/firebaseHelpers';
 import DeleteTweetModal from '@/components/DeleteTweetModal';
 import Notification from '@/components/Notification';
 import { allImages } from '@/constants/allImages';
-import { deleteTweetHelper } from '@/helpers/tweetHelpers';
 import { useAction } from '@/hooks/useAction';
 import { UserName } from '@/pages/Profile/styled';
 import { IUser } from '@/pages/Profile/types';
 import { userSelector } from '@/store/slices/userSlice/selectors';
 
-import { config } from './config';
 import {
   Avatar,
   Content,
@@ -26,7 +27,7 @@ import {
   LikesCount,
   Message,
   MessageWrapper,
-  TweetImage,
+  TweetImageWrapper,
   UserAvatarWrapper,
   Wrapper
 } from './styled';
@@ -36,14 +37,11 @@ const { TWEETS_COLLECTION } = FirebaseCollections;
 
 const { likeImg, likeFill, deleteImg, defaultUserPhoto } = allImages;
 
-const { successNotification, errorNotification } = config;
-
 const Tweet: FC<IProps> = ({ tweetData, currentUserId, isUserAuth }) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const authorizedUser = useSelector(userSelector) as IUser;
-  const { deleteTweet, likeTweet, setSuccessNotification, setErrorNotification, setIsLoading } =
-    useAction();
+  const { likeTweet } = useAction();
 
   useEffect(() => {
     if (tweetData.likes.includes(currentUserId)) {
@@ -57,18 +55,6 @@ const Tweet: FC<IProps> = ({ tweetData, currentUserId, isUserAuth }) => {
 
   const closeOpenModal = () => {
     setIsModalOpen((prevState) => !prevState);
-  };
-
-  const handleDeleteTweet = async () => {
-    try {
-      setIsLoading(true);
-      await deleteTweetHelper(TWEETS_COLLECTION, tweetId, image);
-      setIsLoading(false);
-      setSuccessNotification({ message: successNotification });
-    } catch (error) {
-      setErrorNotification({ message: errorNotification });
-    }
-    deleteTweet(tweetData);
   };
 
   const likeButtonHandler = async () => {
@@ -90,7 +76,7 @@ const Tweet: FC<IProps> = ({ tweetData, currentUserId, isUserAuth }) => {
   return (
     <Wrapper>
       {currentUserId === tweetAuthorId && isUserAuth && (
-        <DeleteButton onClick={closeOpenModal}>
+        <DeleteButton data-testid="deleteTweet" onClick={closeOpenModal}>
           <Image src={deleteImg} alt="delete icon" />
         </DeleteButton>
       )}
@@ -101,26 +87,34 @@ const Tweet: FC<IProps> = ({ tweetData, currentUserId, isUserAuth }) => {
         <Info>
           <UserName>{name}</UserName>
           <Email>{`${email} ·`}</Email>
-          <DateInfo>
+          <DateInfo data-testid="tweetDate">
             {tweetDate.getDate()}.{tweetDate.getMonth()}.{tweetDate.getFullYear()}{' '}
             {String(tweetDate.getHours()).padStart(2, '0')}:
             {String(tweetDate.getMinutes()).padStart(2, '0')}
           </DateInfo>
         </Info>
         <MessageWrapper>
-          <Message>{text}</Message>
-          {image && <TweetImage src={image} alt="tweet" />}
+          <Message data-cy="tweetText">{text}</Message>
+          {image && (
+            <TweetImageWrapper>
+              <LazyLoadImage
+                src={image}
+                effect="blur"
+                alt="tweet image"
+                width="100%"
+                style={{ borderRadius: '15px', maxHeight: 'inherit' }}
+              />
+            </TweetImageWrapper>
+          )}
         </MessageWrapper>
         <Likes>
-          <LikeButton onClick={likeButtonHandler}>
+          <LikeButton data-testid="likeTweet" onClick={likeButtonHandler}>
             <Image src={isLiked ? likeFill : likeImg} alt="like" />
           </LikeButton>
           <LikesCount>{likes ? likes.length : '0'}</LikesCount>
         </Likes>
       </Content>
-      {isModalOpen && (
-        <DeleteTweetModal handleCloseModal={closeOpenModal} handleDeleteTweet={handleDeleteTweet} />
-      )}
+      {isModalOpen && <DeleteTweetModal tweetData={tweetData} handleCloseModal={closeOpenModal} />}
       <Notification />
     </Wrapper>
   );

@@ -63,7 +63,6 @@ const Root: FC = () => {
         message: errorNotificationText
       });
     }
-    setIsLoading(true);
   };
 
   return isLoading ? (
@@ -83,7 +82,9 @@ const Root: FC = () => {
               <GoogleButtonImg alt="google icon" src={googleIcon} />
               {googleSignUp}
             </GoogleButton>
-            <EmailButton to={SIGN_UP}>{emailSignUp}</EmailButton>
+            <EmailButton data-cy="emailRegistration" to={SIGN_UP}>
+              {emailSignUp}
+            </EmailButton>
             <AgreeRule>
               {agreeText[0]}
               <TextLink to={agreeLinks[0].path}>{agreeLinks[0].name}</TextLink>
@@ -95,7 +96,9 @@ const Root: FC = () => {
             </AgreeRule>
             <HaveAccount>
               {haveAccountText}
-              <TextLink to={LOG_IN}>{haveAccountLink}</TextLink>
+              <TextLink data-cy="logInLink" to={LOG_IN}>
+                {haveAccountLink}
+              </TextLink>
             </HaveAccount>
           </Content>
         </Panel>
