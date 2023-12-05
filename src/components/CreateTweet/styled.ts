@@ -9,16 +9,19 @@ import {
 
 export const Wrapper = styled.div`
   ${maxSize}
+
   display: flex;
   padding: ${({ theme }) => theme.spaces.smallL}px;
+
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     padding: ${({ theme }) => theme.spaces.smallXL}px;
   }
 `;
 
 export const Form = styled.form`
-  position: relative;
   ${maxSize}
+
+  position: relative;
 `;
 
 export const Textarea = styled.textarea`
@@ -33,6 +36,7 @@ export const Textarea = styled.textarea`
     color: ${({ theme }) => theme.color};
     opacity: 0.8;
   }
+
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
   }
@@ -43,6 +47,7 @@ export const ButtonsWrapper = styled.div`
   justify-content: space-between;
   align-items: end;
   margin-top: ${({ theme }) => theme.spaces.smallL}px;
+
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     margin-top: ${({ theme }) => theme.spaces.smallM}px;
   }
@@ -50,11 +55,13 @@ export const ButtonsWrapper = styled.div`
 
 export const TweetButton = styled.button`
   ${blueButton}
+
   width: 116px;
 `;
 
 export const AddImageLabel = styled.label`
   ${flexCenterVertical}
+
   cursor: pointer;
   left: 10px;
   bottom: 10px;
@@ -64,12 +71,15 @@ export const AddImageInput = styled.input``;
 
 export const NameImage = styled.span`
   ${textElipsis}
+
   max-width: 170px;
   color: ${({ theme }) => theme.colors.green};
   font-size: ${({ theme }) => theme.fontSizes.smallXXL}px;
+
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
   }
+
   @media (max-width: ${({ theme }) => theme.breakPoints.mobile}px) {
     max-width: 80px;
   }
@@ -79,6 +89,7 @@ export const Image = styled.img`
   height: 25px;
   width: 25px;
   margin-right: ${({ theme }) => theme.spaces.smallM}px;
+
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     height: 30px;
     width: 30px;

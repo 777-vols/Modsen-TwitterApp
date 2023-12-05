@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import Checkbox from '@/components/Checkbox';
+import ToogleTheme from '@/components/ToogleTheme';
 import { allImages } from '@/constants/allImages';
 import { Urls } from '@/constants/urls';
 import { UserName } from '@/pages/Profile/styled';
@@ -70,7 +70,7 @@ const Header: FC<IProps> = (props) => {
             )}
             <PageName data-cy="headerTitle">{pageName}</PageName>
           </BackWrapper>
-          <Checkbox />
+          <ToogleTheme />
         </HomeHeader>
       )}
     </Wrapper>

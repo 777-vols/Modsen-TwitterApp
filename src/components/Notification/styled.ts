@@ -23,6 +23,7 @@ export const Wrapper = styled.div<INotificationStylesProps>`
       color: ${theme.colors.pink};
       border: 3px solid ${theme.colors.pink};
     `}
+
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     top: 40px;
     left: 40px;

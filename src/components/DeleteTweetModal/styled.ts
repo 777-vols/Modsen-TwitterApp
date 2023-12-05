@@ -22,6 +22,7 @@ export const Content = styled.div`
 
 export const Title = styled.h3`
   ${flexCenterHorizontally};
+
   padding: ${({ theme }) => theme.spaces.zero} ${({ theme }) => theme.spaces.mediumM}px;
   margin-bottom: ${({ theme }) => theme.spaces.mediumM}px;
 `;
@@ -33,6 +34,7 @@ export const ButtonsWrapper = styled.div`
 
 export const Button = styled.button`
   ${blueButton}
+
   max-width: 130px;
 `;
 

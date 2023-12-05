@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
 `;
 export const Text = styled.h2`
   ${flexCenterHorizontally}
+
   font-size: ${({ theme }) => theme.fontSizes.largeM}px;
   padding: ${({ theme }) => theme.spaces.mediumS}px;
 `;

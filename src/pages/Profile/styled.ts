@@ -13,12 +13,15 @@ export const HeaderInfo = styled.div`
 
 export const UserName = styled.span`
   ${textElipsis}
+
   max-width: 250px;
   font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
   font-weight: ${({ theme }) => theme.fontWeights.m};
+
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
   }
+
   @media (max-width: ${({ theme }) => theme.breakPoints.mobile}px) {
     max-width: 140px;
   }
@@ -33,6 +36,7 @@ export const ProfileInfo = styled.div`
   padding: ${({ theme }) => theme.spaces.mediumM}px;
   padding-bottom: ${({ theme }) => theme.spaces.largeS}px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
+
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     padding-bottom: ${({ theme }) => theme.spaces.largeL}px;
   }
@@ -46,6 +50,7 @@ export const UserAvatar = styled.img`
   left: 0;
   height: 110px;
   width: 110px;
+
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     top: -70px;
     height: 150px;
@@ -55,6 +60,7 @@ export const UserAvatar = styled.img`
 
 export const FollowingInfo = styled.div`
   margin-top: ${({ theme }) => theme.spaces.largeS}px;
+
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     margin-top: ${({ theme }) => theme.spaces.largeXL}px;
   }
@@ -64,6 +70,7 @@ export const Following = styled.span`
   margin-right: ${({ theme }) => theme.spaces.smallXL}px;
   font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
   color: ${({ theme }) => theme.colors.darkGrey};
+
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     margin-right: ${({ theme }) => theme.spaces.mediumS}px;
     font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
@@ -74,6 +81,7 @@ export const UserInfo = styled.div`
   margin-top: ${({ theme }) => theme.spaces.largeL}px;
   display: flex;
   flex-direction: column;
+
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     margin-top: ${({ theme }) => theme.spaces.largeXL}px;
   }
@@ -82,6 +90,7 @@ export const UserInfo = styled.div`
 export const Description = styled.span`
   margin-top: ${({ theme }) => theme.spaces.smallXL}px;
   font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
+
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
   }
@@ -104,6 +113,7 @@ export const EditProfileButton = styled.button`
   &:hover {
     transform: scale(1.1);
   }
+
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     height: 40px;
     padding: ${({ theme }) => theme.spaces.smallM}px ${({ theme }) => theme.spaces.smallL}px;
@@ -113,10 +123,12 @@ export const EditProfileButton = styled.button`
 
 export const InfoName = styled.span`
   ${textElipsis}
+
   max-width: 250px;
   margin-bottom: ${({ theme }) => theme.spaces.smallS}px;
   font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
   font-weight: ${({ theme }) => theme.fontWeights.l};
+
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     font-size: ${({ theme }) => theme.fontSizes.largeS}px;
   }
@@ -124,17 +136,20 @@ export const InfoName = styled.span`
 
 export const InfoEmail = styled.span`
   ${textElipsis}
-  max-width: 250px;
   ${userEmail}
+
+  max-width: 250px;
 `;
 
 export const TweetsBlockHeader = styled.h2`
   ${flexCenter}
+
   font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
   width: 241px;
   height: 50px;
   margin-bottom: ${({ theme }) => theme.spaces.largeS}px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
+
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     height: 62px;
     font-size: ${({ theme }) => theme.fontSizes.mediumL}px;

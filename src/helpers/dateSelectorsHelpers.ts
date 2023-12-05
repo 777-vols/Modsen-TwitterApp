@@ -38,7 +38,7 @@ export const getMonthOptionsArray = (): IOption[] => {
 };
 
 export const getDaysOptionsArray = (month: number, year: number): IOption[] => {
-  const numberOfDaysInMonth = new Date(year, month, firstDayIndex).getDate();
+  const numberOfDaysInMonth = new Date(year, month + 1, firstDayIndex).getDate();
   const optionsArray = [];
 
   for (let dayIndex = 1; dayIndex <= numberOfDaysInMonth; dayIndex += 1) {

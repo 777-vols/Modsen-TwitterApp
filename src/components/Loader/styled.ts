@@ -7,10 +7,13 @@ import { IStyleProps } from './types';
 export const SpinnerWrapper = styled.div`
   ${maxSize};
   ${flexCenter};
+
   padding: ${({ theme }) => theme.spaces.mediumM}px;
 `;
 
 export const Spinner = styled.span<IStyleProps>`
+  ${maxSize}
+
   @keyframes rotate {
     0% {
       transform: rotate(0deg);
@@ -32,7 +35,6 @@ export const Spinner = styled.span<IStyleProps>`
       clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
     }
   }
-  ${maxSize}
   max-width: 100px;
   max-height: 100px;
   height: 100px;

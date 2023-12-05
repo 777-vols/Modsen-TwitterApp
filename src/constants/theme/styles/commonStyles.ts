@@ -17,6 +17,7 @@ export const container = css`
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     max-width: 1600px;
   }
+
   @media (max-width: ${({ theme }) => theme.breakPoints.tablet}px) {
     display: block;
     padding: ${({ theme }) => theme.spaces.zero} ${({ theme }) => theme.spaces.smallL}px;
@@ -82,6 +83,7 @@ export const smallAvatar = css`
   border-radius: 100px;
   height: 40px;
   width: 40px;
+
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     height: 50px;
     width: 50px;
@@ -105,13 +107,17 @@ export const textLink = css`
 export const userEmail = css`
   font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
   color: ${({ theme }) => theme.colors.darkGrey};
+
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
   }
+
   @media (max-width: ${({ theme }) => theme.breakPoints.tablet}px) {
     ${textElipsis}
+
     max-width: 140px;
   }
+
   @media (max-width: ${({ theme }) => theme.breakPoints.mobile}px) {
     max-width: 105px;
   }
