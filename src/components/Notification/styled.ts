@@ -7,8 +7,8 @@ interface INotificationStylesProps {
 export const Wrapper = styled.div<INotificationStylesProps>`
   position: fixed;
   z-index: 1000;
-  top: 10px;
-  right: 20px;
+  top: ${({ theme }) => theme.spaces.smallM}px;
+  right: ${({ theme }) => theme.spaces.mediumS}px;
   border: 3px solid ${({ theme }) => theme.colors.green};
   font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
   font-weight: ${({ theme }) => theme.fontWeights.l};
@@ -25,8 +25,8 @@ export const Wrapper = styled.div<INotificationStylesProps>`
     `}
 
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
-    top: 40px;
-    left: 40px;
+    top: ${({ theme }) => theme.spaces.largeS}px;
+    left: ${({ theme }) => theme.spaces.largeS}px;
     border: 3px solid ${({ theme }) => theme.colors.green};
     font-size: ${({ theme }) => theme.fontSizes.mediumXL}px;
     font-weight: ${({ theme }) => theme.fontWeights.l};

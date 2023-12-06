@@ -2,6 +2,9 @@ import styled from 'styled-components';
 
 import { flexCenter, textElipsis, userEmail } from '@/constants/theme/styles/commonStyles';
 
+const mediumAvatarSize = 110;
+const bigAvatarSize = 150;
+
 export const HeaderContent = styled.div`
   display: flex;
 `;
@@ -44,13 +47,13 @@ export const AvatarWrapper = styled.div`
   border-radius: 100px;
   top: -60px;
   left: 0;
-  height: 110px;
-  width: 110px;
+  height: ${mediumAvatarSize}px;
+  width: ${mediumAvatarSize}px;
 
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     top: -70px;
-    height: 150px;
-    width: 150px;
+    height: ${bigAvatarSize}px;
+    width: ${bigAvatarSize}px;
   }
 `;
 
@@ -103,8 +106,8 @@ export const EditProfileButton = styled.button`
   font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
   border-radius: 50px;
   position: absolute;
-  top: 20px;
-  right: 25px;
+  top: ${({ theme }) => theme.spaces.mediumS}px;
+  right: ${({ theme }) => theme.spaces.mediumM}px;
   transition: 0.2s;
   &:hover {
     transform: scale(1.1);

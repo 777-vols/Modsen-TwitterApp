@@ -8,6 +8,12 @@ import {
   textLink
 } from '@/constants/theme/styles/commonStyles';
 
+const smallLineHeight = 22;
+const mediumLineHeight = 25;
+
+const smallImageSize = 15;
+const bigImageSize = 24;
+
 export const Wrapper = styled.div`
   position: sticky;
   top: ${({ theme }) => theme.spaces.mediumM}px;
@@ -50,12 +56,12 @@ export const Button = styled.button`
 
 export const Image = styled.img`
   margin-right: ${({ theme }) => theme.spaces.mediumS}px;
-  width: 15px;
-  height: 15px;
+  width: ${smallImageSize}px;
+  height: ${smallImageSize}px;
 
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
-    width: 24px;
-    height: 24px;
+    width: ${bigImageSize}px;
+    height: ${bigImageSize}px;
   }
 `;
 
@@ -118,12 +124,12 @@ export const TextLink = styled(NavLink)`
 
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
-    line-height: 25px;
+    line-height: ${mediumLineHeight}px;
   }
 `;
 
 export const StyledLink = styled(NavLink)`
-  line-height: 22px;
+  line-height: ${smallLineHeight}px;
   color: ${({ theme }) => theme.colors.darkGrey};
   font-size: ${({ theme }) => theme.fontSizes.smallXXL}px;
   transition: 0.2s;
@@ -132,19 +138,19 @@ export const StyledLink = styled(NavLink)`
   }
 
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
-    line-height: 25px;
+    line-height: ${mediumLineHeight}px;
     font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
   }
 `;
 
 export const Signature = styled.span`
-  line-height: 22px;
+  line-height: ${smallLineHeight}px;
   color: ${({ theme }) => theme.colors.black};
   font-size: ${({ theme }) => theme.fontSizes.smallXXL}px;
 
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     font-size: ${({ theme }) => theme.fontSizes.mediumS}px;
-    line-height: 25px;
+    line-height: ${mediumLineHeight}px;
   }
 `;
 

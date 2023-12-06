@@ -7,6 +7,9 @@ import {
   userEmail
 } from '@/constants/theme/styles/commonStyles';
 
+const mediumImageSize = 18;
+const bigImageSize = 24;
+
 export const Wrapper = styled.article`
   position: relative;
   display: flex;
@@ -129,8 +132,8 @@ export const DeleteButton = styled.button`
   ${Button}
 
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: ${({ theme }) => theme.spaces.mediumS}px;
+  right: ${({ theme }) => theme.spaces.mediumS}px;
 `;
 
 export const LikeButton = styled.button`
@@ -140,16 +143,14 @@ export const LikeButton = styled.button`
 
 export const Image = styled.img`
   margin-right: ${({ theme }) => theme.spaces.smallS}px;
-  height: 23px;
-  width: 23px;
   filter: invert(10%) sepia(94%) saturate(7149%) hue-rotate(3deg) brightness(97%) contrast(83%);
-  height: 18px;
-  width: 18px;
+  height: ${mediumImageSize}px;
+  width: ${mediumImageSize}px;
 
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     margin-right: ${({ theme }) => theme.spaces.smallM}px;
-    height: 24px;
-    width: 24px;
+    height: ${bigImageSize}px;
+    width: ${bigImageSize}px;
   }
 `;
 

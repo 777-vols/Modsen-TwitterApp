@@ -11,6 +11,10 @@ import {
 
 import { IStyleProps } from './types';
 
+const smallLogo = 30;
+const smallMenuImage = 20;
+const bigMenuImage = 28;
+
 export const Wrapper = styled.div`
   position: sticky;
   top: ${({ theme }) => theme.spaces.mediumL}px;
@@ -58,8 +62,8 @@ export const Menu = styled.nav<IStyleProps>`
 
 export const LogoWrapper = styled.div`
   margin-bottom: ${({ theme }) => theme.spaces.mediumS}px;
-  width: 30px;
-  height: 30px;
+  width: ${smallLogo}px;
+  height: ${smallLogo}px;
 
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     margin-top: ${({ theme }) => theme.spaces.mediumL}px;
@@ -75,8 +79,8 @@ export const LogoWrapper = styled.div`
 
 export const Image = styled.img`
   margin-right: ${({ theme }) => theme.spaces.smallL}px;
-  height: 20px;
-  width: 20px;
+  height: ${smallMenuImage}px;
+  width: ${smallMenuImage}px;
   filter: ${({ theme }) =>
     theme.colors.white === theme.color
       ? 'invert(100%) sepia(8%) saturate(6530%) hue-rotate(77deg) brightness(128%) contrast(120%)'
@@ -84,8 +88,8 @@ export const Image = styled.img`
 
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
     margin-right: ${({ theme }) => theme.spaces.mediumS}px;
-    height: 28px;
-    width: 28px;
+    height: ${bigMenuImage}px;
+    width: ${bigMenuImage}px;
   }
 `;
 

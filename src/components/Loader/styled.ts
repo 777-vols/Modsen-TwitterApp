@@ -4,6 +4,8 @@ import { flexCenter, maxSize } from '@/constants/theme/styles/commonStyles';
 
 import { IStyleProps } from './types';
 
+const defaultSpinnerSize = 100;
+
 export const SpinnerWrapper = styled.div`
   ${maxSize};
   ${flexCenter};
@@ -35,10 +37,9 @@ export const Spinner = styled.span<IStyleProps>`
       clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
     }
   }
-  max-width: 100px;
-  max-height: 100px;
-  height: 100px;
-  width: 100px;
+
+  height: ${defaultSpinnerSize}px;
+  width: ${defaultSpinnerSize}px;
   border-radius: 50%;
   position: relative;
   animation: rotate 1s linear infinite;
@@ -53,7 +54,7 @@ export const Spinner = styled.span<IStyleProps>`
     content: '';
     box-sizing: border-box;
     position: absolute;
-    inset: 0px;
+    inset: 0;
     border-radius: 50%;
     border: 6px solid ${({ theme }) => theme.colors.blue};
     animation: prixClipFix 2s linear infinite;

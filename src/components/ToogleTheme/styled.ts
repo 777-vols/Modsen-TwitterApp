@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 
+const mediumSwitchButtonSize = 19;
+const bigSwitchButtonSize = 25;
+
 interface IArguments {
   $currentTheme: boolean;
 }
@@ -32,10 +35,10 @@ export const SwitchLabel = styled.label`
 export const SwitchButton = styled.span<IArguments>`
   content: '';
   position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 19px;
-  height: 19px;
+  top: 0;
+  left: 0;
+  width: ${mediumSwitchButtonSize}px;
+  height: ${mediumSwitchButtonSize}px;
   border-radius: 45px;
   transition: 0.2s;
   border: 2px solid ${({ theme }) => theme.colors.grey};
@@ -50,8 +53,8 @@ export const SwitchButton = styled.span<IArguments>`
   }
 
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
-    width: 25px;
-    height: 25px;
+    width: ${bigSwitchButtonSize}px;
+    height: ${bigSwitchButtonSize}px;
     border-radius: 45px;
   }
 `;

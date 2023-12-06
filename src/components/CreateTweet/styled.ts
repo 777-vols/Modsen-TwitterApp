@@ -7,6 +7,9 @@ import {
   textElipsis
 } from '@/constants/theme/styles/commonStyles';
 
+const minImageSize = 25;
+const maxImageSize = 30;
+
 export const Wrapper = styled.div`
   ${maxSize}
 
@@ -63,8 +66,8 @@ export const AddImageLabel = styled.label`
   ${flexCenterVertical}
 
   cursor: pointer;
-  left: 10px;
-  bottom: 10px;
+  left: ${({ theme }) => theme.spaces.smallM}px;
+  bottom: ${({ theme }) => theme.spaces.smallM}px;
 `;
 
 export const AddImageInput = styled.input``;
@@ -86,12 +89,12 @@ export const NameImage = styled.span`
 `;
 
 export const Image = styled.img`
-  height: 25px;
-  width: 25px;
+  height: ${minImageSize}px;
+  width: ${minImageSize}px;
   margin-right: ${({ theme }) => theme.spaces.smallM}px;
 
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
-    height: 30px;
-    width: 30px;
+    height: ${maxImageSize}px;
+    width: ${maxImageSize}px;
   }
 `;

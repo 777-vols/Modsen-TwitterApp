@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 import { blueButton, flexCenterHorizontally } from '@/constants/theme/styles/commonStyles';
 
+const closeButtonSize = 35;
+
 export const Window = styled.div`
   width: 100%;
   position: relative;
@@ -44,12 +46,12 @@ export const CloseButton = styled.button`
   font-size: ${({ theme }) => theme.fontSizes.mediumL}px;
   color: ${({ theme }) => theme.color};
   border-radius: 5px;
-  width: 35px;
-  height: 35px;
+  width: ${closeButtonSize}px;
+  height: ${closeButtonSize}px;
   background: transparent;
   border: none;
-  top: 15px;
-  right: 15px;
+  top: ${({ theme }) => theme.spaces.smallL}px;
+  right: ${({ theme }) => theme.spaces.smallL}px;
   transition: 0.3s;
   &:hover {
     color: ${({ theme }) => theme.background};

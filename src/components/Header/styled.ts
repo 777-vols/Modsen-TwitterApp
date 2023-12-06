@@ -9,7 +9,7 @@ export const Wrapper = styled.header`
   z-index: 10;
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
   background: ${({ theme }) => theme.background};
-  top: 0px;
+  top: 0;
   width: 100%;
   height: 60px;
   padding: ${({ theme }) => theme.spaces.zero} ${({ theme }) => theme.spaces.smallXL}px;
