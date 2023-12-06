@@ -1,3 +1,3 @@
 export const config = {
-  text: 'No tweets yet'
+  text: 'No more tweets yet'
 };

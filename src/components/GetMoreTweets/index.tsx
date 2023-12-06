@@ -14,9 +14,10 @@ const GetMoreTweets: FC<IProps> = ({ noMoreTweets, nextChunkHandler }) => {
   const { pathname } = useLocation();
   const pathTweetId = getTweetIdFromUrl(pathname);
 
+  if (pathTweetId) return null;
   return (
     <Wrapper>
-      {noMoreTweets || pathTweetId ? (
+      {noMoreTweets ? (
         <NoTweets />
       ) : (
         <MoreTweetsButton type="button" onClick={nextChunkHandler}>

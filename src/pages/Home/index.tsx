@@ -82,7 +82,7 @@ const Home: FC = () => {
     [pathTweetId, tweetsArray]
   );
 
-  const nextChunkHandler = async () => {
+  const nextChunkHandler = useCallback(async () => {
     const coll = collection(db, TWEETS_COLLECTION);
     const snapshot = await getCountFromServer(coll);
     const resultArray: ITweet[] = [];
@@ -117,7 +117,7 @@ const Home: FC = () => {
     }
 
     setIsLoading(false);
-  };
+  }, [lastDocument, setIsLoading, tweetsArray.length]);
 
   return (
     <Wrapper>

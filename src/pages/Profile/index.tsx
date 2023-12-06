@@ -133,7 +133,7 @@ const Profile: FC = () => {
     });
   }, [currentUserId, pathUserId]);
 
-  const nextChunkHandler = async () => {
+  const nextChunkHandler = useCallback(async () => {
     const coll = collection(db, TWEETS_COLLECTION);
     const snapshot = await getCountFromServer(coll);
     const resultArray: ITweet[] = [];
@@ -170,7 +170,7 @@ const Profile: FC = () => {
     }
 
     setIsLoading(false);
-  };
+  }, [currentUserId, lastDocument, numberOfUserTweets, tweetsArray.length]);
 
   const arrayOfTweetComponents = useMemo(
     () =>

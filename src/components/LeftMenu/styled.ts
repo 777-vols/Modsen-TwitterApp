@@ -15,6 +15,7 @@ export const Wrapper = styled.div`
   position: sticky;
   top: ${({ theme }) => theme.spaces.mediumL}px;
   padding-right: ${({ theme }) => theme.spaces.mediumS}px;
+  padding-bottom: ${({ theme }) => theme.spaces.mediumS}px;
   width: 100%;
 
   @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
@@ -56,7 +57,6 @@ export const Menu = styled.nav<IStyleProps>`
 `;
 
 export const LogoWrapper = styled.div`
-  /* margin-top: ${({ theme }) => theme.spaces.mediumL}px; */
   margin-bottom: ${({ theme }) => theme.spaces.mediumS}px;
   width: 30px;
   height: 30px;
@@ -108,6 +108,7 @@ export const StyledLink = styled(NavLink)`
     color: ${({ theme }) => theme.colors.blue};
   }
   &[aria-current] {
+    color: ${({ theme }) => theme.colors.blue};
     font-weight: ${({ theme }) => theme.fontWeights.l};
     font-size: ${({ theme }) => theme.fontSizes.mediumM}px;
   }
