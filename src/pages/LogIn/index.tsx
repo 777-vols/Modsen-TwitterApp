@@ -5,19 +5,19 @@ import { useSelector } from 'react-redux';
 import { Background } from '@/components/EditProfileModal/styled';
 import { Loader } from '@/components/Loader';
 import Notification from '@/components/Notification';
+import PublicPagesLogo from '@/components/PublicPagesLogo';
 import { allImages } from '@/constants/allImages';
 import { formPatterns, minMaxLineLength } from '@/constants/formConstants';
 import { Urls } from '@/constants/urls';
 import { logInHelper } from '@/helpers/userHelper';
 import { useAction } from '@/hooks/useAction';
-import { Logo, TextLink } from '@/pages/Root/styled';
+import { TextLink } from '@/pages/Root/styled';
 import {
   Button,
   Error,
   EyeImage,
   Input,
   InputWrapper,
-  LogoWrapper,
   ShowHidePassowrd
 } from '@/pages/SignUp/styled';
 import { isLoadingSelector } from '@/store/slices/notificationSlice/selectors';
@@ -30,7 +30,7 @@ const { header, emailPlaceholder, passwordPlaceholder, signUp, logIn, errorMessa
 
 const { SIGN_UP } = Urls;
 
-const { logoImg, eyePasswordHide, eyePasswordOpen } = allImages;
+const { eyePasswordHide, eyePasswordOpen } = allImages;
 
 const { emailError, passwordError } = config.errorMessages;
 const { minLineLength, maxLineLength } = minMaxLineLength;
@@ -71,9 +71,7 @@ const LogIn: FC = () => {
   ) : (
     <Wrapper>
       <Form onSubmit={handleSubmit(handleLogin)}>
-        <LogoWrapper>
-          <Logo alt="logo" src={logoImg} />
-        </LogoWrapper>
+        <PublicPagesLogo />
         <Title>{header}</Title>
         <InputWrapper>
           {errors?.email && <Error>{errors?.email?.message || emailError}</Error>}

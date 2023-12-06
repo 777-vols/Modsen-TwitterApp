@@ -16,7 +16,6 @@ const fullSize = 100;
 export const Wrapper = styled.div`
   ${fullSreen}
 
-  width: ${fullSize}%;
   background: ${({ theme }) => theme.colors.white};
   color: ${({ theme }) => theme.colors.black};
 
@@ -25,7 +24,7 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const Section = styled.section`
+export const Main = styled.main`
   height: calc(${fullSize}% - 5%);
   width: ${fullSize}%;
   display: flex;
@@ -35,16 +34,18 @@ export const Section = styled.section`
   }
 `;
 
-export const Banner = styled.img`
-  height: ${fullSize}%;
+export const BannerWrapper = styled.div`
   width: 60%;
+  span {
+    ${maxSize}
+  }
 
   @media (max-width: ${({ theme }) => theme.breakPoints.laptop}px) {
     display: none;
   }
 `;
 
-export const Panel = styled.div`
+export const Section = styled.section`
   ${flexCenterVertical}
 
   height: 100%;
@@ -64,20 +65,6 @@ export const Content = styled.div`
 
   @media (max-width: ${({ theme }) => theme.breakPoints.laptop}px) {
     padding-left: ${({ theme }) => theme.spaces.zero};
-  }
-`;
-
-export const Logo = styled.img`
-  width: 50px;
-  height: 41px;
-
-  @media (max-width: ${({ theme }) => theme.breakPoints.laptop}px) {
-    margin: ${({ theme }) => theme.spaces.zero} auto;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakPoints.mobile}px) {
-    width: 40px;
-    height: 40px;
   }
 `;
 

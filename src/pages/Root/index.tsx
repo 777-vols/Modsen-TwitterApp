@@ -1,9 +1,11 @@
 import { FC, memo } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useSelector } from 'react-redux';
 
 import { Background } from '@/components/EditProfileModal/styled';
 import { Loader } from '@/components/Loader';
 import Notification from '@/components/Notification';
+import PublicPagesLogo from '@/components/PublicPagesLogo';
 import { allImages } from '@/constants/allImages';
 import { Urls } from '@/constants/urls';
 import { signUpWithGoogleHelper } from '@/helpers/userHelper';
@@ -13,7 +15,7 @@ import { isLoadingSelector } from '@/store/slices/notificationSlice/selectors';
 import { config } from './config';
 import {
   AgreeRule,
-  Banner,
+  BannerWrapper,
   Content,
   EmailButton,
   Footer,
@@ -21,11 +23,10 @@ import {
   GoogleButton,
   GoogleButtonImg,
   HaveAccount,
-  Logo,
+  Main,
   MainHeader,
   NavItem,
   NavList,
-  Panel,
   Section,
   Signature,
   SubHeader,
@@ -48,7 +49,7 @@ const {
 } = config;
 
 const { SIGN_UP, LOG_IN } = Urls;
-const { banner, logoImg, googleIcon } = allImages;
+const { banner, googleIcon } = allImages;
 
 const Root: FC = () => {
   const { authenticateUser, setErrorNotification, setIsLoading } = useAction();
@@ -71,40 +72,47 @@ const Root: FC = () => {
     </Background>
   ) : (
     <Wrapper>
-      <main>
+      <Main>
+        <BannerWrapper>
+          <LazyLoadImage
+            src={banner}
+            effect="blur"
+            alt="banner"
+            width="100%"
+            style={{ maxHeight: '100%' }}
+          />
+        </BannerWrapper>
+
         <Section>
-          <Banner alt="banner" src={banner} />
-          <Panel>
-            <Content>
-              <Logo alt="logo" src={logoImg} />
-              <MainHeader>{mainHeader}</MainHeader>
-              <SubHeader>{subHeader}</SubHeader>
-              <GoogleButton onClick={handleSignUpWithGoogle}>
-                <GoogleButtonImg alt="google icon" src={googleIcon} />
-                {googleSignUp}
-              </GoogleButton>
-              <EmailButton data-cy="emailRegistration" to={SIGN_UP}>
-                {emailSignUp}
-              </EmailButton>
-              <AgreeRule>
-                {agreeText[0]}
-                <TextLink to={agreeLinks[0].path}>{agreeLinks[0].name}</TextLink>
-                {agreeText[1]}
-                <TextLink to={agreeLinks[1].path}>{agreeLinks[1].name}</TextLink>
-                {agreeText[2]}
-                <TextLink to={agreeLinks[2].path}>{agreeLinks[2].name}</TextLink>
-                {agreeText[3]}
-              </AgreeRule>
-              <HaveAccount>
-                {haveAccountText}
-                <TextLink data-cy="logInLink" to={LOG_IN}>
-                  {haveAccountLink}
-                </TextLink>
-              </HaveAccount>
-            </Content>
-          </Panel>
+          <Content>
+            <PublicPagesLogo />
+            <MainHeader>{mainHeader}</MainHeader>
+            <SubHeader>{subHeader}</SubHeader>
+            <GoogleButton onClick={handleSignUpWithGoogle}>
+              <GoogleButtonImg alt="google icon" src={googleIcon} />
+              {googleSignUp}
+            </GoogleButton>
+            <EmailButton data-cy="emailRegistration" to={SIGN_UP}>
+              {emailSignUp}
+            </EmailButton>
+            <AgreeRule>
+              {agreeText[0]}
+              <TextLink to={agreeLinks[0].path}>{agreeLinks[0].name}</TextLink>
+              {agreeText[1]}
+              <TextLink to={agreeLinks[1].path}>{agreeLinks[1].name}</TextLink>
+              {agreeText[2]}
+              <TextLink to={agreeLinks[2].path}>{agreeLinks[2].name}</TextLink>
+              {agreeText[3]}
+            </AgreeRule>
+            <HaveAccount>
+              {haveAccountText}
+              <TextLink data-cy="logInLink" to={LOG_IN}>
+                {haveAccountLink}
+              </TextLink>
+            </HaveAccount>
+          </Content>
         </Section>
-      </main>
+      </Main>
 
       <Footer>
         <nav>

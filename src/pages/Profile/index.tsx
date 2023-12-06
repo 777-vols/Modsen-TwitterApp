@@ -1,3 +1,5 @@
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 import {
   collection,
   getCountFromServer,
@@ -9,9 +11,11 @@ import {
   where
 } from 'firebase/firestore';
 import { FC, memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Portal } from 'react-portal';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { v4 } from 'uuid';
 
 import { FirebaseCollections } from '@/api/firebase/constants';
 import { db } from '@/api/firebase/firebase';
@@ -51,7 +55,7 @@ import { userSelector } from '@/store/slices/userSlice/selectors';
 
 import { config } from './config';
 import {
-  Banner,
+  AvatarWrapper,
   CreateTweetWrapper,
   Description,
   EditProfileButton,
@@ -61,7 +65,6 @@ import {
   InfoName,
   ProfileInfo,
   TweetsBlockHeader,
-  UserAvatar,
   UserInfo
 } from './styled';
 import { IUser } from './types';
@@ -178,7 +181,7 @@ const Profile: FC = () => {
     () =>
       tweetsArray.map((tweet: ITweet) => (
         <Tweet
-          key={tweet.id}
+          key={v4()}
           tweetData={tweet}
           currentUserId={authorizedUser.id}
           isUserAuth={authorizedUserId === currentUserId}
@@ -208,10 +211,23 @@ const Profile: FC = () => {
 
         <Main>
           <Section>
-            <Banner src={profileBackground} alt="profile banner" />
+            <LazyLoadImage
+              src={profileBackground}
+              effect="blur"
+              alt="profile banner"
+              width="100%"
+            />
 
             <ProfileInfo>
-              <UserAvatar src={photo || defaultUserPhoto} alt="profile avatar" />
+              <AvatarWrapper>
+                <LazyLoadImage
+                  src={photo || defaultUserPhoto}
+                  effect="blur"
+                  alt="profile avatar"
+                  width="100%"
+                  style={{ borderRadius: '100px', maxHeight: '100%' }}
+                />
+              </AvatarWrapper>
               <UserInfo>
                 <InfoName>
                   {currentUserId === authorizedUserId ? authorizedUserName : name}

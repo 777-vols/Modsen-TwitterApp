@@ -10,6 +10,7 @@ import {
 import { FC, memo, useCallback, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { v4 } from 'uuid';
 
 import { FirebaseCollections } from '@/api/firebase/constants';
 import { db } from '@/api/firebase/firebase';
@@ -51,7 +52,6 @@ const { TWEETS_COLLECTION } = FirebaseCollections;
 const { searchPlaceholder, searchError, pageName, moreTweetsButton, noMoreTweetsText } = config;
 
 const Home: FC = () => {
-  // const [currentTweet, setCurrentTweet] = useState<ITweet>();
   const [noMoreTweets, setNoMoreTweets] = useState<boolean>(false);
 
   const tweetsArray = useSelector(allTweetsSelector);
@@ -74,7 +74,7 @@ const Home: FC = () => {
   const arrayOfTweetComponents = useMemo(
     () =>
       [...tweetsArray].map((tweet: ITweet) => (
-        <Tweet key={tweet.id} tweetData={tweet} currentUserId={authorizedUserId} />
+        <Tweet key={v4()} tweetData={tweet} currentUserId={authorizedUserId} />
       )),
     [authorizedUserId, tweetsArray]
   );

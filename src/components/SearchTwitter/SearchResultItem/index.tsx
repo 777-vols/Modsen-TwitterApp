@@ -1,8 +1,11 @@
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 import { FC } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useNavigate } from 'react-router-dom';
 
 import { UserEmail } from '@/components/LeftMenu/styled';
-import { Avatar } from '@/components/Tweet/styled';
+import { UserAvatarWrapper } from '@/components/Tweet/styled';
 import { allImages } from '@/constants/allImages';
 
 import { config } from './config';
@@ -29,7 +32,15 @@ const SearchResultItem: FC<IProps> = ({ tweetId, author, isUserSearch }) => {
   return (
     <Wrapper>
       <UserInfo>
-        <Avatar src={photo || defaultUserPhoto} />
+        <UserAvatarWrapper>
+          <LazyLoadImage
+            src={photo || defaultUserPhoto}
+            effect="blur"
+            alt="tweet avatar"
+            width="100%"
+            style={{ borderRadius: '100px', maxHeight: '100%' }}
+          />
+        </UserAvatarWrapper>
         <UserData>
           <UserName>{name}</UserName>
           <UserEmail>{email}</UserEmail>

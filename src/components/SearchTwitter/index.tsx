@@ -57,7 +57,7 @@ const SearchTwitter: FC<IProps> = (props) => {
     if (inputValue !== '' && isProfilePage) {
       return tweetsArray
         .filter((tweet) => tweet.author.id === currentUserId)
-        .map(({ id, author }) => <SearchResultItem key={id} tweetId={id} author={author} />);
+        .map(({ id, author }) => <SearchResultItem key={v4()} tweetId={id} author={author} />);
     }
     return usersArray.map((author) => <SearchResultItem key={v4()} author={author} isUserSearch />);
   }, [currentUserId, inputValue, isProfilePage, tweetsArray, usersArray]);
@@ -147,7 +147,7 @@ const SearchTwitter: FC<IProps> = (props) => {
       </Content>
       <NavList>
         {footerLinks.map(({ name, path }) => (
-          <NavItem key={name}>
+          <NavItem key={v4()}>
             <StyledLink to={path}>{name}</StyledLink>
           </NavItem>
         ))}

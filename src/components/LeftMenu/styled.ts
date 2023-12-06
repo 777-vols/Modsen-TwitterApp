@@ -54,7 +54,7 @@ export const Menu = styled.nav<IStyleProps>`
   }
 `;
 
-export const Logo = styled.img`
+export const LogoWrapper = styled.div`
   margin-top: ${({ theme }) => theme.spaces.mediumL}px;
   margin-bottom: ${({ theme }) => theme.spaces.mediumS}px;
   width: 30px;

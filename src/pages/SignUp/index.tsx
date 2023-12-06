@@ -7,6 +7,7 @@ import Select from 'react-select';
 import { Background } from '@/components/EditProfileModal/styled';
 import { Loader } from '@/components/Loader';
 import Notification from '@/components/Notification';
+import PublicPagesLogo from '@/components/PublicPagesLogo';
 import { allImages } from '@/constants/allImages';
 import { formPatterns, minMaxLineLength } from '@/constants/formConstants';
 import { Urls } from '@/constants/urls';
@@ -19,7 +20,7 @@ import {
 import { convertBirthDate, signUpWithEmailHelper } from '@/helpers/userHelper';
 import { useAction } from '@/hooks/useAction';
 import { Wrapper } from '@/pages/LogIn/styled';
-import { Logo, TextLink } from '@/pages/Root/styled';
+import { TextLink } from '@/pages/Root/styled';
 import { isLoadingSelector } from '@/store/slices/notificationSlice/selectors';
 
 import { config, customStyles } from './config';
@@ -32,7 +33,6 @@ import {
   Form,
   Input,
   InputWrapper,
-  LogoWrapper,
   MonthSelect,
   PasswordError,
   PasswordWrapper,
@@ -61,7 +61,7 @@ const { nameError, phoneNumberError, emailError, passwordError } = errorMessages
 
 const { HOME, LOG_IN } = Urls;
 
-const { logoImg, eyePasswordHide, eyePasswordOpen } = allImages;
+const { eyePasswordHide, eyePasswordOpen } = allImages;
 
 const { minLineLength, maxLineLength } = minMaxLineLength;
 const { namePattern, phoneNumberPattern, passwordPattern, emailPattern } = formPatterns;
@@ -150,9 +150,7 @@ const SignUp: FC = () => {
   ) : (
     <Wrapper>
       <Form onSubmit={handleSubmit(handleSignUpWithEmail)}>
-        <LogoWrapper>
-          <Logo alt="logo" src={logoImg} />
-        </LogoWrapper>
+        <PublicPagesLogo />
         <Title>{header}</Title>
         <InputWrapper>
           {errors?.name && <Error>{errors?.name?.message || nameError}</Error>}

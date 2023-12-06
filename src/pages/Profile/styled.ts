@@ -27,10 +27,6 @@ export const UserName = styled.span`
   }
 `;
 
-export const Banner = styled.img`
-  width: 100%;
-`;
-
 export const ProfileInfo = styled.div`
   position: relative;
   padding: ${({ theme }) => theme.spaces.mediumM}px;
@@ -42,7 +38,7 @@ export const ProfileInfo = styled.div`
   }
 `;
 
-export const UserAvatar = styled.img`
+export const AvatarWrapper = styled.div`
   position: absolute;
   margin-left: ${({ theme }) => theme.spaces.smallL}px;
   border-radius: 100px;

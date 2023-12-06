@@ -15,7 +15,6 @@ import { IUser } from '@/pages/Profile/types';
 import { userSelector } from '@/store/slices/userSlice/selectors';
 
 import {
-  Avatar,
   Content,
   DateInfo,
   DeleteButton,
@@ -81,7 +80,13 @@ const Tweet: FC<IProps> = ({ tweetData, currentUserId, isUserAuth }) => {
         </DeleteButton>
       )}
       <UserAvatarWrapper>
-        <Avatar src={photo || defaultUserPhoto} alt="tweet avatar" />
+        <LazyLoadImage
+          src={photo || defaultUserPhoto}
+          effect="blur"
+          alt="tweet avatar"
+          width="100%"
+          style={{ borderRadius: '100px', maxHeight: '100%' }}
+        />
       </UserAvatarWrapper>
       <Content>
         <Info>

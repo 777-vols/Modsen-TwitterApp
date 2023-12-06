@@ -25,13 +25,10 @@ export const Wrapper = styled.article`
   }
 `;
 
-export const Avatar = styled.img`
+export const UserAvatarWrapper = styled.div`
   ${smallAvatar}
-
   margin-right: ${({ theme }) => theme.spaces.smallM}px;
 `;
-
-export const UserAvatarWrapper = styled.div``;
 
 export const Content = styled.div`
   width: 100%;
