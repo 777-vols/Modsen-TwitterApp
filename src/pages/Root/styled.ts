@@ -25,7 +25,7 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const Main = styled.div`
+export const Section = styled.section`
   height: calc(${fullSize}% - 5%);
   width: ${fullSize}%;
   display: flex;

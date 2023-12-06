@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import ToogleTheme from '@/components/ToogleTheme';
 import { allImages } from '@/constants/allImages';
 import { Urls } from '@/constants/urls';
+import { checkIsProfilePage, getTweetIdFromUrl } from '@/helpers/urlHelpers';
 import { UserName } from '@/pages/Profile/styled';
 
 import LeftMenu from '../LeftMenu';
@@ -22,7 +23,7 @@ import {
 } from './styled';
 import { IProps } from './types';
 
-const { HOME, PROFILE } = Urls;
+const { HOME } = Urls;
 const { arrowBack } = allImages;
 const { tweets } = config;
 
@@ -32,9 +33,8 @@ const Header: FC<IProps> = (props) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const pathUserIdIndex = 2;
-  const pathTweetId = pathname.split('/')[pathUserIdIndex];
-  const isProfilePage = pathname.split('/').includes(PROFILE.split('/')[1]);
+  const pathTweetId = getTweetIdFromUrl(pathname);
+  const isProfilePage = checkIsProfilePage(pathname);
 
   const handleBackToHomePage = () => {
     navigate(HOME);

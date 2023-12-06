@@ -6,7 +6,14 @@ import Notification from '@/components/Notification';
 import { Text } from '@/components/NoTweets/styled';
 import SearchTwitter from '@/components/SearchTwitter';
 import { searchUserHelper } from '@/helpers/searchHelpers';
-import { LeftSideBar, Main, MainWrapper, RigthSideBar, Wrapper } from '@/pages/Home/styled';
+import {
+  LeftSideBar,
+  Main,
+  MainWrapper,
+  RigthSideBar,
+  Section,
+  Wrapper
+} from '@/pages/Home/styled';
 
 import { config } from './config';
 
@@ -20,10 +27,14 @@ const Lists: FC = () => (
 
     <MainWrapper>
       <Header pageName={pageName} />
+
       <Main>
-        <Text>{pageName}</Text>
+        <Section>
+          <Text>{pageName}</Text>
+        </Section>
       </Main>
     </MainWrapper>
+
     <RigthSideBar>
       <SearchTwitter
         placeholder={searchPlaceholder}

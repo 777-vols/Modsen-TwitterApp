@@ -61,7 +61,7 @@ const Tweet: FC<IProps> = ({ tweetData, currentUserId, isUserAuth }) => {
     likeTweet({ tweetData, userId: authorizedUser.id });
     setIsLiked((prevState) => !prevState);
 
-    if (!isLiked && !tweetData.likes.includes(currentUserId)) {
+    if (!(isLiked && tweetData.likes.includes(currentUserId))) {
       await updateLikesInFirebaseDoc(TWEETS_COLLECTION, tweetId, [
         ...tweetData.likes,
         currentUserId

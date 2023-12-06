@@ -1,6 +1,9 @@
 import { IOption } from '@/pages/SignUp/types';
 
 const firstDayIndex = 0;
+const minUserAge = 16;
+const maxUserAge = 100;
+const oneMonth = 1;
 
 export const allMonthsNames: string[] = [
   'January',
@@ -18,8 +21,8 @@ export const allMonthsNames: string[] = [
 ];
 
 export const getYearsOptionsArray = (): IOption[] => {
-  const startYear = new Date().getFullYear() - 100;
-  const lastYear = new Date().getFullYear() - 16;
+  const startYear = new Date().getFullYear() - maxUserAge;
+  const lastYear = new Date().getFullYear() - minUserAge;
   const optionsArray = [];
 
   for (let year = startYear; year <= lastYear; year += 1) {
@@ -38,7 +41,7 @@ export const getMonthOptionsArray = (): IOption[] => {
 };
 
 export const getDaysOptionsArray = (month: number, year: number): IOption[] => {
-  const numberOfDaysInMonth = new Date(year, month + 1, firstDayIndex).getDate();
+  const numberOfDaysInMonth = new Date(year, month + oneMonth, firstDayIndex).getDate();
   const optionsArray = [];
 
   for (let dayIndex = 1; dayIndex <= numberOfDaysInMonth; dayIndex += 1) {

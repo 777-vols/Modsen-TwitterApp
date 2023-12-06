@@ -6,8 +6,8 @@ import { v4 } from 'uuid';
 import { Loader } from '@/components/Loader';
 import Notification from '@/components/Notification';
 import { allImages } from '@/constants/allImages';
-import { Urls } from '@/constants/urls';
 import { searchRecommemdedUsersHelper } from '@/helpers/searchHelpers';
+import { checkIsProfilePage } from '@/helpers/urlHelpers';
 import { useAction } from '@/hooks/useAction';
 import { useDebounce } from '@/hooks/useDebounce';
 import { IUser } from '@/pages/Profile/types';
@@ -35,11 +35,9 @@ import {
 } from './styled';
 import { IProps, SetState } from './types';
 
-const { PROFILE } = Urls;
-
 const { searchIcon } = allImages;
 
-const { mainTitle, showMore, errorNotificationText } = config;
+const { mainTitle, showMore } = config;
 const { footerLinks, company } = rootConfig;
 
 const SearchTwitter: FC<IProps> = (props) => {
@@ -53,7 +51,7 @@ const SearchTwitter: FC<IProps> = (props) => {
   const authorizedUser = useSelector(userSelector) as IUser;
   const { pathname } = useLocation();
 
-  const isProfilePage = pathname.split('/').includes(PROFILE.split('/')[1]);
+  const isProfilePage = checkIsProfilePage(pathname);
 
   const searchResultArray = useMemo(() => {
     if (inputValue !== '' && isProfilePage) {

@@ -52,7 +52,9 @@ export const CreateTweetWrapper = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
 `;
 
-export const Main = styled.main`
+export const Main = styled.main``;
+
+export const Section = styled.section`
   ${maxSize}
 `;
 

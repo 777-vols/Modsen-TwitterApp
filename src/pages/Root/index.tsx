@@ -22,11 +22,11 @@ import {
   GoogleButtonImg,
   HaveAccount,
   Logo,
-  Main,
   MainHeader,
   NavItem,
   NavList,
   Panel,
+  Section,
   Signature,
   SubHeader,
   TextLink,
@@ -71,38 +71,41 @@ const Root: FC = () => {
     </Background>
   ) : (
     <Wrapper>
-      <Main>
-        <Banner alt="banner" src={banner} />
-        <Panel>
-          <Content>
-            <Logo alt="logo" src={logoImg} />
-            <MainHeader>{mainHeader}</MainHeader>
-            <SubHeader>{subHeader}</SubHeader>
-            <GoogleButton onClick={handleSignUpWithGoogle}>
-              <GoogleButtonImg alt="google icon" src={googleIcon} />
-              {googleSignUp}
-            </GoogleButton>
-            <EmailButton data-cy="emailRegistration" to={SIGN_UP}>
-              {emailSignUp}
-            </EmailButton>
-            <AgreeRule>
-              {agreeText[0]}
-              <TextLink to={agreeLinks[0].path}>{agreeLinks[0].name}</TextLink>
-              {agreeText[1]}
-              <TextLink to={agreeLinks[1].path}>{agreeLinks[1].name}</TextLink>
-              {agreeText[2]}
-              <TextLink to={agreeLinks[2].path}>{agreeLinks[2].name}</TextLink>
-              {agreeText[3]}
-            </AgreeRule>
-            <HaveAccount>
-              {haveAccountText}
-              <TextLink data-cy="logInLink" to={LOG_IN}>
-                {haveAccountLink}
-              </TextLink>
-            </HaveAccount>
-          </Content>
-        </Panel>
-      </Main>
+      <main>
+        <Section>
+          <Banner alt="banner" src={banner} />
+          <Panel>
+            <Content>
+              <Logo alt="logo" src={logoImg} />
+              <MainHeader>{mainHeader}</MainHeader>
+              <SubHeader>{subHeader}</SubHeader>
+              <GoogleButton onClick={handleSignUpWithGoogle}>
+                <GoogleButtonImg alt="google icon" src={googleIcon} />
+                {googleSignUp}
+              </GoogleButton>
+              <EmailButton data-cy="emailRegistration" to={SIGN_UP}>
+                {emailSignUp}
+              </EmailButton>
+              <AgreeRule>
+                {agreeText[0]}
+                <TextLink to={agreeLinks[0].path}>{agreeLinks[0].name}</TextLink>
+                {agreeText[1]}
+                <TextLink to={agreeLinks[1].path}>{agreeLinks[1].name}</TextLink>
+                {agreeText[2]}
+                <TextLink to={agreeLinks[2].path}>{agreeLinks[2].name}</TextLink>
+                {agreeText[3]}
+              </AgreeRule>
+              <HaveAccount>
+                {haveAccountText}
+                <TextLink data-cy="logInLink" to={LOG_IN}>
+                  {haveAccountLink}
+                </TextLink>
+              </HaveAccount>
+            </Content>
+          </Panel>
+        </Section>
+      </main>
+
       <Footer>
         <nav>
           <NavList>

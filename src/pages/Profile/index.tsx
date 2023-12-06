@@ -28,6 +28,7 @@ import SearchTwitter from '@/components/SearchTwitter';
 import Tweet from '@/components/Tweet';
 import { allImages } from '@/constants/allImages';
 import { searchTweetHelper } from '@/helpers/searchHelpers';
+import { getUserIdFromUrl } from '@/helpers/urlHelpers';
 import { useAction } from '@/hooks/useAction';
 import { useGetUserTweets } from '@/hooks/useGetUserTweets';
 import {
@@ -38,6 +39,7 @@ import {
   MainWrapper,
   MoreTweetsButton,
   RigthSideBar,
+  Section,
   Wrapper
 } from '@/pages/Home/styled';
 import { TextLink } from '@/pages/Root/styled';
@@ -105,8 +107,8 @@ const Profile: FC = () => {
   } = authorizedUser;
 
   const { pathname } = useLocation();
-  const pathUserIdIndex = 2;
-  const pathUserId = pathname.split('/')[pathUserIdIndex];
+
+  const pathUserId = getUserIdFromUrl(pathname);
 
   const changeNumberOfUserTweets = useCallback((newValue: number) => {
     setNumberOfUserTweets(newValue);
@@ -118,8 +120,10 @@ const Profile: FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const userFoundInSearch = (await getFirebaseDoc(USERS_COLLECTION, pathUserId)) as IUser;
-
+      let userFoundInSearch;
+      if (pathUserId) {
+        userFoundInSearch = (await getFirebaseDoc(USERS_COLLECTION, pathUserId)) as IUser;
+      }
       if (userFoundInSearch) {
         setUser(userFoundInSearch);
       }
@@ -203,56 +207,60 @@ const Profile: FC = () => {
         />
 
         <Main>
-          <Banner src={profileBackground} alt="profile banner" />
+          <Section>
+            <Banner src={profileBackground} alt="profile banner" />
 
-          <ProfileInfo>
-            <UserAvatar src={photo || defaultUserPhoto} alt="profile avatar" />
-            <UserInfo>
-              <InfoName>{currentUserId === authorizedUserId ? authorizedUserName : name}</InfoName>
-              <InfoEmail>
-                {currentUserId === authorizedUserId ? authorizedUserEmail : email}
-              </InfoEmail>
-              <Description>
-                {defaultDescriptionText} <TextLink to="#">{defaultDescriptionLink}</TextLink>
-              </Description>
-            </UserInfo>
-            <FollowingInfo>
-              <b>{defaultCount}</b>
-              <Following> {following}</Following>
-              <b>{defaultCount}</b>
-              <Following> {followers}</Following>
-            </FollowingInfo>
+            <ProfileInfo>
+              <UserAvatar src={photo || defaultUserPhoto} alt="profile avatar" />
+              <UserInfo>
+                <InfoName>
+                  {currentUserId === authorizedUserId ? authorizedUserName : name}
+                </InfoName>
+                <InfoEmail>
+                  {currentUserId === authorizedUserId ? authorizedUserEmail : email}
+                </InfoEmail>
+                <Description>
+                  {defaultDescriptionText} <TextLink to="#">{defaultDescriptionLink}</TextLink>
+                </Description>
+              </UserInfo>
+              <FollowingInfo>
+                <b>{defaultCount}</b>
+                <Following> {following}</Following>
+                <b>{defaultCount}</b>
+                <Following> {followers}</Following>
+              </FollowingInfo>
+              {authorizedUser.id === user.id && (
+                <EditProfileButton data-cy="editProfile" onClick={closeOpenModal}>
+                  {editProfile}
+                </EditProfileButton>
+              )}
+            </ProfileInfo>
+
             {authorizedUser.id === user.id && (
-              <EditProfileButton data-cy="editProfile" onClick={closeOpenModal}>
-                {editProfile}
-              </EditProfileButton>
+              <CreateTweetWrapper>
+                <CreateTweet />
+              </CreateTweetWrapper>
             )}
-          </ProfileInfo>
 
-          {authorizedUser.id === user.id && (
-            <CreateTweetWrapper>
-              <CreateTweet />
-            </CreateTweetWrapper>
-          )}
+            <TweetsBlockHeader>{tweets}</TweetsBlockHeader>
 
-          <TweetsBlockHeader>{tweets}</TweetsBlockHeader>
-
-          <AllTweetsWrapper>
-            {arrayOfTweetComponents.length > 0 ? arrayOfTweetComponents : <NoTweets />}
-            {isLoading ? (
-              <Loader />
-            ) : (
-              <GetMoreTweets>
-                {noMoreTweets ? (
-                  <Text>{noMoreTweetsText}</Text>
-                ) : (
-                  <MoreTweetsButton type="button" onClick={nextChunkHandler}>
-                    {moreTweetsButton}
-                  </MoreTweetsButton>
-                )}
-              </GetMoreTweets>
-            )}
-          </AllTweetsWrapper>
+            <AllTweetsWrapper>
+              {arrayOfTweetComponents.length > 0 ? arrayOfTweetComponents : <NoTweets />}
+              {isLoading ? (
+                <Loader />
+              ) : (
+                <GetMoreTweets>
+                  {noMoreTweets ? (
+                    <Text>{noMoreTweetsText}</Text>
+                  ) : (
+                    <MoreTweetsButton type="button" onClick={nextChunkHandler}>
+                      {moreTweetsButton}
+                    </MoreTweetsButton>
+                  )}
+                </GetMoreTweets>
+              )}
+            </AllTweetsWrapper>
+          </Section>
         </Main>
       </MainWrapper>
 

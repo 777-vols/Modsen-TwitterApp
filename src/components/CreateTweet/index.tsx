@@ -25,6 +25,8 @@ import {
   Wrapper
 } from './styled';
 
+const maxTweetLength = 500;
+
 const { addImg, defaultUserPhoto } = allImages;
 
 const {
@@ -50,7 +52,7 @@ const CreateTweet: FC = () => {
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const { target } = event;
 
-    if (target.value.length < 500) {
+    if (target.value.length < maxTweetLength) {
       setInputValue(target.value);
     } else {
       setErrorNotification({

@@ -7,7 +7,7 @@ import {
   userEmail
 } from '@/constants/theme/styles/commonStyles';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.article`
   position: relative;
   display: flex;
   padding: ${({ theme }) => theme.spaces.smallM}px ${({ theme }) => theme.spaces.mediumM}px
