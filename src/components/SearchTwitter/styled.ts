@@ -21,10 +21,6 @@ export const Wrapper = styled.div`
     padding-left: ${({ theme }) => theme.spaces.mediumM}px;
   }
 
-  @media (max-width: ${({ theme }) => theme.breakPoints.laptop}px) {
-    margin-top: ${({ theme }) => theme.spaces.largeS}px;
-  }
-
   @media (max-width: ${({ theme }) => theme.breakPoints.tablet}px) {
     padding: ${({ theme }) => theme.spaces.zero} ${({ theme }) => theme.spaces.mediumM}px;
   }

@@ -13,7 +13,7 @@ import { IStyleProps } from './types';
 
 export const Wrapper = styled.div`
   position: sticky;
-  top: 0px;
+  top: ${({ theme }) => theme.spaces.mediumL}px;
   padding-right: ${({ theme }) => theme.spaces.mediumS}px;
   width: 100%;
 
@@ -22,6 +22,7 @@ export const Wrapper = styled.div`
   }
 
   @media (max-width: ${({ theme }) => theme.breakPoints.tablet}px) {
+    top: 0;
     padding-right: ${({ theme }) => theme.spaces.zero};
   }
 `;
@@ -55,7 +56,7 @@ export const Menu = styled.nav<IStyleProps>`
 `;
 
 export const LogoWrapper = styled.div`
-  margin-top: ${({ theme }) => theme.spaces.mediumL}px;
+  /* margin-top: ${({ theme }) => theme.spaces.mediumL}px; */
   margin-bottom: ${({ theme }) => theme.spaces.mediumS}px;
   width: 30px;
   height: 30px;

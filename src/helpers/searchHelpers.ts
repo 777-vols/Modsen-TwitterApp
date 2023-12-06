@@ -1,9 +1,11 @@
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, limit, query, where } from 'firebase/firestore';
 
 import { FirebaseCollections } from '@/api/firebase/constants';
 import { db } from '@/api/firebase/firebase';
 import { IUser } from '@/pages/Profile/types';
 import { ITweet } from '@/store/slices/tweetsSlice/types';
+
+const numberOfUsersInOneChunk = 5;
 
 const { USERS_COLLECTION, TWEETS_COLLECTION } = FirebaseCollections;
 
@@ -56,7 +58,7 @@ export const searchUserHelper = async (searchValue: string): Promise<IUser[]> =>
 };
 
 export const searchRecommemdedUsersHelper = async (currentUserId: string): Promise<IUser[]> => {
-  const data = query(collection(db, USERS_COLLECTION));
+  const data = query(collection(db, USERS_COLLECTION), limit(numberOfUsersInOneChunk));
 
   const querySnapshot = await getDocs(data);
   const usersArray: IUser[] = [];

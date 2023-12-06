@@ -34,7 +34,7 @@ describe('Renders Edit Profile Form', () => {
     expect(nameInput).toBeInTheDocument();
     const phoneNnumberInput = getByPlaceholderText('Phone number');
     expect(phoneNnumberInput).toBeInTheDocument();
-    const telegramInput = getByPlaceholderText('Telegram link');
+    const telegramInput = getByPlaceholderText('Telegram URL');
     expect(telegramInput).toBeInTheDocument();
 
     fireEvent.change(nameInput, { target: { value: 'Peter' } });

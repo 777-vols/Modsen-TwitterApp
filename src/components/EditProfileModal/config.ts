@@ -6,7 +6,7 @@ export const config = {
     phonePlaceholder: 'Phone number',
     emailPlaceholder: 'Email',
     passwordPlaceholder: 'Password',
-    telegramPlaceholder: 'Telegram link'
+    telegramPlaceholder: 'Telegram URL'
   },
   errorMessages: {
     nameError: 'Username is invalid!',
@@ -14,7 +14,7 @@ export const config = {
     emailError: 'Email is invalid!',
     passwordError:
       'The password must contain at least one capital letter, at least one number and be no shorter than 8 characters!',
-    telegramError: 'Telegram is invalid!'
+    telegramError: 'Telegram URL is invalid!'
   },
   errorNotificationText: 'User data update error, check that the entered data is correct!',
   successNotificationText: 'Your data has been changed successfully',

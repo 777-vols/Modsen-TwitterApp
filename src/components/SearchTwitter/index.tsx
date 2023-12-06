@@ -56,14 +56,15 @@ const SearchTwitter: FC<IProps> = (props) => {
   const searchResultArray = useMemo(() => {
     if (inputValue !== '' && isProfilePage) {
       return tweetsArray
-        .filter((tweet) => tweet.author.id === currentUserId)
+        .filter(({ author }) => author.id === currentUserId)
         .map(({ id, author }) => <SearchResultItem key={v4()} tweetId={id} author={author} />);
     }
     return usersArray.map((author) => <SearchResultItem key={v4()} author={author} isUserSearch />);
-  }, [currentUserId, inputValue, isProfilePage, tweetsArray, usersArray]);
+  }, [currentUserId, tweetsArray, usersArray]);
 
   useEffect(() => {
     const fetchData = async () => {
+      console.log('asdasd');
       if (inputValue === '') {
         setIsLoading(true);
         const users = await searchRecommemdedUsersHelper(authorizedUser.id);
