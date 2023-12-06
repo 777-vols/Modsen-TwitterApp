@@ -64,7 +64,7 @@ const { HOME, LOG_IN } = Urls;
 const { eyePasswordHide, eyePasswordOpen } = allImages;
 
 const { minLineLength, maxLineLength } = minMaxLineLength;
-const { namePattern, phoneNumberPattern, passwordPattern, emailPattern } = formPatterns;
+const { phoneNumberPattern, passwordPattern, emailPattern } = formPatterns;
 
 const SignUp: FC = () => {
   const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false);
@@ -161,8 +161,7 @@ const SignUp: FC = () => {
             {...register('name', {
               required: true,
               minLength: minLineLength,
-              maxLength: maxLineLength,
-              pattern: namePattern
+              maxLength: maxLineLength
             })}
           />
         </InputWrapper>
@@ -261,7 +260,7 @@ const SignUp: FC = () => {
             </YearSelect>
           </SelectWrapper>
         </SelectBlock>
-        <Button data-cy="sigUp" type="submit">
+        <Button data-cy="signUp" type="submit">
           {buttonText}
         </Button>
       </Form>
