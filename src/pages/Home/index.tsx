@@ -15,10 +15,10 @@ import { v4 } from 'uuid';
 import { FirebaseCollections } from '@/api/firebase/constants';
 import { db } from '@/api/firebase/firebase';
 import CreateTweet from '@/components/CreateTweet';
+import GetMoreTweets from '@/components/GetMoreTweets';
 import Header from '@/components/Header';
 import LeftMenu from '@/components/LeftMenu';
 import { Loader } from '@/components/Loader';
-import { Text } from '@/components/NoTweets/styled';
 import SearchTwitter from '@/components/SearchTwitter';
 import Tweet from '@/components/Tweet';
 import { searchUserHelper } from '@/helpers/searchHelpers';
@@ -35,11 +35,9 @@ import { config } from './config';
 import {
   AllTweetsWrapper,
   CreateTweetWrapper,
-  GetMoreTweets,
   LeftSideBar,
   Main,
   MainWrapper,
-  MoreTweetsButton,
   RigthSideBar,
   Section,
   Wrapper
@@ -49,7 +47,7 @@ const numberOfTweetsInOneChunk = 3;
 
 const { TWEETS_COLLECTION } = FirebaseCollections;
 
-const { searchPlaceholder, searchError, pageName, moreTweetsButton, noMoreTweetsText } = config;
+const { searchPlaceholder, searchError, pageName } = config;
 
 const Home: FC = () => {
   const [noMoreTweets, setNoMoreTweets] = useState<boolean>(false);
@@ -148,15 +146,7 @@ const Home: FC = () => {
               {isLoading ? (
                 <Loader />
               ) : (
-                <GetMoreTweets>
-                  {noMoreTweets ? (
-                    <Text>{noMoreTweetsText}</Text>
-                  ) : (
-                    <MoreTweetsButton type="button" onClick={nextChunkHandler}>
-                      {moreTweetsButton}
-                    </MoreTweetsButton>
-                  )}
-                </GetMoreTweets>
+                <GetMoreTweets noMoreTweets={noMoreTweets} nextChunkHandler={nextChunkHandler} />
               )}
             </AllTweetsWrapper>
           </Section>

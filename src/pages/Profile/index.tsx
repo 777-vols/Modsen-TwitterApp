@@ -22,12 +22,11 @@ import { db } from '@/api/firebase/firebase';
 import { getFirebaseDoc } from '@/api/firebase/firebaseHelpers';
 import CreateTweet from '@/components/CreateTweet';
 import EditProfileModal from '@/components/EditProfileModal';
+import GetMoreTweets from '@/components/GetMoreTweets';
 import Header from '@/components/Header';
 import LeftMenu from '@/components/LeftMenu';
 import { Loader } from '@/components/Loader';
 import Notification from '@/components/Notification';
-import NoTweets from '@/components/NoTweets';
-import { Text } from '@/components/NoTweets/styled';
 import SearchTwitter from '@/components/SearchTwitter';
 import Tweet from '@/components/Tweet';
 import { allImages } from '@/constants/allImages';
@@ -37,11 +36,9 @@ import { useAction } from '@/hooks/useAction';
 import { useGetUserTweets } from '@/hooks/useGetUserTweets';
 import {
   AllTweetsWrapper,
-  GetMoreTweets,
   LeftSideBar,
   Main,
   MainWrapper,
-  MoreTweetsButton,
   RigthSideBar,
   Section,
   Wrapper
@@ -84,9 +81,7 @@ const {
   defaultDescriptionText,
   defaultDescriptionLink,
   searchPlaceholder,
-  searchError,
-  moreTweetsButton,
-  noMoreTweetsText
+  searchError
 } = config;
 
 const Profile: FC = () => {
@@ -261,19 +256,11 @@ const Profile: FC = () => {
             <TweetsBlockHeader>{tweets}</TweetsBlockHeader>
 
             <AllTweetsWrapper>
-              {arrayOfTweetComponents.length > 0 ? arrayOfTweetComponents : <NoTweets />}
+              {arrayOfTweetComponents.length > 0 && arrayOfTweetComponents}
               {isLoading ? (
                 <Loader />
               ) : (
-                <GetMoreTweets>
-                  {noMoreTweets ? (
-                    <Text>{noMoreTweetsText}</Text>
-                  ) : (
-                    <MoreTweetsButton type="button" onClick={nextChunkHandler}>
-                      {moreTweetsButton}
-                    </MoreTweetsButton>
-                  )}
-                </GetMoreTweets>
+                <GetMoreTweets noMoreTweets={noMoreTweets} nextChunkHandler={nextChunkHandler} />
               )}
             </AllTweetsWrapper>
           </Section>

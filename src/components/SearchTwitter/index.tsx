@@ -64,7 +64,6 @@ const SearchTwitter: FC<IProps> = (props) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log('asdasd');
       if (inputValue === '') {
         setIsLoading(true);
         const users = await searchRecommemdedUsersHelper(authorizedUser.id);
