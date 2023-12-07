@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { allImages } from '@/constants/allImages';
+import { allImages } from '@/constants';
 import { flexCenterHorizontally, fullSreen } from '@/constants/theme/styles/commonStyles';
 
 const { errorBoundary } = allImages;
@@ -20,7 +20,7 @@ export const Wrapper = styled.div`
 
 export const Content = styled.div`
   ${flexCenterHorizontally}
-  
+
   min-height: ${sizeS}px;
   min-width: ${sizeS}px;
   width: ${sizeXL}px;

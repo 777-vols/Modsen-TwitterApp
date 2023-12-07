@@ -1,8 +1,7 @@
 import { collection, getCountFromServer, getDocs, limit, orderBy, query } from 'firebase/firestore';
 import { useLayoutEffect } from 'react';
 
-import { FirebaseCollections } from '@/api/firebase/constants';
-import { db } from '@/api/firebase/firebase';
+import { db, FirebaseCollections } from '@/api/firebase';
 import { ITweet } from '@/store/slices/tweetsSlice/types';
 
 import { useAction } from './useAction';

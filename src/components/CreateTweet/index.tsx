@@ -5,8 +5,8 @@ import { v4 } from 'uuid';
 
 import { SmallAvatarImg } from '@/components/LeftMenu/styled';
 import { Loader } from '@/components/Loader';
-import { allImages } from '@/constants/allImages';
-import { createNewTweetHelper } from '@/helpers/tweetHelpers';
+import { allImages } from '@/constants';
+import { createNewTweetHelper } from '@/helpers';
 import { useAction } from '@/hooks/useAction';
 import { IUser } from '@/pages/Profile/types';
 import { isLoadingSelector } from '@/store/slices/notificationSlice/selectors';

@@ -1,7 +1,6 @@
 import { collection, getDocs, limit, query, where } from 'firebase/firestore';
 
-import { FirebaseCollections } from '@/api/firebase/constants';
-import { db } from '@/api/firebase/firebase';
+import { db, FirebaseCollections } from '@/api/firebase';
 import { IUser } from '@/pages/Profile/types';
 import { ITweet } from '@/store/slices/tweetsSlice/types';
 

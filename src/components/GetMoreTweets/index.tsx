@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import NoTweets from '@/components/NoTweets';
-import { getTweetIdFromUrl } from '@/helpers/urlHelpers';
+import { getTweetIdFromUrl } from '@/helpers';
 
 import { config } from './config';
 import { MoreTweetsButton, Wrapper } from './styled';

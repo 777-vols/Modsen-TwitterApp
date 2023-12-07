@@ -2,9 +2,13 @@ import { deleteDoc, doc } from 'firebase/firestore';
 import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { v4 } from 'uuid';
 
-import { FirebaseCollections } from '@/api/firebase/constants';
-import { db, storage } from '@/api/firebase/firebase';
-import { setFirebaseDoc, updateFirebaseDoc } from '@/api/firebase/firebaseHelpers';
+import {
+  db,
+  FirebaseCollections,
+  setFirebaseDoc,
+  storage,
+  updateFirebaseDoc
+} from '@/api/firebase';
 import { ITweet } from '@/store/slices/tweetsSlice/types';
 
 import { IOptions, UploadFileOptions } from './types';

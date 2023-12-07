@@ -2,9 +2,8 @@ import { FC } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import ToogleTheme from '@/components/ToogleTheme';
-import { allImages } from '@/constants/allImages';
-import { Urls } from '@/constants/urls';
-import { checkIsProfilePage, getTweetIdFromUrl } from '@/helpers/urlHelpers';
+import { allImages, Urls } from '@/constants';
+import { checkIsProfilePage, getTweetIdFromUrl } from '@/helpers';
 import { UserName } from '@/pages/Profile/styled';
 
 import LeftMenu from '../LeftMenu';

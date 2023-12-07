@@ -5,9 +5,8 @@ import { v4 } from 'uuid';
 
 import { Loader } from '@/components/Loader';
 import Notification from '@/components/Notification';
-import { allImages } from '@/constants/allImages';
-import { searchRecommemdedUsersHelper } from '@/helpers/searchHelpers';
-import { checkIsProfilePage } from '@/helpers/urlHelpers';
+import { allImages } from '@/constants';
+import { checkIsProfilePage, searchRecommemdedUsersHelper } from '@/helpers';
 import { useAction } from '@/hooks/useAction';
 import { useDebounce } from '@/hooks/useDebounce';
 import { IUser } from '@/pages/Profile/types';

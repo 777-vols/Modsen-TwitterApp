@@ -4,11 +4,10 @@ import { FC, memo, useEffect, useState } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useSelector } from 'react-redux';
 
-import { FirebaseCollections } from '@/api/firebase/constants';
-import { updateLikesInFirebaseDoc } from '@/api/firebase/firebaseHelpers';
+import { FirebaseCollections, updateLikesInFirebaseDoc } from '@/api/firebase';
 import DeleteTweetModal from '@/components/DeleteTweetModal';
 import Notification from '@/components/Notification';
-import { allImages } from '@/constants/allImages';
+import { allImages } from '@/constants';
 import { useAction } from '@/hooks/useAction';
 import { UserName } from '@/pages/Profile/styled';
 import { IUser } from '@/pages/Profile/types';

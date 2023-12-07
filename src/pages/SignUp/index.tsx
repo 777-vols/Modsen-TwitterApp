@@ -8,16 +8,15 @@ import { Background } from '@/components/EditProfileModal/styled';
 import { Loader } from '@/components/Loader';
 import Notification from '@/components/Notification';
 import PublicPagesLogo from '@/components/PublicPagesLogo';
-import { allImages } from '@/constants/allImages';
-import { formPatterns, minMaxLineLength } from '@/constants/formConstants';
-import { Urls } from '@/constants/urls';
+import { allImages, formPatterns, minMaxLineLength, Urls } from '@/constants';
 import {
   allMonthsNames,
+  convertBirthDate,
   getDaysOptionsArray,
   getMonthOptionsArray,
-  getYearsOptionsArray
-} from '@/helpers/dateSelectorsHelpers';
-import { convertBirthDate, signUpWithEmailHelper } from '@/helpers/userHelper';
+  getYearsOptionsArray,
+  signUpWithEmailHelper
+} from '@/helpers';
 import { useAction } from '@/hooks/useAction';
 import { Wrapper } from '@/pages/LogIn/styled';
 import { TextLink } from '@/pages/Root/styled';

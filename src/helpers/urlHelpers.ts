@@ -1,4 +1,4 @@
-import { Urls } from '@/constants/urls';
+import { Urls } from '@/constants';
 
 const userIdIndex = 2;
 const tweetIdIndex = 2;

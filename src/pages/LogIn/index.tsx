@@ -6,10 +6,8 @@ import { Background } from '@/components/EditProfileModal/styled';
 import { Loader } from '@/components/Loader';
 import Notification from '@/components/Notification';
 import PublicPagesLogo from '@/components/PublicPagesLogo';
-import { allImages } from '@/constants/allImages';
-import { formPatterns, minMaxLineLength } from '@/constants/formConstants';
-import { Urls } from '@/constants/urls';
-import { logInHelper } from '@/helpers/userHelper';
+import { allImages, formPatterns, minMaxLineLength, Urls } from '@/constants';
+import { logInHelper } from '@/helpers';
 import { useAction } from '@/hooks/useAction';
 import { TextLink } from '@/pages/Root/styled';
 import {

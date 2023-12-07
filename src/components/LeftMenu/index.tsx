@@ -6,10 +6,9 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Portal } from 'react-portal';
 import { useSelector } from 'react-redux';
 
-import { auth } from '@/api/firebase/firebase';
+import { auth } from '@/api/firebase';
 import AddTweetModal from '@/components/AddTweetModal';
-import { allImages } from '@/constants/allImages';
-import { Urls } from '@/constants/urls';
+import { allImages, Urls } from '@/constants';
 import { useAction } from '@/hooks/useAction';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 import { IUser } from '@/pages/Profile/types';

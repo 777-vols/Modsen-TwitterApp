@@ -5,7 +5,7 @@ import LeftMenu from '@/components/LeftMenu';
 import Notification from '@/components/Notification';
 import { Text } from '@/components/NoTweets/styled';
 import SearchTwitter from '@/components/SearchTwitter';
-import { searchUserHelper } from '@/helpers/searchHelpers';
+import { searchUserHelper } from '@/helpers';
 import {
   LeftSideBar,
   Main,

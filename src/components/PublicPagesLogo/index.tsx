@@ -3,7 +3,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 import { FC } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-import { allImages } from '@/constants/allImages';
+import { allImages } from '@/constants';
 
 import { Wrapper } from './styled';
 

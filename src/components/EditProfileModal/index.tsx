@@ -5,9 +5,8 @@ import Select from 'react-select';
 
 import { CloseButton } from '@/components/DeleteTweetModal/styled';
 import Notification from '@/components/Notification';
-import { allImages } from '@/constants/allImages';
-import { formPatterns, minMaxLineLength } from '@/constants/formConstants';
-import { updateUserDataHelper } from '@/helpers/userHelper';
+import { allImages, formPatterns, minMaxLineLength } from '@/constants';
+import { updateUserDataHelper } from '@/helpers';
 import { useAction } from '@/hooks/useAction';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 import { IUser } from '@/pages/Profile/types';

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { UserEmail } from '@/components/LeftMenu/styled';
 import { UserAvatarWrapper } from '@/components/Tweet/styled';
-import { allImages } from '@/constants/allImages';
+import { allImages } from '@/constants';
 
 import { config } from './config';
 import { Button, UserData, UserInfo, UserName, Wrapper } from './styled';

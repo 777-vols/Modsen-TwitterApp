@@ -5,9 +5,9 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
-import { FirebaseCollections } from '@/api/firebase/constants';
+import { FirebaseCollections } from '@/api/firebase';
 import { lightTheme } from '@/constants/theme/themes';
-import * as tweetHelpers from '@/helpers/tweetHelpers';
+import * as tweetHelpers from '@/helpers';
 import { store } from '@/store';
 import { ITweet } from '@/store/slices/tweetsSlice/types';
 

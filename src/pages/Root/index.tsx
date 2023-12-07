@@ -6,9 +6,8 @@ import { Background } from '@/components/EditProfileModal/styled';
 import { Loader } from '@/components/Loader';
 import Notification from '@/components/Notification';
 import PublicPagesLogo from '@/components/PublicPagesLogo';
-import { allImages } from '@/constants/allImages';
-import { Urls } from '@/constants/urls';
-import { signUpWithGoogleHelper } from '@/helpers/userHelper';
+import { allImages, Urls } from '@/constants';
+import { signUpWithGoogleHelper } from '@/helpers';
 import { useAction } from '@/hooks/useAction';
 import { isLoadingSelector } from '@/store/slices/notificationSlice/selectors';
 

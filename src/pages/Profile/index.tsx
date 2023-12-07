@@ -17,9 +17,7 @@ import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { v4 } from 'uuid';
 
-import { FirebaseCollections } from '@/api/firebase/constants';
-import { db } from '@/api/firebase/firebase';
-import { getFirebaseDoc } from '@/api/firebase/firebaseHelpers';
+import { db, FirebaseCollections, getFirebaseDoc } from '@/api/firebase';
 import CreateTweet from '@/components/CreateTweet';
 import EditProfileModal from '@/components/EditProfileModal';
 import GetMoreTweets from '@/components/GetMoreTweets';
@@ -29,9 +27,8 @@ import { Loader } from '@/components/Loader';
 import Notification from '@/components/Notification';
 import SearchTwitter from '@/components/SearchTwitter';
 import Tweet from '@/components/Tweet';
-import { allImages } from '@/constants/allImages';
-import { searchTweetHelper } from '@/helpers/searchHelpers';
-import { getUserIdFromUrl } from '@/helpers/urlHelpers';
+import { allImages } from '@/constants';
+import { getUserIdFromUrl, searchTweetHelper } from '@/helpers';
 import { useAction } from '@/hooks/useAction';
 import { useGetUserTweets } from '@/hooks/useGetUserTweets';
 import {

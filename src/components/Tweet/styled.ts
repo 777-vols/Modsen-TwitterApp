@@ -26,7 +26,6 @@ export const Wrapper = styled.article`
     padding: ${({ theme }) => theme.spaces.smallM}px ${({ theme }) => theme.spaces.mediumM}px
       ${({ theme }) => theme.spaces.mediumS}px ${({ theme }) => theme.spaces.smallM}px;
   }
-  /* height: 500px; */
 `;
 
 export const UserAvatarWrapper = styled.div`
