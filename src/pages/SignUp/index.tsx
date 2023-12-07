@@ -153,7 +153,9 @@ const SignUp: FC = () => {
         <PublicPagesLogo />
         <Title>{header}</Title>
         <InputWrapper>
-          {errors?.name && <Error>{errors?.name?.message || nameError}</Error>}
+          {errors?.name && (
+            <Error data-cy="nameInputError"> {errors?.name?.message || nameError}</Error>
+          )}
           <Input
             data-cy="nameInput"
             type="text"
@@ -166,7 +168,11 @@ const SignUp: FC = () => {
           />
         </InputWrapper>
         <InputWrapper>
-          {errors?.phoneNumber && <Error>{errors?.phoneNumber?.message || phoneNumberError}</Error>}
+          {errors?.phoneNumber && (
+            <Error data-cy="phoneInputError">
+              {errors?.phoneNumber?.message || phoneNumberError}
+            </Error>
+          )}
           <Input
             data-cy="phoneInput"
             type="text"
@@ -180,7 +186,9 @@ const SignUp: FC = () => {
           />
         </InputWrapper>
         <InputWrapper>
-          {errors?.email && <Error>{errors?.email?.message || emailError}</Error>}
+          {errors?.email && (
+            <Error data-cy="emailInputError">{errors?.email?.message || emailError}</Error>
+          )}
           <Input
             data-cy="emailInput"
             type="email"
@@ -196,7 +204,9 @@ const SignUp: FC = () => {
         </InputWrapper>
         <PasswordWrapper>
           {errors?.password && (
-            <PasswordError>{errors?.password?.message || passwordError}</PasswordError>
+            <PasswordError data-cy="passwordInputError">
+              {errors?.password?.message || passwordError}
+            </PasswordError>
           )}
           <Input
             data-cy="passwordInput"
