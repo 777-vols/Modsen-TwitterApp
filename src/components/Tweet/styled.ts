@@ -26,6 +26,7 @@ export const Wrapper = styled.article`
     padding: ${({ theme }) => theme.spaces.smallM}px ${({ theme }) => theme.spaces.mediumM}px
       ${({ theme }) => theme.spaces.mediumS}px ${({ theme }) => theme.spaces.smallM}px;
   }
+  /* height: 500px; */
 `;
 
 export const UserAvatarWrapper = styled.div`
@@ -96,14 +97,14 @@ export const TweetImageWrapper = styled.div`
 
   width: 100%;
   span {
-    max-height: 350px;
+    height: 350px;
 
     @media (min-width: ${({ theme }) => theme.breakPoints.bigScreen}px) {
-      max-height: 450px;
+      height: 450px;
     }
 
     @media (max-width: ${({ theme }) => theme.breakPoints.tablet}px) {
-      max-height: 300px;
+      height: 300px;
     }
   }
 `;

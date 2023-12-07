@@ -84,9 +84,11 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
   };
 
   const handleEditProfile = async (userData: IEditUserFormData) => {
-    Object.keys(userData).forEach((key) => {
-      if (!userData[key as keyof IEditUserFormData]) {
-        delete userData[key as keyof IEditUserFormData];
+    const keys = Object.keys(userData) as (keyof typeof userData)[];
+
+    keys.forEach((key) => {
+      if (!userData[key]) {
+        delete userData[key];
       }
     });
 

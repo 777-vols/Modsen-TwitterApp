@@ -107,7 +107,7 @@ const Tweet: FC<IProps> = ({ tweetData, currentUserId, isUserAuth }) => {
                 effect="blur"
                 alt="tweet image"
                 width="100%"
-                style={{ borderRadius: '15px', maxHeight: 'inherit' }}
+                style={{ borderRadius: '15px', height: '100%' }}
               />
             </TweetImageWrapper>
           )}
