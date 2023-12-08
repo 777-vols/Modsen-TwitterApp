@@ -1,3 +1,5 @@
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 import {
   collection,
   getCountFromServer,
@@ -9,35 +11,33 @@ import {
   where
 } from 'firebase/firestore';
 import { FC, memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Portal } from 'react-portal';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { v4 } from 'uuid';
 
-import { FirebaseCollections } from '@/api/firebase/constants';
-import { db } from '@/api/firebase/firebase';
-import { getFirebaseDoc } from '@/api/firebase/firebaseHelpers';
+import { db, FirebaseCollections, getFirebaseDoc } from '@/api/firebase';
 import CreateTweet from '@/components/CreateTweet';
 import EditProfileModal from '@/components/EditProfileModal';
+import GetMoreTweets from '@/components/GetMoreTweets';
 import Header from '@/components/Header';
 import LeftMenu from '@/components/LeftMenu';
 import { Loader } from '@/components/Loader';
 import Notification from '@/components/Notification';
-import NoTweets from '@/components/NoTweets';
-import { Text } from '@/components/NoTweets/styled';
 import SearchTwitter from '@/components/SearchTwitter';
 import Tweet from '@/components/Tweet';
-import { allImages } from '@/constants/allImages';
-import { searchTweetHelper } from '@/helpers/searchHelpers';
+import { allImages } from '@/constants';
+import { getUserIdFromUrl, searchTweetHelper } from '@/helpers';
 import { useAction } from '@/hooks/useAction';
 import { useGetUserTweets } from '@/hooks/useGetUserTweets';
 import {
   AllTweetsWrapper,
-  GetMoreTweets,
   LeftSideBar,
   Main,
   MainWrapper,
-  MoreTweetsButton,
   RigthSideBar,
+  Section,
   Wrapper
 } from '@/pages/Home/styled';
 import { TextLink } from '@/pages/Root/styled';
@@ -49,7 +49,7 @@ import { userSelector } from '@/store/slices/userSlice/selectors';
 
 import { config } from './config';
 import {
-  Banner,
+  AvatarWrapper,
   CreateTweetWrapper,
   Description,
   EditProfileButton,
@@ -59,7 +59,6 @@ import {
   InfoName,
   ProfileInfo,
   TweetsBlockHeader,
-  UserAvatar,
   UserInfo
 } from './styled';
 import { IUser } from './types';
@@ -79,9 +78,7 @@ const {
   defaultDescriptionText,
   defaultDescriptionLink,
   searchPlaceholder,
-  searchError,
-  moreTweetsButton,
-  noMoreTweetsText
+  searchError
 } = config;
 
 const Profile: FC = () => {
@@ -105,8 +102,8 @@ const Profile: FC = () => {
   } = authorizedUser;
 
   const { pathname } = useLocation();
-  const pathUserIdIndex = 2;
-  const pathUserId = pathname.split('/')[pathUserIdIndex];
+
+  const pathUserId = getUserIdFromUrl(pathname);
 
   const changeNumberOfUserTweets = useCallback((newValue: number) => {
     setNumberOfUserTweets(newValue);
@@ -118,8 +115,10 @@ const Profile: FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const userFoundInSearch = (await getFirebaseDoc(USERS_COLLECTION, pathUserId)) as IUser;
-
+      let userFoundInSearch;
+      if (pathUserId) {
+        userFoundInSearch = (await getFirebaseDoc(USERS_COLLECTION, pathUserId)) as IUser;
+      }
       if (userFoundInSearch) {
         setUser(userFoundInSearch);
       }
@@ -131,7 +130,7 @@ const Profile: FC = () => {
     });
   }, [currentUserId, pathUserId]);
 
-  const nextChunkHandler = async () => {
+  const nextChunkHandler = useCallback(async () => {
     const coll = collection(db, TWEETS_COLLECTION);
     const snapshot = await getCountFromServer(coll);
     const resultArray: ITweet[] = [];
@@ -168,13 +167,13 @@ const Profile: FC = () => {
     }
 
     setIsLoading(false);
-  };
+  }, [currentUserId, lastDocument, numberOfUserTweets, tweetsArray.length]);
 
   const arrayOfTweetComponents = useMemo(
     () =>
       tweetsArray.map((tweet: ITweet) => (
         <Tweet
-          key={tweet.id}
+          key={v4()}
           tweetData={tweet}
           currentUserId={authorizedUser.id}
           isUserAuth={authorizedUserId === currentUserId}
@@ -203,56 +202,65 @@ const Profile: FC = () => {
         />
 
         <Main>
-          <Banner src={profileBackground} alt="profile banner" />
+          <Section>
+            <LazyLoadImage
+              src={profileBackground}
+              effect="blur"
+              alt="profile banner"
+              width="100%"
+            />
 
-          <ProfileInfo>
-            <UserAvatar src={photo || defaultUserPhoto} alt="profile avatar" />
-            <UserInfo>
-              <InfoName>{currentUserId === authorizedUserId ? authorizedUserName : name}</InfoName>
-              <InfoEmail>
-                {currentUserId === authorizedUserId ? authorizedUserEmail : email}
-              </InfoEmail>
-              <Description>
-                {defaultDescriptionText} <TextLink to="#">{defaultDescriptionLink}</TextLink>
-              </Description>
-            </UserInfo>
-            <FollowingInfo>
-              <b>{defaultCount}</b>
-              <Following> {following}</Following>
-              <b>{defaultCount}</b>
-              <Following> {followers}</Following>
-            </FollowingInfo>
+            <ProfileInfo>
+              <AvatarWrapper>
+                <LazyLoadImage
+                  src={photo || defaultUserPhoto}
+                  effect="blur"
+                  alt="profile avatar"
+                  width="100%"
+                  style={{ borderRadius: '100px', maxHeight: '100%' }}
+                />
+              </AvatarWrapper>
+              <UserInfo>
+                <InfoName>
+                  {currentUserId === authorizedUserId ? authorizedUserName : name}
+                </InfoName>
+                <InfoEmail>
+                  {currentUserId === authorizedUserId ? authorizedUserEmail : email}
+                </InfoEmail>
+                <Description>
+                  {defaultDescriptionText} <TextLink to="#">{defaultDescriptionLink}</TextLink>
+                </Description>
+              </UserInfo>
+              <FollowingInfo>
+                <b>{defaultCount}</b>
+                <Following> {following}</Following>
+                <b>{defaultCount}</b>
+                <Following> {followers}</Following>
+              </FollowingInfo>
+              {authorizedUser.id === user.id && (
+                <EditProfileButton data-cy="editProfile" onClick={closeOpenModal}>
+                  {editProfile}
+                </EditProfileButton>
+              )}
+            </ProfileInfo>
+
             {authorizedUser.id === user.id && (
-              <EditProfileButton data-cy="editProfile" onClick={closeOpenModal}>
-                {editProfile}
-              </EditProfileButton>
+              <CreateTweetWrapper>
+                <CreateTweet />
+              </CreateTweetWrapper>
             )}
-          </ProfileInfo>
 
-          {authorizedUser.id === user.id && (
-            <CreateTweetWrapper>
-              <CreateTweet />
-            </CreateTweetWrapper>
-          )}
+            <TweetsBlockHeader>{tweets}</TweetsBlockHeader>
 
-          <TweetsBlockHeader>{tweets}</TweetsBlockHeader>
-
-          <AllTweetsWrapper>
-            {arrayOfTweetComponents.length > 0 ? arrayOfTweetComponents : <NoTweets />}
-            {isLoading ? (
-              <Loader />
-            ) : (
-              <GetMoreTweets>
-                {noMoreTweets ? (
-                  <Text>{noMoreTweetsText}</Text>
-                ) : (
-                  <MoreTweetsButton type="button" onClick={nextChunkHandler}>
-                    {moreTweetsButton}
-                  </MoreTweetsButton>
-                )}
-              </GetMoreTweets>
-            )}
-          </AllTweetsWrapper>
+            <AllTweetsWrapper>
+              {arrayOfTweetComponents.length > 0 && arrayOfTweetComponents}
+              {isLoading ? (
+                <Loader />
+              ) : (
+                <GetMoreTweets noMoreTweets={noMoreTweets} nextChunkHandler={nextChunkHandler} />
+              )}
+            </AllTweetsWrapper>
+          </Section>
         </Main>
       </MainWrapper>
 

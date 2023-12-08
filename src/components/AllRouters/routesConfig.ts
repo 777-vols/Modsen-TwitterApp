@@ -1,6 +1,6 @@
 import { lazy } from 'react';
 
-import { Urls } from '@/constants/urls';
+import { Urls } from '@/constants';
 
 import { IRoute } from './types';
 

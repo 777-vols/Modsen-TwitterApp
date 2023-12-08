@@ -5,9 +5,8 @@ import Select from 'react-select';
 
 import { CloseButton } from '@/components/DeleteTweetModal/styled';
 import Notification from '@/components/Notification';
-import { allImages } from '@/constants/allImages';
-import { formPatterns, minMaxLineLength } from '@/constants/formConstants';
-import { updateUserDataHelper } from '@/helpers/userHelper';
+import { allImages, formPatterns, minMaxLineLength } from '@/constants';
+import { updateUserDataHelper } from '@/helpers';
 import { useAction } from '@/hooks/useAction';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 import { IUser } from '@/pages/Profile/types';
@@ -84,9 +83,11 @@ const EditProfileModal: FC<IProps> = ({ handleCloseModal }) => {
   };
 
   const handleEditProfile = async (userData: IEditUserFormData) => {
-    Object.keys(userData).forEach((key) => {
-      if (!userData[key as keyof IEditUserFormData]) {
-        delete userData[key as keyof IEditUserFormData];
+    const keys = Object.keys(userData) as (keyof typeof userData)[];
+
+    keys.forEach((key) => {
+      if (!userData[key]) {
+        delete userData[key];
       }
     });
 

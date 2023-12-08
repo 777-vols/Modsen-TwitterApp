@@ -5,8 +5,8 @@ import { v4 } from 'uuid';
 
 import { SmallAvatarImg } from '@/components/LeftMenu/styled';
 import { Loader } from '@/components/Loader';
-import { allImages } from '@/constants/allImages';
-import { createNewTweetHelper } from '@/helpers/tweetHelpers';
+import { allImages } from '@/constants';
+import { createNewTweetHelper } from '@/helpers';
 import { useAction } from '@/hooks/useAction';
 import { IUser } from '@/pages/Profile/types';
 import { isLoadingSelector } from '@/store/slices/notificationSlice/selectors';
@@ -24,6 +24,8 @@ import {
   TweetButton,
   Wrapper
 } from './styled';
+
+const maxTweetLength = 500;
 
 const { addImg, defaultUserPhoto } = allImages;
 
@@ -50,7 +52,7 @@ const CreateTweet: FC = () => {
   const handleInputChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     const { target } = event;
 
-    if (target.value.length < 500) {
+    if (target.value.length < maxTweetLength) {
       setInputValue(target.value);
     } else {
       setErrorNotification({

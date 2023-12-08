@@ -13,7 +13,7 @@ describe('Renders No tweets component', () => {
         <NoTweets />
       </ThemeProvider>
     );
-    const headerTitle = getByText('No tweets yet');
+    const headerTitle = getByText('No more tweets yet');
     expect(headerTitle).toBeTruthy();
   });
 });

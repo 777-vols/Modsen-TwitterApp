@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import { lightTheme } from '@/constants/theme/themes';
-import * as tweetHelpers from '@/helpers/tweetHelpers';
+import * as tweetHelpers from '@/helpers';
 import { store } from '@/store';
 
 import CreateTweet from '.';

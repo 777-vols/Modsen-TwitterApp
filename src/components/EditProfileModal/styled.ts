@@ -4,6 +4,7 @@ import { flexCenter, maxSize } from '@/constants/theme/styles/commonStyles';
 
 export const Background = styled.div`
   ${flexCenter}
+
   position: fixed;
   z-index: 10;
   top: 0;
@@ -15,6 +16,7 @@ export const Background = styled.div`
 
 export const Window = styled.div`
   ${maxSize}
+
   position: relative;
   font-family: ${({ theme }) => theme.fontFamily};
   background: ${({ theme }) => theme.background};

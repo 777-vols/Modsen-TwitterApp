@@ -7,19 +7,19 @@ import Select from 'react-select';
 import { Background } from '@/components/EditProfileModal/styled';
 import { Loader } from '@/components/Loader';
 import Notification from '@/components/Notification';
-import { allImages } from '@/constants/allImages';
-import { formPatterns, minMaxLineLength } from '@/constants/formConstants';
-import { Urls } from '@/constants/urls';
+import PublicPagesLogo from '@/components/PublicPagesLogo';
+import { allImages, formPatterns, minMaxLineLength, Urls } from '@/constants';
 import {
   allMonthsNames,
+  convertBirthDate,
   getDaysOptionsArray,
   getMonthOptionsArray,
-  getYearsOptionsArray
-} from '@/helpers/dateSelectorsHelpers';
-import { convertBirthDate, signUpWithEmailHelper } from '@/helpers/userHelper';
+  getYearsOptionsArray,
+  signUpWithEmailHelper
+} from '@/helpers';
 import { useAction } from '@/hooks/useAction';
 import { Wrapper } from '@/pages/LogIn/styled';
-import { Logo, TextLink } from '@/pages/Root/styled';
+import { TextLink } from '@/pages/Root/styled';
 import { isLoadingSelector } from '@/store/slices/notificationSlice/selectors';
 
 import { config, customStyles } from './config';
@@ -32,7 +32,6 @@ import {
   Form,
   Input,
   InputWrapper,
-  LogoWrapper,
   MonthSelect,
   PasswordError,
   PasswordWrapper,
@@ -61,10 +60,10 @@ const { nameError, phoneNumberError, emailError, passwordError } = errorMessages
 
 const { HOME, LOG_IN } = Urls;
 
-const { logoImg, eyePasswordHide, eyePasswordOpen } = allImages;
+const { eyePasswordHide, eyePasswordOpen } = allImages;
 
 const { minLineLength, maxLineLength } = minMaxLineLength;
-const { namePattern, phoneNumberPattern, passwordPattern, emailPattern } = formPatterns;
+const { phoneNumberPattern, passwordPattern, emailPattern } = formPatterns;
 
 const SignUp: FC = () => {
   const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false);
@@ -150,12 +149,12 @@ const SignUp: FC = () => {
   ) : (
     <Wrapper>
       <Form onSubmit={handleSubmit(handleSignUpWithEmail)}>
-        <LogoWrapper>
-          <Logo alt="logo" src={logoImg} />
-        </LogoWrapper>
+        <PublicPagesLogo />
         <Title>{header}</Title>
         <InputWrapper>
-          {errors?.name && <Error>{errors?.name?.message || nameError}</Error>}
+          {errors?.name && (
+            <Error data-cy="nameInputError"> {errors?.name?.message || nameError}</Error>
+          )}
           <Input
             data-cy="nameInput"
             type="text"
@@ -163,13 +162,16 @@ const SignUp: FC = () => {
             {...register('name', {
               required: true,
               minLength: minLineLength,
-              maxLength: maxLineLength,
-              pattern: namePattern
+              maxLength: maxLineLength
             })}
           />
         </InputWrapper>
         <InputWrapper>
-          {errors?.phoneNumber && <Error>{errors?.phoneNumber?.message || phoneNumberError}</Error>}
+          {errors?.phoneNumber && (
+            <Error data-cy="phoneInputError">
+              {errors?.phoneNumber?.message || phoneNumberError}
+            </Error>
+          )}
           <Input
             data-cy="phoneInput"
             type="text"
@@ -183,7 +185,9 @@ const SignUp: FC = () => {
           />
         </InputWrapper>
         <InputWrapper>
-          {errors?.email && <Error>{errors?.email?.message || emailError}</Error>}
+          {errors?.email && (
+            <Error data-cy="emailInputError">{errors?.email?.message || emailError}</Error>
+          )}
           <Input
             data-cy="emailInput"
             type="email"
@@ -199,7 +203,9 @@ const SignUp: FC = () => {
         </InputWrapper>
         <PasswordWrapper>
           {errors?.password && (
-            <PasswordError>{errors?.password?.message || passwordError}</PasswordError>
+            <PasswordError data-cy="passwordInputError">
+              {errors?.password?.message || passwordError}
+            </PasswordError>
           )}
           <Input
             data-cy="passwordInput"
@@ -263,7 +269,7 @@ const SignUp: FC = () => {
             </YearSelect>
           </SelectWrapper>
         </SelectBlock>
-        <Button data-cy="sigUp" type="submit">
+        <Button data-cy="signUp" type="submit">
           {buttonText}
         </Button>
       </Form>

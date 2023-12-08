@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { allImages } from '@/constants/allImages';
+import { allImages } from '@/constants';
 import { flexCenterHorizontally, fullSreen } from '@/constants/theme/styles/commonStyles';
 
 const { errorBoundary } = allImages;
@@ -13,12 +13,14 @@ const sizeXL = 700;
 export const Wrapper = styled.div`
   ${flexCenterHorizontally}
   ${fullSreen}
+
   background-color: ${({ theme }) => theme.colors.lightRed};
   align-items: center;
 `;
 
 export const Content = styled.div`
   ${flexCenterHorizontally}
+
   min-height: ${sizeS}px;
   min-width: ${sizeS}px;
   width: ${sizeXL}px;
@@ -29,10 +31,12 @@ export const Content = styled.div`
     width: ${sizeL}px;
     height: ${sizeL}px;
   }
+
   @media (max-width: ${({ theme }) => theme.breakPoints.tablet}px) {
     width: ${sizeM}px;
     height: ${sizeM}px;
   }
+
   @media (max-width: ${({ theme }) => theme.breakPoints.mobile}px) {
     width: ${sizeS}px;
     height: ${sizeS}px;

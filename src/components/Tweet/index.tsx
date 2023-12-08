@@ -4,18 +4,16 @@ import { FC, memo, useEffect, useState } from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useSelector } from 'react-redux';
 
-import { FirebaseCollections } from '@/api/firebase/constants';
-import { updateLikesInFirebaseDoc } from '@/api/firebase/firebaseHelpers';
+import { FirebaseCollections, updateLikesInFirebaseDoc } from '@/api/firebase';
 import DeleteTweetModal from '@/components/DeleteTweetModal';
 import Notification from '@/components/Notification';
-import { allImages } from '@/constants/allImages';
+import { allImages } from '@/constants';
 import { useAction } from '@/hooks/useAction';
 import { UserName } from '@/pages/Profile/styled';
 import { IUser } from '@/pages/Profile/types';
 import { userSelector } from '@/store/slices/userSlice/selectors';
 
 import {
-  Avatar,
   Content,
   DateInfo,
   DeleteButton,
@@ -61,7 +59,7 @@ const Tweet: FC<IProps> = ({ tweetData, currentUserId, isUserAuth }) => {
     likeTweet({ tweetData, userId: authorizedUser.id });
     setIsLiked((prevState) => !prevState);
 
-    if (!isLiked && !tweetData.likes.includes(currentUserId)) {
+    if (!(isLiked && tweetData.likes.includes(currentUserId))) {
       await updateLikesInFirebaseDoc(TWEETS_COLLECTION, tweetId, [
         ...tweetData.likes,
         currentUserId
@@ -81,7 +79,13 @@ const Tweet: FC<IProps> = ({ tweetData, currentUserId, isUserAuth }) => {
         </DeleteButton>
       )}
       <UserAvatarWrapper>
-        <Avatar src={photo || defaultUserPhoto} alt="tweet avatar" />
+        <LazyLoadImage
+          src={photo || defaultUserPhoto}
+          effect="blur"
+          alt="tweet avatar"
+          width="100%"
+          style={{ borderRadius: '100px', maxHeight: '100%' }}
+        />
       </UserAvatarWrapper>
       <Content>
         <Info>
@@ -102,7 +106,7 @@ const Tweet: FC<IProps> = ({ tweetData, currentUserId, isUserAuth }) => {
                 effect="blur"
                 alt="tweet image"
                 width="100%"
-                style={{ borderRadius: '15px', maxHeight: 'inherit' }}
+                style={{ borderRadius: '15px', height: '100%' }}
               />
             </TweetImageWrapper>
           )}

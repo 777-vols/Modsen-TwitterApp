@@ -10,18 +10,17 @@ import {
 import { FC, memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import { v4 } from 'uuid';
 
-import { FirebaseCollections } from '@/api/firebase/constants';
-import { db } from '@/api/firebase/firebase';
-import { getFirebaseDoc } from '@/api/firebase/firebaseHelpers';
+import { db, FirebaseCollections, getFirebaseDoc } from '@/api/firebase';
 import CreateTweet from '@/components/CreateTweet';
+import GetMoreTweets from '@/components/GetMoreTweets';
 import Header from '@/components/Header';
 import LeftMenu from '@/components/LeftMenu';
 import { Loader } from '@/components/Loader';
-import { Text } from '@/components/NoTweets/styled';
 import SearchTwitter from '@/components/SearchTwitter';
 import Tweet from '@/components/Tweet';
-import { searchUserHelper } from '@/helpers/searchHelpers';
+import { getTweetIdFromUrl, searchUserHelper } from '@/helpers';
 import { useAction } from '@/hooks/useAction';
 import { useGetAllTweets } from '@/hooks/useGetAllTweets';
 import { IUser } from '@/pages/Profile/types';
@@ -34,21 +33,19 @@ import { config } from './config';
 import {
   AllTweetsWrapper,
   CreateTweetWrapper,
-  GetMoreTweets,
   LeftSideBar,
   Main,
   MainWrapper,
-  MoreTweetsButton,
   RigthSideBar,
+  Section,
   Wrapper
 } from './styled';
 
 const numberOfTweetsInOneChunk = 3;
-const pathUserIdIndex = 2;
 
 const { TWEETS_COLLECTION } = FirebaseCollections;
 
-const { searchPlaceholder, searchError, pageName, moreTweetsButton, noMoreTweetsText } = config;
+const { searchPlaceholder, searchError, pageName } = config;
 
 const Home: FC = () => {
   const [currentTweet, setCurrentTweet] = useState<ITweet>();
@@ -59,10 +56,10 @@ const Home: FC = () => {
   const lastDocument = useSelector(lastDocSelector);
   const isLoading = useSelector(isLoadingSelector) as boolean;
   const { pathname } = useLocation();
-  const { setErrorNotification, setIsLoading, addChunkTweets, addLastDocumentInChunk } =
+  const { setIsLoading, addChunkTweets, addLastDocumentInChunk, setErrorNotification } =
     useAction();
 
-  const pathTweetId = pathname.split('/')[pathUserIdIndex];
+  const pathTweetId = getTweetIdFromUrl(pathname);
 
   const { id: authorizedUserId } = authorizedUser;
 
@@ -75,7 +72,7 @@ const Home: FC = () => {
   const arrayOfTweetComponents = useMemo(
     () =>
       [...tweetsArray].map((tweet: ITweet) => (
-        <Tweet key={tweet.id} tweetData={tweet} currentUserId={authorizedUserId} />
+        <Tweet key={v4()} tweetData={tweet} currentUserId={authorizedUserId} />
       )),
     [authorizedUserId, tweetsArray]
   );
@@ -96,7 +93,7 @@ const Home: FC = () => {
     });
   }, [pathTweetId]);
 
-  const nextChunkHandler = async () => {
+  const nextChunkHandler = useCallback(async () => {
     const coll = collection(db, TWEETS_COLLECTION);
     const snapshot = await getCountFromServer(coll);
     const resultArray: ITweet[] = [];
@@ -131,7 +128,7 @@ const Home: FC = () => {
     }
 
     setIsLoading(false);
-  };
+  }, [lastDocument, setIsLoading, tweetsArray.length]);
 
   return (
     <Wrapper>
@@ -143,37 +140,27 @@ const Home: FC = () => {
         <Header pageName={pageName} />
 
         <Main>
-          <AllTweetsWrapper>
-            {!pathTweetId && (
-              <CreateTweetWrapper>
-                <CreateTweet />
-              </CreateTweetWrapper>
-            )}
+          <Section>
+            <AllTweetsWrapper>
+              {!pathTweetId && (
+                <CreateTweetWrapper>
+                  <CreateTweet />
+                </CreateTweetWrapper>
+              )}
 
-            {pathTweetId && currentTweet ? (
-              <Tweet
-                key={currentTweet.id}
-                tweetData={currentTweet}
-                currentUserId={authorizedUserId}
-              />
-            ) : (
-              arrayOfTweetComponents
-            )}
+              {pathTweetId && currentTweet ? (
+                <Tweet tweetData={currentTweet} currentUserId={authorizedUserId} />
+              ) : (
+                arrayOfTweetComponents
+              )}
 
-            {isLoading ? (
-              <Loader />
-            ) : (
-              <GetMoreTweets>
-                {noMoreTweets ? (
-                  <Text>{noMoreTweetsText}</Text>
-                ) : (
-                  <MoreTweetsButton type="button" onClick={nextChunkHandler}>
-                    {moreTweetsButton}
-                  </MoreTweetsButton>
-                )}
-              </GetMoreTweets>
-            )}
-          </AllTweetsWrapper>
+              {isLoading ? (
+                <Loader size={50} />
+              ) : (
+                <GetMoreTweets noMoreTweets={noMoreTweets} nextChunkHandler={nextChunkHandler} />
+              )}
+            </AllTweetsWrapper>
+          </Section>
         </Main>
       </MainWrapper>
 

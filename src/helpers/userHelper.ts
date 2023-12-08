@@ -6,9 +6,14 @@ import {
 } from 'firebase/auth';
 import { doc, updateDoc } from 'firebase/firestore';
 
-import { FirebaseCollections } from '@/api/firebase/constants';
-import { auth, db, provider } from '@/api/firebase/firebase';
-import { getFirebaseDoc, setFirebaseDoc } from '@/api/firebase/firebaseHelpers';
+import {
+  auth,
+  db,
+  FirebaseCollections,
+  getFirebaseDoc,
+  provider,
+  setFirebaseDoc
+} from '@/api/firebase';
 import { IEditUserFormData } from '@/components/EditProfileModal/types';
 import { ILoginFormData } from '@/pages/LogIn/types';
 import { ISighUpWithGoogleUser } from '@/pages/Root/types';

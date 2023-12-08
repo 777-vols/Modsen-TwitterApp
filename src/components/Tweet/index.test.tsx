@@ -5,8 +5,8 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
-import { FirebaseCollections } from '@/api/firebase/constants';
-import * as firebaseHelpers from '@/api/firebase/firebaseHelpers';
+import { FirebaseCollections } from '@/api/firebase';
+import * as firebaseHelpers from '@/api/firebase';
 import { lightTheme } from '@/constants/theme/themes';
 import { store } from '@/store';
 import { ITweet } from '@/store/slices/tweetsSlice/types';

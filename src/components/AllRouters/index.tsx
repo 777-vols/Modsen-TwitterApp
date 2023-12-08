@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { Urls } from '@/constants/urls';
+import { Urls } from '@/constants';
 import { isUserAuthSelector } from '@/store/slices/userSlice/selectors';
 
 import { privateRoutes, publicRoutes } from './routesConfig';

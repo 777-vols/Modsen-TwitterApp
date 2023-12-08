@@ -1,12 +1,14 @@
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 import { signOut } from 'firebase/auth';
 import { FC, memo, useCallback, useMemo, useRef, useState } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Portal } from 'react-portal';
 import { useSelector } from 'react-redux';
 
-import { auth } from '@/api/firebase/firebase';
+import { auth } from '@/api/firebase';
 import AddTweetModal from '@/components/AddTweetModal';
-import { allImages } from '@/constants/allImages';
-import { Urls } from '@/constants/urls';
+import { allImages, Urls } from '@/constants';
 import { useAction } from '@/hooks/useAction';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 import { IUser } from '@/pages/Profile/types';
@@ -17,8 +19,8 @@ import {
   BurgerMenuButton,
   CardInfo,
   Image,
-  Logo,
   LogOutButton,
+  LogoWrapper,
   Menu,
   NavItem,
   SmallAvatarImg,
@@ -95,7 +97,15 @@ const LeftMenu: FC = () => {
       </BurgerMenuButton>
 
       <Menu open={burgerMenuIsOpen}>
-        <Logo src={logoImg} alt="logo" />
+        <LogoWrapper>
+          <LazyLoadImage
+            src={logoImg}
+            alt="logo"
+            effect="blur"
+            width="100%"
+            style={{ maxHeight: '100%' }}
+          />
+        </LogoWrapper>
 
         <nav>{itemsArray}</nav>
 

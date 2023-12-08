@@ -13,13 +13,16 @@ export const PageWrapper = styled.div``;
 
 export const Wrapper = styled.div`
   ${container}
+
   min-height: 100vh;
   display: flex;
   position: relative;
   padding-bottom: ${({ theme }) => theme.spaces.largeXXL}px;
+
   @media (max-width: ${({ theme }) => theme.breakPoints.laptop}px) {
     flex-wrap: wrap;
   }
+
   @media (max-width: ${({ theme }) => theme.breakPoints.tablet}px) {
     display: block;
     padding-bottom: ${({ theme }) => theme.spaces.largeS}px;
@@ -28,6 +31,7 @@ export const Wrapper = styled.div`
 
 export const LeftSideBar = styled.aside`
   flex: 18 1 170px;
+
   @media (max-width: ${({ theme }) => theme.breakPoints.tablet}px) {
     display: none;
   }
@@ -48,7 +52,9 @@ export const CreateTweetWrapper = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey};
 `;
 
-export const Main = styled.main`
+export const Main = styled.main``;
+
+export const Section = styled.section`
   ${maxSize}
 `;
 
@@ -64,16 +70,19 @@ export const RightPart = styled.aside`
 
 export const ButtonsWrapper = styled.div`
   ${flexCenterVertical}
+
   position: relative;
 `;
 
 export const GetMoreTweets = styled.div`
   ${flexCenter}
+
   flex-direction: column;
 `;
 
 export const MoreTweetsButton = styled.button`
   ${blueButton}
+
   margin: ${({ theme }) => theme.spaces.smallXL}px 0;
   max-width: 300px;
 `;

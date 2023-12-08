@@ -1,4 +1,4 @@
-import { FirebaseCollections } from '@/api/firebase/constants';
+import { FirebaseCollections } from '@/api/firebase';
 
 type TImage = Blob | Uint8Array | ArrayBuffer;
 

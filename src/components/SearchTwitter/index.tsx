@@ -1,14 +1,14 @@
-import { ChangeEvent, FC, memo, useEffect, useMemo, useState } from 'react';
+import { ChangeEvent, FC, memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { v4 } from 'uuid';
 
 import { Loader } from '@/components/Loader';
 import Notification from '@/components/Notification';
-import { allImages } from '@/constants/allImages';
-import { Urls } from '@/constants/urls';
-import { searchRecommemdedUsersHelper } from '@/helpers/searchHelpers';
+import { allImages } from '@/constants';
+import { checkIsProfilePage, searchRecommemdedUsersHelper } from '@/helpers';
 import { useAction } from '@/hooks/useAction';
+import { useDebounce } from '@/hooks/useDebounce';
 import { IUser } from '@/pages/Profile/types';
 import { config as rootConfig } from '@/pages/Root/config';
 import { ITweet } from '@/store/slices/tweetsSlice/types';
@@ -34,11 +34,9 @@ import {
 } from './styled';
 import { IProps, SetState } from './types';
 
-const { PROFILE } = Urls;
-
 const { searchIcon } = allImages;
 
-const { mainTitle, showMore, errorNotificationText } = config;
+const { mainTitle, showMore } = config;
 const { footerLinks, company } = rootConfig;
 
 const SearchTwitter: FC<IProps> = (props) => {
@@ -52,16 +50,16 @@ const SearchTwitter: FC<IProps> = (props) => {
   const authorizedUser = useSelector(userSelector) as IUser;
   const { pathname } = useLocation();
 
-  const isProfilePage = pathname.split('/').includes(PROFILE.split('/')[1]);
+  const isProfilePage = checkIsProfilePage(pathname);
 
   const searchResultArray = useMemo(() => {
     if (inputValue !== '' && isProfilePage) {
       return tweetsArray
-        .filter((tweet) => tweet.author.id === currentUserId)
-        .map(({ id, author }) => <SearchResultItem key={id} tweetId={id} author={author} />);
+        .filter(({ author }) => author.id === currentUserId)
+        .map(({ id, author }) => <SearchResultItem key={v4()} tweetId={id} author={author} />);
     }
     return usersArray.map((author) => <SearchResultItem key={v4()} author={author} isUserSearch />);
-  }, [currentUserId, inputValue, isProfilePage, tweetsArray, usersArray]);
+  }, [currentUserId, tweetsArray, usersArray]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -84,40 +82,41 @@ const SearchTwitter: FC<IProps> = (props) => {
     setInputValue(target.value);
   };
 
-  const setResultItemsArray = async <T,>(stateSetter: SetState<T[]>) => {
-    if (inputValue) {
-      setIsLoading(true);
-      const data = (await searchData(inputValue)) as T[];
-      setIsLoading(false);
+  const setResultItemsArray = useCallback(
+    async <T,>(stateSetter: SetState<T[]>) => {
+      if (inputValue) {
+        setIsLoading(true);
+        const data = (await searchData(inputValue)) as T[];
+        setIsLoading(false);
 
-      if (data.length === 0) {
-        setErrorNotification({
-          message: errorText
-        });
+        if (data.length === 0) {
+          setErrorNotification({
+            message: errorText
+          });
+        }
+
+        stateSetter(data);
       }
+    },
+    [errorText, inputValue, searchData]
+  );
 
-      stateSetter(data);
-    }
-  };
-
-  const handleSubmitForm = async () => {
-    try {
+  const handleSubmitForm = useCallback(() => {
+    const handleSubmit = async () => {
       if (isProfilePage) {
         await setResultItemsArray(setTweetsArray);
       } else {
         await setResultItemsArray(setUsersArray);
       }
-    } catch (error) {
+    };
+    handleSubmit().catch((error: Error) => {
       setErrorNotification({
-        message: errorNotificationText
+        message: error.message
       });
-    }
-  };
+    });
+  }, [isProfilePage, setResultItemsArray]);
 
-  useEffect(() => {
-    const timerId = setTimeout(handleSubmitForm, 700);
-    return () => clearTimeout(timerId);
-  }, [inputValue]);
+  useDebounce(inputValue, handleSubmitForm);
 
   return (
     <Wrapper>
@@ -147,7 +146,7 @@ const SearchTwitter: FC<IProps> = (props) => {
       </Content>
       <NavList>
         {footerLinks.map(({ name, path }) => (
-          <NavItem key={name}>
+          <NavItem key={v4()}>
             <StyledLink to={path}>{name}</StyledLink>
           </NavItem>
         ))}

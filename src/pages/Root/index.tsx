@@ -1,19 +1,20 @@
 import { FC, memo } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useSelector } from 'react-redux';
 
 import { Background } from '@/components/EditProfileModal/styled';
 import { Loader } from '@/components/Loader';
 import Notification from '@/components/Notification';
-import { allImages } from '@/constants/allImages';
-import { Urls } from '@/constants/urls';
-import { signUpWithGoogleHelper } from '@/helpers/userHelper';
+import PublicPagesLogo from '@/components/PublicPagesLogo';
+import { allImages, Urls } from '@/constants';
+import { signUpWithGoogleHelper } from '@/helpers';
 import { useAction } from '@/hooks/useAction';
 import { isLoadingSelector } from '@/store/slices/notificationSlice/selectors';
 
 import { config } from './config';
 import {
   AgreeRule,
-  Banner,
+  BannerWrapper,
   Content,
   EmailButton,
   Footer,
@@ -21,12 +22,11 @@ import {
   GoogleButton,
   GoogleButtonImg,
   HaveAccount,
-  Logo,
   Main,
   MainHeader,
   NavItem,
   NavList,
-  Panel,
+  Section,
   Signature,
   SubHeader,
   TextLink,
@@ -48,7 +48,7 @@ const {
 } = config;
 
 const { SIGN_UP, LOG_IN } = Urls;
-const { banner, logoImg, googleIcon } = allImages;
+const { banner, googleIcon } = allImages;
 
 const Root: FC = () => {
   const { authenticateUser, setErrorNotification, setIsLoading } = useAction();
@@ -72,10 +72,19 @@ const Root: FC = () => {
   ) : (
     <Wrapper>
       <Main>
-        <Banner alt="banner" src={banner} />
-        <Panel>
+        <BannerWrapper>
+          <LazyLoadImage
+            src={banner}
+            effect="blur"
+            alt="banner"
+            width="100%"
+            style={{ maxHeight: '100%' }}
+          />
+        </BannerWrapper>
+
+        <Section>
           <Content>
-            <Logo alt="logo" src={logoImg} />
+            <PublicPagesLogo />
             <MainHeader>{mainHeader}</MainHeader>
             <SubHeader>{subHeader}</SubHeader>
             <GoogleButton onClick={handleSignUpWithGoogle}>
@@ -101,8 +110,9 @@ const Root: FC = () => {
               </TextLink>
             </HaveAccount>
           </Content>
-        </Panel>
+        </Section>
       </Main>
+
       <Footer>
         <nav>
           <NavList>

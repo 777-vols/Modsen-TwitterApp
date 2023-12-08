@@ -1,5 +1,4 @@
-import { allImages } from '@/constants/allImages';
-import { Urls } from '@/constants/urls';
+import { allImages, Urls } from '@/constants';
 
 const [
   bookmarksImg,

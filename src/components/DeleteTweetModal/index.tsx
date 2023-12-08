@@ -1,11 +1,11 @@
 import { FC, memo, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
-import { FirebaseCollections } from '@/api/firebase/constants';
+import { FirebaseCollections } from '@/api/firebase';
 import { Background } from '@/components/EditProfileModal/styled';
 import { Loader } from '@/components/Loader';
 import Notification from '@/components/Notification';
-import { deleteTweetHelper } from '@/helpers/tweetHelpers';
+import { deleteTweetHelper } from '@/helpers';
 import { useAction } from '@/hooks/useAction';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 import { isLoadingSelector } from '@/store/slices/notificationSlice/selectors';

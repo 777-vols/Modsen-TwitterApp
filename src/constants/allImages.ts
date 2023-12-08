@@ -1,6 +1,6 @@
 import addImg from '@/assets/addImage.svg';
 import arrowBack from '@/assets/arrowBack.svg';
-import banner from '@/assets/backTwitter.png';
+import banner from '@/assets/backTwitter.webp';
 import defaultUserPhoto from '@/assets/defaultUserPhoto.svg';
 import deleteImg from '@/assets/deleteTweet.svg';
 import errorBoundary from '@/assets/errorBoundary.svg';
