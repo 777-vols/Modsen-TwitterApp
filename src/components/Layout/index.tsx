@@ -1,7 +1,13 @@
-import { FC } from 'react';
+import { FC, memo } from 'react';
 
-import twitterBackImg from '@/assets/backTwitter.png';
+import AllRouters from '@/components/AllRouters';
 
-const Layout: FC = () => <img alt="twitterBackImg" src={twitterBackImg} />;
+import { AppWrapper } from './styled';
 
-export default Layout;
+const Layout: FC = () => (
+  <AppWrapper>
+    <AllRouters />
+  </AppWrapper>
+);
+
+export default memo(Layout);
